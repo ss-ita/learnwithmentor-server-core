@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor", "LearnWithMentor\LearnWithMentor.csproj", "{8EAAC495-89A8-4573-8CB0-C9124C395563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWithMentor.Tests", "LearnWithMentor.Tests\LearnWithMentor.Tests.csproj", "{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor.Tests", "LearnWithMentor.Tests\LearnWithMentor.Tests.csproj", "{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWithMentor.DTO", "LearnWithMentor.DTO\LearnWithMentor.DTO.csproj", "{F3EC3F7F-17A9-459E-BE05-70BFBA65EEC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3EC3F7F-17A9-459E-BE05-70BFBA65EEC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3EC3F7F-17A9-459E-BE05-70BFBA65EEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3EC3F7F-17A9-459E-BE05-70BFBA65EEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3EC3F7F-17A9-459E-BE05-70BFBA65EEC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
