@@ -33,9 +33,6 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 
-
-#-------------------------------------------------------------
-
 # Created by https://www.gitignore.io/api/rider,macos,windows,visualstudio
 # Edit at https://www.gitignore.io/?templates=rider,macos,windows,visualstudio
 
@@ -493,7 +490,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
-# Local History for Visual Studio
-.localhistory/
-
 # End of https://www.gitignore.io/api/rider,macos,windows,visualstudio
+
