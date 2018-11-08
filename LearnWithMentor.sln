@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28010.2048
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor", "LearnWithMentor\LearnWithMentor.csproj", "{8EAAC495-89A8-4573-8CB0-C9124C395563}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor.Tests", "LearnWithMentor.Tests\LearnWithMentor.Tests.csproj", "{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}"
 EndProject
-Create-BLL
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWithMentor.BLL", "LearnWithMentor.BLL\LearnWithMentor.BLL.csproj", "{2F56B055-8839-481A-8102-118936D4AEF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor.BLL", "LearnWithMentor.BLL\LearnWithMentor.BLL.csproj", "{2F56B055-8839-481A-8102-118936D4AEF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWithMentorDTO", "LearnWithMentorDTO\LearnWithMentorDTO.csproj", "{BDFFBE1E-E6D0-42AB-B125-6BFAFB31289B}"
-master
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentorDTO", "LearnWithMentorDTO\LearnWithMentorDTO.csproj", "{BDFFBE1E-E6D0-42AB-B125-6BFAFB31289B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWithMentor.DAL", "LearnWithMentor.DAL\LearnWithMentor.DAL.csproj", "{1BBAB444-7ECF-4D85-A7E3-5A432870F635}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,17 +27,18 @@ Global
 		{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}.Release|Any CPU.Build.0 = Release|Any CPU
-Create-BLL
 		{2F56B055-8839-481A-8102-118936D4AEF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2F56B055-8839-481A-8102-118936D4AEF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F56B055-8839-481A-8102-118936D4AEF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F56B055-8839-481A-8102-118936D4AEF0}.Release|Any CPU.Build.0 = Release|Any CPU
-EndProject
 		{BDFFBE1E-E6D0-42AB-B125-6BFAFB31289B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BDFFBE1E-E6D0-42AB-B125-6BFAFB31289B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDFFBE1E-E6D0-42AB-B125-6BFAFB31289B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDFFBE1E-E6D0-42AB-B125-6BFAFB31289B}.Release|Any CPU.Build.0 = Release|Any CPU
-master
+		{1BBAB444-7ECF-4D85-A7E3-5A432870F635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBAB444-7ECF-4D85-A7E3-5A432870F635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BBAB444-7ECF-4D85-A7E3-5A432870F635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BBAB444-7ECF-4D85-A7E3-5A432870F635}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
