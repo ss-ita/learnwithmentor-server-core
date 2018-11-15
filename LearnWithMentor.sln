@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor", "LearnWit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor.Tests", "LearnWithMentor.Tests\LearnWithMentor.Tests.csproj", "{9663C8F0-C3C8-4137-9ACF-8821E2F8FF96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWithMentor.BLL", "LearnWithMentor.BLL\LearnWithMentor.BLL.csproj", "{2F56B055-8839-481A-8102-118936D4AEF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor.BLL", "LearnWithMentor.BLL\LearnWithMentor.BLL.csproj", "{2F56B055-8839-481A-8102-118936D4AEF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWithMentorDTO", "LearnWithMentorDTO\LearnWithMentorDTO.csproj", "{BDFFBE1E-E6D0-42AB-B125-6BFAFB31289B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentorDTO", "LearnWithMentorDTO\LearnWithMentorDTO.csproj", "{BDFFBE1E-E6D0-42AB-B125-6BFAFB31289B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWithMentor.DAL", "LearnWithMentor.DAL\LearnWithMentor.DAL.csproj", "{1BBAB444-7ECF-4D85-A7E3-5A432870F635}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWithMentor.DAL", "LearnWithMentor.DAL\LearnWithMentor.DAL.csproj", "{1BBAB444-7ECF-4D85-A7E3-5A432870F635}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LearnWithMentorDB", "LearnWithMentorDB\LearnWithMentorDB.sqlproj", "{317E7CBA-B182-48B0-A1B9-9BF136E73413}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,12 @@ Global
 		{1BBAB444-7ECF-4D85-A7E3-5A432870F635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BBAB444-7ECF-4D85-A7E3-5A432870F635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BBAB444-7ECF-4D85-A7E3-5A432870F635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{317E7CBA-B182-48B0-A1B9-9BF136E73413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{317E7CBA-B182-48B0-A1B9-9BF136E73413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{317E7CBA-B182-48B0-A1B9-9BF136E73413}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{317E7CBA-B182-48B0-A1B9-9BF136E73413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{317E7CBA-B182-48B0-A1B9-9BF136E73413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{317E7CBA-B182-48B0-A1B9-9BF136E73413}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
