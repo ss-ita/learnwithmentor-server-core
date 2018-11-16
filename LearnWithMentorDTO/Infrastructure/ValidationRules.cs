@@ -1,6 +1,6 @@
 ﻿namespace LearnWithMentorDTO.Infrastructure
 {
-    class ValidationRules
+    public static class ValidationRules
     {
         public const int MAX_LENGTH_NAME = 20;
         public const string ONLY_LETTERS_AND_NUMBERS = @"^[a-zA-z0-9]*$";
