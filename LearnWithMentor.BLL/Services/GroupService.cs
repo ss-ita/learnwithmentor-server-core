@@ -422,7 +422,7 @@ namespace LearnWithMentorBLL.Services
             var matchNumber = 0;
             foreach (var group in await db.Groups.GetAll())
             {
-                if (group.Users.Contains(user) && group.Plans.Contains(plan))
+                if (group.UserGroups.Select(u => u.User).Contains(user) && group.GroupPlans.Select(p => p.Plan).Contains(plan))
                 {
                     ++matchNumber;
                 }
@@ -434,11 +434,11 @@ namespace LearnWithMentorBLL.Services
         {
             Group group = await db.Groups.GetAsync(groupId);
             var user = await db.Users.GetAsync(userId);
-            if (group?.Plans == null || user == null)
+            if (group?.GroupPlans.Select(p => p.Plan) == null || user == null)
             {
                 return;
             }
-            foreach (var plan in group.Plans)
+            foreach (var plan in group.GroupPlans.Select(g => g.Plan))
             {
                 if (plan?.PlanTasks == null)
                 {
@@ -474,7 +474,7 @@ namespace LearnWithMentorBLL.Services
                 return false;
             }
             await DeleteUserTasksOnRemovingUserAsync(groupId, userIdToRemove);
-            group.Users.Remove(userToRemove);
+            group.UserGroups.Select(u => u.User).ToList().Remove(userToRemove);
             db.Save();
             return true;
         }
@@ -483,11 +483,11 @@ namespace LearnWithMentorBLL.Services
         {
             Group group = await db.Groups.GetAsync(groupId);
             var plan = await db.Plans.Get(planId);
-            if (group?.Users == null || plan?.PlanTasks == null)
+            if (group?.UserGroups.Select(u => u.User) == null || plan?.PlanTasks == null)
             {
                 return;
             }
-            foreach (var user in group.Users)
+            foreach (var user in group.UserGroups.Select(u => u.User))
             {
                 if (await IsSamePlanAndUserInOtherGroup(plan, user))
                 {
@@ -520,7 +520,7 @@ namespace LearnWithMentorBLL.Services
                 return false;
             }
             await DeleteUserTasksOnRemovingPlanAsync(groupId, planIdToRemove);
-            group.Plans.Remove(planToRemove);
+            group.GroupPlans.Select(p => p.Plan).ToList().Remove(planToRemove);
             db.Save();
             return true;
         }
