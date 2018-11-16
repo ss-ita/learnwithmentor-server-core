@@ -34,7 +34,7 @@ namespace LearnWithMentor.DAL.Repositories
         public async Task<IEnumerable<Plan>> GetPlansForGroupAsync(int groupId)
         {
             Group group = await Context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
-            return group?.Plans;
+            return group?.GroupPlans.Select(g => g.Plan);
         }
 
         public IEnumerable<Plan> Search(string[] searchString)
@@ -96,7 +96,8 @@ namespace LearnWithMentor.DAL.Repositories
         public async Task<IEnumerable<Plan>> GetPlansNotUsedInGroupAsync(int groupId)
         {
             Group group = await Context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
-            IEnumerable<int> usedPlansId = group?.Plans.Select(p => p.Id);
+            IEnumerable<Plan> plans = group?.GroupPlans.Select(p => p.Plan);
+            IEnumerable<int> usedPlansId = plans.Select(p => p.Id);
             return Context.Plans.Where(p => !usedPlansId.Contains(p.Id));
         }
     }

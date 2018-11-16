@@ -49,7 +49,7 @@ namespace LearnWithMentor.DAL.Repositories
 
         public async Task<bool> AddPlanToGroupAsync(int planId, int groupId)
         {
-            Plan findPlan = await Context.Plans.FirstOrDefaultAsync(plan => plan.Id == planId);
+            GroupPlan findPlan = await Context.GroupPlans.FirstOrDefaultAsync(plan => plan.Plan.Id == planId);
             Group findGroup = await Context.Groups.FirstOrDefaultAsync(group => group.Id == groupId);
             findGroup?.GroupPlans.Add(findPlan);
             return true;
@@ -57,24 +57,24 @@ namespace LearnWithMentor.DAL.Repositories
 
         public async Task<bool> AddUserToGroupAsync(int userId, int groupId)
         {
-            User findUser = await Context.Users.FirstOrDefaultAsync(user => user.Id == userId);
+            UserGroup findUser = await Context.UserGroups.FirstOrDefaultAsync(user => user.User.Id == userId);
             Group findGroup = await Context.Groups.FirstOrDefaultAsync(group => group.Id == groupId);
-            findGroup?.Users.Add(findUser);
+            findGroup?.UserGroups.Add(findUser);
             return true;
         }
 
         public async ThreadTask.Task RemoveUserFromGroupAsync(int groupId, int userId)
         {
             Group group = await GetAsync(groupId);
-            User findUser = await Context.Users.FirstOrDefaultAsync(user => user.Id == userId);
-            group.Users.Remove(findUser);
+            UserGroup findUser = await Context.UserGroups.FirstOrDefaultAsync(user => user.User.Id == userId);
+            group.UserGroups.Remove(findUser);
         }
 
         public async ThreadTask.Task RemovePlanFromGroupAsync(int groupId, int planId)
         {
             Group group = await GetAsync(groupId);
-            Plan findPlan = await Context.Plans.FirstOrDefaultAsync(plan => plan.Id == planId);
-            group.Plans.Remove(findPlan);
+            GroupPlan findPlan = await Context.GroupPlans.FirstOrDefaultAsync(plan => plan.Plan.Id == planId);
+            group.GroupPlans.Remove(findPlan);
         }
     }
 }
