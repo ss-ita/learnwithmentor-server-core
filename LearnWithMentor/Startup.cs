@@ -25,9 +25,11 @@ namespace LearnWithMentor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IUnitOfWork, UnitOfWork>();
-            services.AddSingleton<ITaskService, TaskService>();
-            services.AddTransient<IPlanService, PlanService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<IPlanService, PlanService>();
+
+            services.AddDbContext<LearnWithMentorContext>(options => options.UseInMemoryDatabase().UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             services.AddDbContext<LearnWithMentorContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // AddFluentValidation() adds FluentValidation services to the default container

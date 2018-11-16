@@ -10,8 +10,8 @@ namespace LearnWithMentor.DAL.Entities
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Group()
         {
-            Plans = new HashSet<Plan>();
-            Users = new HashSet<User>();
+            GroupPlans = new HashSet<GroupPlan>();
+            UserGroups = new HashSet<UserGroup>();
         }
 
         public int Id { get; set; }
@@ -20,8 +20,8 @@ namespace LearnWithMentor.DAL.Entities
 
         public virtual User Mentor { get; set; }
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Plan> Plans { get; set; }
+        public virtual ICollection<GroupPlan> GroupPlans { get; set; }
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<UserGroup> UserGroups { get; set; }
     }
 }

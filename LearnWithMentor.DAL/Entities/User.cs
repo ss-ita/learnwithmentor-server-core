@@ -19,7 +19,7 @@ namespace LearnWithMentor.DAL.Entities
             PlanSuggestionsStudent = new HashSet<PlanSuggestion>();
             PlanSuggestionsMentor = new HashSet<PlanSuggestion>();
             UserTasks = new HashSet<UserTask>();
-            Groups = new HashSet<Group>();
+            UserGroups = new HashSet<UserGroup>();
             UserTaskMentor = new HashSet<UserTask>();
             Messages = new HashSet<Message>();
         }
@@ -55,7 +55,7 @@ namespace LearnWithMentor.DAL.Entities
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserTask> UserTasks { get; set; }
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<UserGroup> UserGroups { get; set; }
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserTask> UserTaskMentor { get; set; }
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
