@@ -5,6 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using AspNetCoreCurrentRequestContext;
+using LearnWithMentor.DAL.UnitOfWork;
+using LearnWithMentorBLL.Interfaces;
+using LearnWithMentorBLL.Services;
+using LearnWithMentor.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearnWithMentor
 {
@@ -20,6 +25,11 @@ namespace LearnWithMentor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<ITaskService, TaskService>();
+            services.AddTransient<IPlanService, PlanService>();
+            services.AddDbContext<LearnWithMentorContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()

@@ -11,8 +11,8 @@ namespace LearnWithMentor.DAL.Entities
 {
     public partial class LearnWithMentorContext : DbContext
     {
-        public LearnWithMentorContext()
-            //: base("name=LearnWithMentorContext")
+        public LearnWithMentorContext(DbContextOptions options)
+            : base(options)
         {
         }
         
