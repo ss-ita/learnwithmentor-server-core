@@ -239,7 +239,7 @@ namespace LearnWithMentorBLL.Services
             }
             foreach (var group in groups)
             {
-                foreach (var user in group.Users)
+                foreach (var user in group.UserGroups.Select(ug => ug.User))
                 {
                     if (db.UserTasks.  GetByPlanTaskForUserAsync(planTaskId.Value, user.Id) == null)
                     {
