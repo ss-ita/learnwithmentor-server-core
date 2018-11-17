@@ -29,8 +29,7 @@ namespace LearnWithMentor
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IPlanService, PlanService>();
 
-            services.AddDbContext<LearnWithMentorContext>(options => options.UseInMemoryDatabase().UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
-            services.AddDbContext<LearnWithMentorContext>(options =>
+            services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 

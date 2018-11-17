@@ -8,7 +8,12 @@ namespace LearnWithMentor.DAL.Entities
             : base(options)
         {
         }
-        
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             CreateUserReferences(modelBuilder);
@@ -35,8 +40,8 @@ namespace LearnWithMentor.DAL.Entities
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserTask> UserTasks { get; set; }
         public virtual DbSet<PlanSuggestion> PlanSuggestion { get; set; }
-        public virtual DbSet<GroupPlanTask> GROUPS_PLANS_TASKS { get; set; }
-        public virtual DbSet<UserRole> USERS_ROLES { get; set; }
+        public virtual DbSet<GroupPlanTask> GroupsPlansTasks { get; set; }
+        public virtual DbSet<UserRole> UsersRoles { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<GroupPlan> GroupPlans { get; set; }
