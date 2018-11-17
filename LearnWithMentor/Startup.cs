@@ -28,6 +28,12 @@ namespace LearnWithMentor
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IPlanService, PlanService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserIdentityService, UserIdentityService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
