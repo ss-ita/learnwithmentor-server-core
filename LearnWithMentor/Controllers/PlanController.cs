@@ -1,23 +1,27 @@
-﻿using LearnWithMentorDTO;
-using LearnWithMentorBLL.Interfaces;
-using Newtonsoft.Json.Serialization;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System;
 using System.Collections.Generic;
-using System;
-using Microsoft.AspNetCore.WebSockets.Internal;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using LearnWithMentorDTO;
+using LearnWithMentorBLL.Interfaces;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace LearnWithMentor.Controllers
 {
+    /// <summary>
+    /// Controller for plans.
+    /// </summary>
     [Authorize]
-    public class PlanController : ControllerBase
+    public class PlanController : ApiController
     {
         private readonly IPlanService planService;
         private readonly ITaskService taskService;
-        private readonly ITraceWriter tracer;
 
         /// <summary>
         /// Creates new instance of controller.
@@ -26,7 +30,6 @@ namespace LearnWithMentor.Controllers
         {
             this.planService = planService;
             this.taskService = taskService;
-            this.tracer = tracer;
         }
 
         /// <summary>
@@ -35,15 +38,15 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/plan")]
-        public async Task<ActionResult> Get()
+        public async Task<HttpResponseMessage> Get()
         {
             var dtoList = await planService.GetAll();
             if (dtoList == null || dtoList.Count == 0)
             {
-                //const string errorMessage = "No plans in database.";
-                return NoContent();
+                const string errorMessage = "No plans in database.";
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, errorMessage);
             }
-            return Ok(dtoList);
+            return Request.CreateResponse<IEnumerable<PlanDto>>(HttpStatusCode.OK, dtoList);
         }
 
         /// <summary>
@@ -53,15 +56,15 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/plan/{id}")]
-        public async Task<ActionResult> GetAsync(int id)
+        public async Task<HttpResponseMessage> GetAsync(int id)
         {
             var plan = await planService.GetAsync(id);
             if (plan == null)
             {
-                //const string message = "Plan does not exist in database.";
-                return NoContent();
+                const string message = "Plan does not exist in database.";
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, message);
             }
-            return Ok(plan);
+            return Request.CreateResponse(HttpStatusCode.OK, plan);
         }
 
         /// <summary>
@@ -71,16 +74,16 @@ namespace LearnWithMentor.Controllers
         ///  <param name="planid"> Id of the plan. </param>
         [HttpGet]
         [Route("api/plan/{planid}/group/{groupid}")]
-        public async Task<ActionResult> GetInfoAsync(int groupid, int planid)
+        public async Task<HttpResponseMessage> GetInfoAsync(int groupid, int planid)
         {
 
             var info = await planService.GetInfoAsync(groupid, planid);
             if (info == null)
             {
-                //const string message = "Plan or Group does not exist in database.";
-                return NoContent();
+                const string message = "Plan or Group does not exist in database.";
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, message);
             }
-            return Ok(info);
+            return Request.CreateResponse(HttpStatusCode.OK, info);
         }
 
         /// <summary>
@@ -89,15 +92,15 @@ namespace LearnWithMentor.Controllers
         /// <param name="id"> Id of the plan. </param>
         [HttpGet]
         [Route("api/plan/{id}/sections")]
-        public async Task<ActionResult> GetTasksForPlanAsync(int id)
+        public async Task<HttpResponseMessage> GetTasksForPlanAsync(int id)
         {
             List<SectionDto> sections = await planService.GetTasksForPlanAsync(id);
             if (sections == null)
             {
-                //const string message = "Plan does not exist in database.";
-                return NoContent();
+                const string message = "Plan does not exist in database.";
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, message);
             }
-            return Ok(sections);
+            return Request.CreateResponse<IEnumerable<SectionDto>>(HttpStatusCode.OK, sections);
         }
 
         /// <summary>
@@ -108,15 +111,15 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/plan/some")]
-        public ActionResult GetSome(int prevAmount, int amount)
+        public HttpResponseMessage GetSome(int prevAmount, int amount)
         {
             var dtoList = planService.GetSomeAmount(prevAmount, amount);
             if (dtoList == null || dtoList.Count == 0)
             {
-                //const string errorMessage = "No plans in database.";
-                return NoContent();
+                const string errorMessage = "No plans in database.";
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, errorMessage);
             }
-            return Ok(dtoList);
+            return Request.CreateResponse<IEnumerable<PlanDto>>(HttpStatusCode.OK, dtoList);
         }
 
         /// <summary>
@@ -126,15 +129,15 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/plan/{planId}/tasks")]
-        public async Task<ActionResult> GetAllTasksAsync(int planId)
+        public async Task<HttpResponseMessage> GetAllTasksAsync(int planId)
         {
             List<TaskDto> dtosList = await planService.GetAllTasksAsync(planId);
             if (dtosList == null || dtosList.Count == 0)
             {
-                //const string message = "Plan does not contain any task.";
-                return NoContent();
+                const string message = "Plan does not contain any task.";
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, message);
             }
-            return Ok(dtosList);
+            return Request.CreateResponse<IEnumerable<TaskDto>>(HttpStatusCode.OK, dtosList);
         }
 
         /// <summary>
@@ -143,15 +146,15 @@ namespace LearnWithMentor.Controllers
         /// <param name="planId"> Id of plan. </param>
         [HttpGet]
         [Route("api/plan/{planId}/plantaskids")]
-        public async Task<ActionResult> GetAllPlanTaskIdsAsync(int planId)
+        public async Task<HttpResponseMessage> GetAllPlanTaskIdsAsync(int planId)
         {
             var idsList = await planService.GetAllPlanTaskidsAsync(planId);
             if (idsList == null || idsList.Count == 0)
             {
-                //const string message = "Plan does not contain any plantask.";
-                return NoContent();
+                const string message = "Plan does not contain any plantask.";
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, message);
             }
-            return Ok(idsList);
+            return Request.CreateResponse<IEnumerable<int>>(HttpStatusCode.OK, idsList);
         }
 
         /// <summary>
@@ -161,23 +164,24 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPost]
         [Route("api/plan")]
-        public async Task<ActionResult> PostAsync([FromBody]PlanDto value)
+        public async Task<HttpResponseMessage> PostAsync([FromBody]PlanDto value)
         {
             try
             {
                 var success = await planService.AddAsync(value);
                 if (success)
                 {
+                    var log = $"Succesfully created plan {value.Name} with id = {value.Id} by user with id = {value.CreatorId}";
                     var okMessage = $"Succesfully created plan: {value.Name}";
-                    return Ok(okMessage);
+                    return Request.CreateResponse(HttpStatusCode.OK, okMessage);
                 }
             }
             catch (Exception e)
             {
-                return StatusCode(500);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
             const string message = "Incorrect request syntax.";
-            return BadRequest(message);
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
         }
 
         /// <summary>
@@ -187,26 +191,28 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPost]
         [Route("api/plan/return")]
-        public async Task<ActionResult> PostAndReturnIdAsync([FromBody]PlanDto value)
+        public async Task<HttpResponseMessage> PostAndReturnIdAsync([FromBody]PlanDto value)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 int? result = await planService.AddAndGetIdAsync(value);
                 if (result != null)
                 {
-                    return Ok(result);
+                    var log = $"Succesfully created plan {value.Name} with id = {result} by user with id = {value.CreatorId}";
+                    
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
             }
             catch (Exception e)
             {
-                return StatusCode(500);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
             const string message = "Incorrect request syntax.";
-            return BadRequest(message);
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
         }
 
         /// <summary>
@@ -217,23 +223,26 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor, Admin")]
         [HttpPut]
         [Route("api/plan/{id}")]
-        public async Task<ActionResult> PutAsync(int id, [FromBody]PlanDto value)
+        public async Task<HttpResponseMessage> PutAsync(int id, [FromBody]PlanDto value)
         {
             try
             {
                 var success = await planService.UpdateByIdAsync(value, id);
                 if (success)
                 {
+                    var log = $"Succesfully updated plan {value.Name} with id = {value.Id} by user with id = {value.Modid}";
+                    
                     const string okMessage = "Succesfully updated plan.";
-                    return Ok(okMessage);
+                    return Request.CreateResponse(HttpStatusCode.OK, okMessage);
                 }
             }
             catch (Exception e)
             {
-                return StatusCode(500);
+                
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
             const string message = "Incorrect request syntax or plan does not exist.";
-            return BadRequest(message);
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
         }
 
         /// <summary>
@@ -247,7 +256,7 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor, Admin")]
         [HttpPut]
         [Route("api/plan/{id}/task/{taskId}")]
-        public async Task<ActionResult> PutTaskToPlanAsync(int id, int taskId, string sectionId, string priority)
+        public async Task<HttpResponseMessage> PutTaskToPlanAsync(int id, int taskId,string sectionId, string priority)
         {
             try
             {
@@ -272,13 +281,16 @@ namespace LearnWithMentor.Controllers
                 bool success = await planService.AddTaskToPlanAsync(id, taskId, section, priorityNew);
                 if (success)
                 {
-                    return Ok($"Succesfully added task to plan ({id}).");
+                    var log = $"Succesfully add task with id {taskId} to plan with id = {id}";
+                    
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Succesfully added task to plan ({id}).");
                 }
-                return BadRequest("Incorrect request syntax or task or plan does not exist.");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Incorrect request syntax or task or plan does not exist.");
             }
             catch (Exception e)
             {
-                return StatusCode(500);
+                
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }
 
@@ -289,17 +301,17 @@ namespace LearnWithMentor.Controllers
         //[Authorize(Roles = "Mentor")]
         //[HttpPost]
         //[Route("api/plan/{id}/image")]
-        //public async Task<ActionResult> PostImageAsync(int id)
+        //public async Task<HttpResponseMessage> PostImageAsync(int id)
         //{
         //    if (!await planService.ContainsId(id))
         //    {
-        //        //const string errorMessage = "No plan with this id in database.";
-        //        return NoContent();
+        //        const string errorMessage = "No plan with this id in database.";
+        //        return Request.CreateResponse(HttpStatusCode.NoContent, errorMessage);
         //    }
         //    if (HttpContext.Current.Request.Files.Count != 1)
         //    {
         //        const string errorMessage = "Only one image can be sent.";
-        //        return BadRequest(errorMessage);
+        //        return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
         //    }
         //    try
         //    {
@@ -311,13 +323,13 @@ namespace LearnWithMentor.Controllers
         //            if (!allowedFileExtensions.Contains(extension))
         //            {
         //                const string errorMessage = "Types allowed only .jpeg .jpg .png";
-        //                return BadRequest(errorMessage);
+        //                return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
         //            }
         //            const int maxContentLength = Constants.ImageRestrictions.MaxSize;
         //            if (postedFile.ContentLength > maxContentLength)
         //            {
         //                const string errorMessage = "Please Upload a file upto 1 mb.";
-        //                return BadRequest(errorMessage);
+        //                return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
         //            }
         //            byte[] imageData;
         //            using (var binaryReader = new BinaryReader(postedFile.InputStream))
@@ -326,14 +338,14 @@ namespace LearnWithMentor.Controllers
         //            }
         //            await planService.SetImageAsync(id, imageData, postedFile.FileName);
         //            const string okMessage = "Successfully created image.";
-        //            return Ok(okMessage);
+        //            return Request.CreateResponse(HttpStatusCode.OK, okMessage);
         //        }
-        //        //const string emptyImageMessage = "Empty image.";
-        //        return StatusCode(304);
+        //        const string emptyImageMessage = "Empty image.";
+        //        return Request.CreateErrorResponse(HttpStatusCode.NotModified, emptyImageMessage);
         //    }
         //    catch (Exception e)
         //    {
-        //        return BadRequest(e);
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
         //    }
         //}
 
@@ -344,26 +356,26 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/plan/{id}/image")]
-        public async Task<ActionResult> GetImageAsync(int id)
+        public async Task<HttpResponseMessage> GetImageAsync(int id)
         {
             try
             {
                 if (!await planService.ContainsId(id))
                 {
-                    //const string errorMessage = "No plan with this id in database.";
-                    return NoContent();
+                    const string errorMessage = "No plan with this id in database.";
+                    return Request.CreateResponse(HttpStatusCode.NoContent, errorMessage);
                 }
                 var dto = await planService.GetImageAsync(id);
                 if (dto == null)
                 {
-                    //const string message = "No image for this plan in database.";
-                    return NoContent();
+                    const string message = "No image for this plan in database.";
+                    return Request.CreateResponse(HttpStatusCode.NoContent, message);
                 }
-                return Ok(dto);
+                return Request.CreateResponse(HttpStatusCode.OK, dto);
             }
             catch (Exception e)
             {
-                return StatusCode(500);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }
 
@@ -373,7 +385,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="q">Match string</param>
         [HttpGet]
         [Route("api/plan/search")]
-        public async Task<ActionResult> Search(string q)
+        public async Task<HttpResponseMessage> Search(string q)
         {
             if (string.IsNullOrEmpty(q))
             {
@@ -383,10 +395,10 @@ namespace LearnWithMentor.Controllers
             var dto = planService.Search(lines);
             if (dto == null || dto.Count == 0)
             {
-                //const string message = "No plans found.";
-                return NoContent();
+                const string message = "No plans found.";
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, message);
             }
-            return Ok(dto);
+            return Request.CreateResponse<IEnumerable<PlanDto>>(HttpStatusCode.OK, dto);
         }
 
         /// <summary>
@@ -396,7 +408,7 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor, Admin")]
         [HttpDelete]
         [Route("api/plan/{id}")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<HttpResponseMessage> DeleteAsync(int id)
         {
             try
             {
@@ -404,24 +416,25 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully deleted plan with id = {id}";
-                    return Ok($"Succesfully deleted plan id: {id}.");
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Succesfully deleted plan id: {id}.");
                 }
-                return BadRequest($"No plan with id: {id} or cannot be deleted because of dependency conflict.");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, $"No plan with id: {id} or cannot be deleted because of dependency conflict.");
             }
             catch (Exception e)
             {
-                return StatusCode(500);
+                
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }
 
         /// <summary>
         /// Releases memory
         /// </summary>
-        protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             planService.Dispose();
             taskService.Dispose();
-            //base.Dispose(disposing);
+            base.Dispose(disposing);
         }
     }
 }

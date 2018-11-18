@@ -40,9 +40,18 @@ namespace LearnWithMentor
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
+                .AddWebApiConventions()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fvc =>
                     fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowCredentials();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,8 +69,13 @@ namespace LearnWithMentor
             app.UseMiddleware<CurrentRequestContextMiddleware>();
             app.UseCurrentRequestContext();
 
+            app.UseAuthentication();
+            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
+            });
         }
     }
 }
