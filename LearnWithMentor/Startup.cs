@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +10,10 @@ using LearnWithMentor.DAL.UnitOfWork;
 using LearnWithMentorBLL.Interfaces;
 using LearnWithMentorBLL.Services;
 using LearnWithMentor.DAL.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LearnWithMentor
 {
@@ -22,9 +26,31 @@ namespace LearnWithMentor
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String("db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==")),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IPlanService, PlanService>();
@@ -65,6 +91,7 @@ namespace LearnWithMentor
             {
                 app.UseHsts();
             }
+
 
             app.UseMiddleware<CurrentRequestContextMiddleware>();
             app.UseCurrentRequestContext();

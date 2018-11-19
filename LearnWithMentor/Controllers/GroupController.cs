@@ -6,8 +6,12 @@ using LearnWithMentorDTO;
 using LearnWithMentorBLL.Interfaces;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.Pages.Account.Manage.Internal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnWithMentor.Controllers
@@ -15,7 +19,10 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller for groups.
     /// </summary>
-    //[Authorize]
+    [Authorize]
+    [EnableCors("MyPolicy")]
+   
+    
     public class GroupController : ApiController
     {
         private readonly IGroupService groupService;
@@ -396,6 +403,7 @@ namespace LearnWithMentor.Controllers
         /// If user: strudent - returns its learning groups, if mentor - returns mentored groups, if admin - returns all groups."
         /// </summary>
         /// <returns></returns>
+
         [HttpGet]
         [Route("api/group/mygroups")]
         public async Task<HttpResponseMessage> GetUserGroupsAsync()

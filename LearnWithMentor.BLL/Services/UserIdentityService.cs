@@ -1,20 +1,34 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Web;
 using AspNetCoreCurrentRequestContext;
 using LearnWithMentorBLL.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace LearnWithMentorBLL.Services
 {
     public class UserIdentityService:  IUserIdentityService
     {
+        private readonly IHttpContextAccessor _accessor;
+
+        public UserIdentityService(IHttpContextAccessor accessor)
+        {
+            _accessor = accessor;
+        }
+
         public int GetUserId()
         {
-            var identity = AspNetCoreHttpContext.Current.User.Identity as ClaimsIdentity;
+            var identity = _accessor.HttpContext.User.Claims; //.Identities.Select(x => x.IsAuthenticated) as ClaimsIdentity;
             if (identity == null)
             {
                 return -1;
             }
-            return int.Parse(identity.FindFirst("Id").Value);
+
+            return Convert.ToInt32(identity.First().Value); //int.Parse(identity.FindFirst("Id").Value);
         }
 
         public string GetUserRole()
