@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using LearnWithMentor.Services;
+using AspNetCoreCurrentRequestContext;
 
 namespace LearnWithMentor.Controllers
 {
@@ -370,67 +371,67 @@ namespace LearnWithMentor.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, statistics);
         }
 
-        ///// <summary>
-        ///// Sets user image to database
-        ///// </summary>
-        ///// <param name="id"> Id of the user. </param>
-        
-        //[HttpPost]
-        //[Route("api/user/{id}/image")]
-        //public async Task<HttpResponseMessage> PostImageAsync(int id)
-        //{
-        //    if (!( await userService.ContainsIdAsync(id)))
-        //    {
-        //        const string errorMessage = "No user with this id in database.";
-        //        return Request.CreateResponse(HttpStatusCode.NoContent, errorMessage);
-        //    }
-        //    if (HttpContext.Current.Request.Files.Count != 1)
-        //    {
-        //        const string errorMessage = "Only one image can be sent.";
-        //        return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-        //    }
-        //    try
-        //    {
-        //        var postedFile = HttpContext.Current.Request.Files[0];
-        //        if (postedFile.ContentLength > 0)
-        //        {
-        //            var allowedFileExtensions = new List<string>(Constants.ImageRestrictions.Extensions);
-        //            var extension = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.')).ToLower();
-        //            if (!allowedFileExtensions.Contains(extension))
-        //            {
-        //                const string errorMessage = "Types allowed only .jpeg .jpg .png";
-        //                return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-        //            }
-        //            const int maxContentLength = Constants.ImageRestrictions.MaxSize;
-        //            if (postedFile.ContentLength > maxContentLength)
-        //            {
-        //                const string errorMessage = "Please Upload a file upto 1 mb.";
-        //                return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-        //            }
-        //            byte[] imageData;
-        //            using (var binaryReader = new BinaryReader(postedFile.InputStream))
-        //            {
-        //                imageData = binaryReader.ReadBytes(postedFile.ContentLength);
-        //            }
-        //           await userService.SetImageAsync(id, imageData, postedFile.FileName);
-        //            const string okMessage = "Successfully created image.";
-        //            return Request.CreateResponse(HttpStatusCode.OK, okMessage);
-        //        }
-        //        const string emptyImageMessage = "Empty image.";
-        //        return Request.CreateErrorResponse(HttpStatusCode.NotModified, emptyImageMessage);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
-        //    }
-        //}
+		///// <summary>
+		///// Sets user image to database
+		///// </summary>
+		///// <param name="id"> Id of the user. </param>
 
-        /// <summary>
-        /// Reyurns image for specific user
-        /// </summary>
-        /// <param name="id"> Id of the user. </param>
-        
-        [HttpGet]
+		[HttpPost]
+		[Route("api/user/{id}/image")]
+		public async Task<HttpResponseMessage> PostImageAsync(int id)
+		{
+			if (!(await userService.ContainsIdAsync(id)))
+			{
+				const string errorMessage = "No user with this id in database.";
+				return Request.CreateResponse(HttpStatusCode.NoContent, errorMessage);
+			}
+			if (AspNetCoreHttpContext.Current.Request.Form.Files.Count != 1)
+			{
+				const string errorMessage = "Only one image can be sent.";
+				return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
+			}
+			try
+			{
+				var postedFile = AspNetCoreHttpContext.Current.Request.Form.Files[0];
+				if (postedFile.Length > 0)
+				{
+					var allowedFileExtensions = new List<string>(Constants.ImageRestrictions.Extensions);
+					var extension = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.')).ToLower();
+					if (!allowedFileExtensions.Contains(extension))
+					{
+						const string errorMessage = "Types allowed only .jpeg .jpg .png";
+						return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
+					}
+					const int maxContentLength = Constants.ImageRestrictions.MaxSize;
+					if (postedFile.Length > maxContentLength)
+					{
+						const string errorMessage = "Please Upload a file upto 1 mb.";
+						return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
+					}
+					byte[] imageData;
+					using (var binaryReader = new BinaryReader(postedFile.OpenReadStream()))
+					{
+						imageData = binaryReader.ReadBytes(Convert.ToInt32(postedFile.Length));
+					}
+					await userService.SetImageAsync(id, imageData, postedFile.FileName);
+					const string okMessage = "Successfully created image.";
+					return Request.CreateResponse(HttpStatusCode.OK, okMessage);
+				}
+				const string emptyImageMessage = "Empty image.";
+				return Request.CreateErrorResponse(HttpStatusCode.NotModified, emptyImageMessage);
+			}
+			catch (Exception e)
+			{
+				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
+			}
+		}
+
+		/// <summary>
+		/// Reyurns image for specific user
+		/// </summary>
+		/// <param name="id"> Id of the user. </param>
+
+		[HttpGet]
         [Route("api/user/{id}/image")]
         public async Task<HttpResponseMessage> GetImageAsync(int id)
         {
