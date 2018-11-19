@@ -92,8 +92,6 @@ namespace LearnWithMentor
                 app.UseHsts();
             }
 
-
-            app.UseMiddleware<CurrentRequestContextMiddleware>();
             app.UseCurrentRequestContext();
 
             app.UseAuthentication();
