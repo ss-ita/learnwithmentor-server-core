@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using AspNetCoreCurrentRequestContext;
 
 namespace LearnWithMentor.Controllers
 {
@@ -298,56 +299,56 @@ namespace LearnWithMentor.Controllers
         ///// Sets image for plan by plan id.
         ///// </summary>
         ///// <param name="id"> Id of the plan. </param>
-        //[Authorize(Roles = "Mentor")]
-        //[HttpPost]
-        //[Route("api/plan/{id}/image")]
-        //public async Task<HttpResponseMessage> PostImageAsync(int id)
-        //{
-        //    if (!await planService.ContainsId(id))
-        //    {
-        //        const string errorMessage = "No plan with this id in database.";
-        //        return Request.CreateResponse(HttpStatusCode.NoContent, errorMessage);
-        //    }
-        //    if (HttpContext.Current.Request.Files.Count != 1)
-        //    {
-        //        const string errorMessage = "Only one image can be sent.";
-        //        return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-        //    }
-        //    try
-        //    {
-        //        var postedFile = HttpContext.Current.Request.Files[0];
-        //        if (postedFile.ContentLength > 0)
-        //        {
-        //            var allowedFileExtensions = new List<string>(Constants.ImageRestrictions.Extensions);
-        //            var extension = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.')).ToLower();
-        //            if (!allowedFileExtensions.Contains(extension))
-        //            {
-        //                const string errorMessage = "Types allowed only .jpeg .jpg .png";
-        //                return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-        //            }
-        //            const int maxContentLength = Constants.ImageRestrictions.MaxSize;
-        //            if (postedFile.ContentLength > maxContentLength)
-        //            {
-        //                const string errorMessage = "Please Upload a file upto 1 mb.";
-        //                return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-        //            }
-        //            byte[] imageData;
-        //            using (var binaryReader = new BinaryReader(postedFile.InputStream))
-        //            {
-        //                imageData = binaryReader.ReadBytes(postedFile.ContentLength);
-        //            }
-        //            await planService.SetImageAsync(id, imageData, postedFile.FileName);
-        //            const string okMessage = "Successfully created image.";
-        //            return Request.CreateResponse(HttpStatusCode.OK, okMessage);
-        //        }
-        //        const string emptyImageMessage = "Empty image.";
-        //        return Request.CreateErrorResponse(HttpStatusCode.NotModified, emptyImageMessage);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
-        //    }
-        //}
+        [Authorize(Roles = "Mentor")]
+        [HttpPost]
+        [Route("api/plan/{id}/image")]
+        public async Task<HttpResponseMessage> PostImageAsync(int id)
+        {
+            if (!await planService.ContainsId(id))
+            {
+                const string errorMessage = "No plan with this id in database.";
+                return Request.CreateResponse(HttpStatusCode.NoContent, errorMessage);
+            }
+            if (AspNetCoreHttpContext.Current.Request.Form.Files.Count!=1) //HttpContext.Current.Request.Files.Count != 1)
+            {
+                const string errorMessage = "Only one image can be sent.";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+            try
+            {
+                var postedFile = AspNetCoreHttpContext.Current.Request.Form.Files[0];
+                if (postedFile.Length > 0)
+                {
+                    var allowedFileExtensions = new List<string>(Constants.ImageRestrictions.Extensions);
+                    var extension = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.')).ToLower();
+                    if (!allowedFileExtensions.Contains(extension))
+                    {
+                        const string errorMessage = "Types allowed only .jpeg .jpg .png";
+                        return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
+                    }
+                    const int maxContentLength = Constants.ImageRestrictions.MaxSize;
+                    if (postedFile.Length > maxContentLength)
+                    {
+                        const string errorMessage = "Please Upload a file upto 1 mb.";
+                        return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
+                    }
+                    byte[] imageData;
+                    using (var binaryReader = new BinaryReader(postedFile.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes(Convert.ToInt32(postedFile.Length));
+                    }
+                    await planService.SetImageAsync(id, imageData, postedFile.FileName);
+                    const string okMessage = "Successfully created image.";
+                    return Request.CreateResponse(HttpStatusCode.OK, okMessage);
+                }
+                const string emptyImageMessage = "Empty image.";
+                return Request.CreateErrorResponse(HttpStatusCode.NotModified, emptyImageMessage);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
+            }
+        }
 
         /// <summary>
         /// Returns image of concrete plan form database.
