@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using AspNetCoreCurrentRequestContext;
+using LearnWithMentor.Controllers;
 using LearnWithMentor.DAL.UnitOfWork;
 using LearnWithMentorBLL.Interfaces;
 using LearnWithMentorBLL.Services;
@@ -42,11 +43,11 @@ namespace LearnWithMentor
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String("db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==")),
+                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Constants.Token.SecretString)),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
-                });
+                } );
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
