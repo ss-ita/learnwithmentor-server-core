@@ -29,8 +29,8 @@ namespace LearnWithMentor
 
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddAuthentication(x =>
+            services
+                .AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,7 +66,6 @@ namespace LearnWithMentor
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
-                .AddWebApiConventions()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fvc =>
                     fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
@@ -95,10 +94,7 @@ namespace LearnWithMentor
             app.UseAuthentication();
             app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
-            app.UseMvc(routes =>
-            {
-                routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }
