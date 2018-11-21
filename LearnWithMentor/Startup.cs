@@ -93,7 +93,9 @@ namespace LearnWithMentor
                 app.UseHsts();
             }
 
-            app.UseCurrentRequestContext();
+            app.UseMiddleware<CurrentRequestContextMiddleware>();
+
+            //app.UseCurrentRequestContext();
 
             app.UseAuthentication();
             app.UseCors("MyPolicy");

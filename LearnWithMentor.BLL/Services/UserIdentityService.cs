@@ -13,9 +13,16 @@ namespace LearnWithMentorBLL.Services
 {
     public class UserIdentityService:  IUserIdentityService
     {
+        private readonly IHttpContextAccessor _accessor;
+
+        public UserIdentityService(IHttpContextAccessor accessor)
+        {
+            _accessor = accessor;
+        }
+
         public int GetUserId()
         {
-            var identity = AspNetCoreHttpContext.Current.User.Identity as ClaimsIdentity;
+            var identity = _accessor.HttpContext.User.Identity as ClaimsIdentity;
             if (identity == null)
             {
                 return -1;
