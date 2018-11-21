@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using LearnWithMentor.Services;
-using AspNetCoreCurrentRequestContext;
 
 namespace LearnWithMentor.Controllers
 {
@@ -27,15 +26,17 @@ namespace LearnWithMentor.Controllers
         private readonly IRoleService roleService;
         private readonly ITaskService taskService;
         private readonly IUserIdentityService userIdentityService;
+        private readonly IHttpContextAccessor _accessor;
         /// <summary>
         /// Creates an instance of UserController.
         /// </summary>
-        public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService)
+        public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor)
         {
             this.userService = userService;
             this.roleService = roleService;
             this.taskService = taskService;
             this.userIdentityService = userIdentityService;
+            _accessor = accessor;
         }
         /// <summary>
         /// Returns all users of the system.
@@ -385,14 +386,14 @@ namespace LearnWithMentor.Controllers
 				const string errorMessage = "No user with this id in database.";
 				return Request.CreateResponse(HttpStatusCode.NoContent, errorMessage);
 			}
-			if (AspNetCoreHttpContext.Current.Request.Form.Files.Count != 1)
+			if (_accessor.HttpContext.Request.Form.Files.Count != 1)
 			{
 				const string errorMessage = "Only one image can be sent.";
 				return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
 			}
 			try
 			{
-				var postedFile = AspNetCoreHttpContext.Current.Request.Form.Files[0];
+				var postedFile = _accessor.HttpContext.Request.Form.Files[0];
 				if (postedFile.Length > 0)
 				{
 					var allowedFileExtensions = new List<string>(Constants.ImageRestrictions.Extensions);

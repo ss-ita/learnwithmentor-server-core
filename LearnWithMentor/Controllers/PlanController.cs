@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
-using AspNetCoreCurrentRequestContext;
 
 namespace LearnWithMentor.Controllers
 {
@@ -23,14 +22,17 @@ namespace LearnWithMentor.Controllers
     {
         private readonly IPlanService planService;
         private readonly ITaskService taskService;
+        private readonly IHttpContextAccessor _accessor;
 
         /// <summary>
         /// Creates new instance of controller.
         /// </summary>
-        public PlanController(IPlanService planService, ITaskService taskService)
+        public PlanController(IPlanService planService, ITaskService taskService, IHttpContextAccessor accessor)
         {
             this.planService = planService;
             this.taskService = taskService;
+            _accessor = accessor;
+
         }
 
         /// <summary>
@@ -309,14 +311,14 @@ namespace LearnWithMentor.Controllers
                 const string errorMessage = "No plan with this id in database.";
                 return Request.CreateResponse(HttpStatusCode.NoContent, errorMessage);
             }
-            if (AspNetCoreHttpContext.Current.Request.Form.Files.Count!=1) //HttpContext.Current.Request.Files.Count != 1)
+            if (_accessor.HttpContext.Request.Form.Files.Count!=1) //HttpContext.Current.Request.Files.Count != 1)
             {
                 const string errorMessage = "Only one image can be sent.";
                 return Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
             }
             try
             {
-                var postedFile = AspNetCoreHttpContext.Current.Request.Form.Files[0];
+                var postedFile = _accessor.HttpContext.Request.Form.Files[0];
                 if (postedFile.Length > 0)
                 {
                     var allowedFileExtensions = new List<string>(Constants.ImageRestrictions.Extensions);

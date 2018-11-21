@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
-using AspNetCoreCurrentRequestContext;
 using LearnWithMentor.Controllers;
 using LearnWithMentor.DAL.UnitOfWork;
 using LearnWithMentorBLL.Interfaces;
@@ -92,10 +91,6 @@ namespace LearnWithMentor
             {
                 app.UseHsts();
             }
-
-            app.UseMiddleware<CurrentRequestContextMiddleware>();
-
-            //app.UseCurrentRequestContext();
 
             app.UseAuthentication();
             app.UseCors("MyPolicy");
