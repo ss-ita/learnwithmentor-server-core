@@ -12,7 +12,7 @@ namespace LearnWithMentor.DAL.Entities
         {
             PlanSuggestion = new HashSet<PlanSuggestion>();
             PlanTasks = new HashSet<PlanTask>();
-            Groups = new HashSet<Group>();
+            GroupPlans = new HashSet<GroupPlan>();
         }
 
         public int Id { get; set; }
@@ -33,6 +33,6 @@ namespace LearnWithMentor.DAL.Entities
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanTask> PlanTasks { get; set; }
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<GroupPlan> GroupPlans { get; set; }
     }
 }

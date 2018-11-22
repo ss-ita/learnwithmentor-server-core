@@ -26,8 +26,7 @@ namespace LearnWithMentor.DAL.Repositories
 
         public async Task<IEnumerable<User>> GetUsersByGroupAsync(int groupId)
         {
-            Group findGroup = await Context.Groups.FirstOrDefaultAsync(group => group.Id == groupId);
-            return findGroup?.Users;
+            return Context.UserGroups.Where(ug => ug.GroupId == groupId).Select(ug => ug.User);
         }
 
         public async Task<IEnumerable<User>> SearchAsync(string[] searchString, int? roleId)
@@ -102,9 +101,10 @@ namespace LearnWithMentor.DAL.Repositories
         }
 
         public async Task<IEnumerable<User>> GetUsersNotInGroupAsync(int groupId)
-        {
-            return await Context.Users.Where(user => !user.Groups.Select(group => group.Id).Contains(groupId))
+        {   
+            return await Context.Users.Where(user => !user.UserGroups.Select(group => group.GroupId).Contains(groupId))
                 .Where(user => !user.Blocked && user.Role.Name == "Student").ToListAsync();
+                
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LearnWithMentorDTO.Infrastructure
+namespace LearnWithMentorDTO
 {
     public static class PagedList<T, TDto>
     {
