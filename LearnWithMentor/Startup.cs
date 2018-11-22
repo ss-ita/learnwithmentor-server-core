@@ -30,16 +30,16 @@ namespace LearnWithMentor
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddAuthentication(x =>
+                .AddAuthentication(options =>
                 {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(x =>
+                .AddJwtBearer(options =>
                 {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Constants.Token.SecretString)),
@@ -67,8 +67,8 @@ namespace LearnWithMentor
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddFluentValidation(fvc =>
-                    fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+                .AddFluentValidation(fvConfig =>
+                    fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
