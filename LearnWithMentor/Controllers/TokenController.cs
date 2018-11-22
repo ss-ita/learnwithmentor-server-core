@@ -1,19 +1,16 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using LearnWithMentor.Models;
+﻿using LearnWithMentor.Models;
 using LearnWithMentorBLL.Interfaces;
 using LearnWithMentorDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace LearnWithMentor.Controllers
 {
     /// <summary>
     /// Controller for tokens.
     /// </summary>
-    public class TokenController : ApiController
+    public class TokenController : Controller
     {
         private readonly IUserService userService;
 
@@ -32,7 +29,8 @@ namespace LearnWithMentor.Controllers
         /// <param name="value"> User data. </param>
         /// <returns></returns>
         [AllowAnonymous]
-        public async  Task<HttpResponseMessage> PostAsync([FromBody]UserLoginDto value)
+        [Route("api/token")]
+        public async  Task<IActionResult> PostAsync([FromBody]UserLoginDto value)
         {
             UserIdentityDto user = null;
             user = await CheckUserAsync(value.Email);
@@ -41,23 +39,23 @@ namespace LearnWithMentor.Controllers
             {
                 if (user.Blocked.HasValue && user.Blocked.Value)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "This user is blocked!");
+                    return Unauthorized();
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, JwtManager.GenerateToken(user));
+                string token = JwtManager.GenerateToken(user);
+                var response = new JsonResult(token);
+
+                return response;
             }
 
-            return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Not valid logination data.");
+            return Unauthorized();
         }
 
         /// <summary>
-        /// Checks if user has correct data to enter the system.
+        /// Checks if user with provided email exists
         /// </summary>
         /// <param name="email"></param>
-        /// <param name="password"></param>
-        /// <param name="user"></param>
-        /// <returns></returns>
-
+        /// <returns>UserIdentityDto</returns>
         public async Task<UserIdentityDto> CheckUserAsync(string email)
         {
             return await userService.GetByEmailAsync(email);
