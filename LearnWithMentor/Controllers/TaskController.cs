@@ -50,7 +50,7 @@ namespace LearnWithMentor.Controllers
                 var allTasks = await taskService.GetAllTasksAsync();
                 if (allTasks != null)
                 {
-                    return new JsonResult(Ok(new JsonResult(allTasks)));
+                    return Ok(allTasks);
                 }
 
                 return NoContent();
@@ -74,7 +74,7 @@ namespace LearnWithMentor.Controllers
                 var tasks = taskService.GetTasks(pageSize, pageNumber);
                 if (tasks != null)
                 {
-                    return Ok(new JsonResult(tasks));
+                    return Ok(tasks);
                 }
 
                 return NoContent();
@@ -82,7 +82,7 @@ namespace LearnWithMentor.Controllers
             catch (Exception e)
             {
                 ////tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-                return BadRequest(HttpStatusCode.InternalServerError);
+                return BadRequest();
             }
         }
 
@@ -98,11 +98,10 @@ namespace LearnWithMentor.Controllers
             IEnumerable<TaskDto> task = await taskService.GetTasksNotInPlanAsync(planId);
             if (task != null)
             {
-                return Ok(new JsonResult(task));
+                return Ok(task);
             }
-
-            return
-                BadRequest($"There isn't tasks outside of the plan id = {planId}");
+            var errorMessage = "There isn't tasks outside of the plan id = {planId}";
+            return BadRequest(errorMessage);
         }
 
         /// <summary>
@@ -119,12 +118,12 @@ namespace LearnWithMentor.Controllers
                 {
                     return NoContent();
                 }
-                return Ok(new JsonResult(task));
+                return Ok(task);
             }
             catch (Exception e)
             {
                 //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-                return BadRequest(HttpStatusCode.InternalServerError);
+                return BadRequest();
             }
         }
 
@@ -141,14 +140,14 @@ namespace LearnWithMentor.Controllers
                 TaskDto task = await taskService.GetTaskForPlanAsync(planTaskId);
                 if (task != null)
                 {
-                    return Ok(new JsonResult(task));
+                    return Ok(task);
                 }
                 return NoContent();
             }
             catch (Exception e)
             {
                 //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-                return BadRequest(HttpStatusCode.InternalServerError);
+                return BadRequest();
             }
         }
 
@@ -167,20 +166,19 @@ namespace LearnWithMentor.Controllers
                 var currentRole = userIdentityService.GetUserRole();
                 if (!(userId == currentId || currentRole == Constants.Roles.Mentor))
                 {
-                    return BadRequest(HttpStatusCode.Unauthorized);
+                    return BadRequest();
                 }
                 UserTaskDto userTask = await taskService.GetUserTaskByUserPlanTaskIdAsync(userId, planTaskId);
                 if (userTask != null)
                 {
-                    return Ok(new JsonResult(userTask));
+                    return Ok(userTask);
                 }
-
                 return NoContent();
             }
             catch (Exception e)
             {
                 //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-                return BadRequest(HttpStatusCode.InternalServerError);
+                return BadRequest();
             }
         }
 
@@ -210,7 +208,7 @@ namespace LearnWithMentor.Controllers
             catch (Exception e)
             {
                 //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-                return BadRequest(HttpStatusCode.InternalServerError);
+                return BadRequest();
             }
         }
 
@@ -230,7 +228,7 @@ namespace LearnWithMentor.Controllers
                 {
                     return NoContent();
                 }
-                return Ok(new JsonResult(userTasks));
+                return Ok(userTasks);
             }
             catch (Exception e)
             {
@@ -251,14 +249,12 @@ namespace LearnWithMentor.Controllers
                 var currentRole = userIdentityService.GetUserRole();
                 if (!(await taskService.CheckUserTaskOwnerAsync(userTaskId, currentId) || currentRole == Constants.Roles.Mentor || currentRole == Constants.Roles.Admin))
                 {
-                    return
-                        BadRequest(HttpStatusCode.Unauthorized);
-                    // Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Authorization denied.");
+                    return BadRequest(HttpStatusCode.Unauthorized);
                 }
                 IEnumerable<MessageDto> messageList = await messageService.GetMessagesAsync(userTaskId);
                 if (messageList != null)
                 {
-                    return Ok(new JsonResult(messageList));
+                    return Ok(messageList);
                 }
 
                 return NoContent();
@@ -296,10 +292,11 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully created message with id = {newMessage.Id} by user with id = {newMessage.SenderId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult("Succesfully created message"));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on message creating");
-                return BadRequest("Creation error.");
+                var erorMessage = "Creation error.";
+                return BadRequest(erorMessage);
             }
             catch (Exception e)
             {
@@ -327,7 +324,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully created task with id = {newUserTask.Id} for user with id = {newUserTask.UserId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult("Succesfully created task for user."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on user task creating");
                 return NoContent();
@@ -350,17 +347,18 @@ namespace LearnWithMentor.Controllers
             {
                 if (!Regex.IsMatch(newStatus, ValidationRules.USERTASK_STATE))
                 {
-                    return BadRequest("New Status not valid");
+                    return BadRequest();
                 }
                 var success = await taskService.UpdateUserTaskStatusAsync(userTaskId, newStatus);
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult("Succesfully updated task for user."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating task status");
-                return BadRequest("Incorrect request syntax or usertask does not exist.");
+                var errorMessage = "Incorrect request syntax or usertask does not exist.";
+                return BadRequest(errorMessage);
             }
             catch (Exception e)
             {
@@ -384,7 +382,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully updated usertask message isRead state with id = {userTaskId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult($"Succesfully updated usertask id: {userTaskId}."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating usertask message isRead state");
                 return NoContent();
@@ -400,7 +398,6 @@ namespace LearnWithMentor.Controllers
         /// <param name="userTaskId">Id of the userTask status to be changed</param>
         /// <param name="newMessage">>New userTask result</param>
         /// <returns></returns>
-        /// 
         [HttpPut]
         [Route("api/task/usertask/result")]
         public async Task<ActionResult> PutNewUserTaskResultAsync(int userTaskId, HttpRequestMessage newMessage)
@@ -410,17 +407,18 @@ namespace LearnWithMentor.Controllers
                 var value = newMessage.Content.ReadAsStringAsync().Result;
                 if (value.Length >= ValidationRules.MAX_USERTASK_RESULT_LENGTH)
                 {
-                    return BadRequest("New Result is too long");
+                    return BadRequest();
                 }
                 bool success = await taskService.UpdateUserTaskResultAsync(userTaskId, value);
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on result {value}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult("Succesfully updated user task result."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating user task result");
-                return BadRequest("Incorrect request syntax or usertask does not exist.");
+                var errorMessage = "Incorrect request syntax or usertask does not exist.";
+                return BadRequest(errorMessage);
             }
             catch (Exception e)
             {
@@ -447,7 +445,7 @@ namespace LearnWithMentor.Controllers
                 {
                     return NoContent();
                 }
-                return Ok(new JsonResult(taskList));
+                return Ok(taskList);
             }
             catch (Exception e)
             {
@@ -469,7 +467,7 @@ namespace LearnWithMentor.Controllers
             {
                 if (string.IsNullOrEmpty(key))
                 {
-                    return BadRequest("Incorrect request syntax.");
+                    return BadRequest();
                 }
                 var lines = key.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 IEnumerable<TaskDto> taskList = await taskService.SearchAsync(lines, planId);
@@ -477,7 +475,7 @@ namespace LearnWithMentor.Controllers
                 {
                     return NoContent();
                 }
-                return Ok(new JsonResult(taskList));
+                return Ok(taskList);
             }
             catch (Exception e)
             {
@@ -490,7 +488,6 @@ namespace LearnWithMentor.Controllers
         /// Creates new task
         /// </summary>
         /// <param name="newTask">Task object for creation.</param>
-        //[Authorize(Roles = "Mentor, Admin")]
         [HttpPost]
         [Route("api/task")]
         public ActionResult Post([FromBody]TaskDto newTask)
@@ -506,10 +503,10 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully created task with id = {newTask.Id} by user with id = {newTask.CreatorId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult("Task succesfully created"));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on creating task");
-                return BadRequest("Creation error.");
+                return BadRequest();
             }
             catch (Exception e)
             {
@@ -523,7 +520,6 @@ namespace LearnWithMentor.Controllers
         /// Creates new task and returns id of the created task.
         /// </summary>
         /// <param name="value"> New plan to be created. </param>
-        //[Authorize(Roles = "Mentor, Admin")]
         [HttpPost]
         [Route("api/task/return")]
         public async Task<ActionResult> PostAndReturnIdAsync([FromBody]TaskDto value)
@@ -539,7 +535,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var log = $"Succesfully created task {value.Name} with id = {result} by user with id = {value.CreatorId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, log);
-                    return Ok(new JsonResult(result));
+                    return Ok(result);
                 }
             }
             catch (Exception e)
@@ -566,14 +562,14 @@ namespace LearnWithMentor.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(); // Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    return BadRequest(); 
                 }
                 bool success = await taskService.UpdateTaskByIdAsync(taskId, task);
                 if (success)
                 {
                     var message = $"Succesfully updated task with id = {taskId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult($"Succesfully updated task id: {taskId}."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating task");
                 return NoContent();
@@ -590,7 +586,7 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="userTaskId">UserTask Id for update.</param>
         /// <param name="proposeEndDate">New proposeEndDate</param>
-        //[Authorize]
+        [Authorize]
         [HttpPut]
         [Route("api/task/usertask/proposedEndDate")]
         public async Task<ActionResult> PutAsync(int userTaskId, DateTime proposeEndDate)
@@ -602,7 +598,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully updated usertask with id = {userTaskId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult($"Succesfully updated usertask id: {userTaskId}."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating usertask");
                 return NoContent();
@@ -618,7 +614,6 @@ namespace LearnWithMentor.Controllers
         /// Delete proposeEndDate for userTask
         /// </summary>
         /// <param name="userTaskId">UserTask Id for update.</param>
-        //[Authorize(Roles = "Mentor, Admin")]
         [HttpDelete]
         [Route("api/task/usertask/proposedEndDate")]
         public async Task<ActionResult> DeleteProposeEndDateAsync(int userTaskId)
@@ -630,7 +625,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully deleted proposeEndDate for usertask with id = {userTaskId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult($"Succesfully deleted proposeEndDate for usertask id: {userTaskId}."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on deleting proposeEndDate");
                 return NoContent();
@@ -646,7 +641,6 @@ namespace LearnWithMentor.Controllers
         /// Set new endDate for userTask
         /// </summary>
         /// <param name="userTaskId">UserTask Id for update.</param>
-        //[Authorize(Roles = "Mentor, Admin")]
         [HttpPut]
         [Route("api/task/usertask/endDate")]
         public async Task<ActionResult> SetNewEndDateAsync(int userTaskId)
@@ -658,7 +652,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully changing endDate for usertask with id = {userTaskId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult($"Succesfully  changing endDate for usertask id: {userTaskId}."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on changing endDate");
                 return NoContent();
@@ -674,7 +668,6 @@ namespace LearnWithMentor.Controllers
         /// Deletes task by Id
         /// </summary>
         /// <param name="taskId">Task Id for delete.</param>
-        //[Authorize(Roles = "Mentor, Admin")]
         [HttpDelete]
         [Route("api/task/{id}")]
         public async Task<ActionResult> DeleteAsync(int taskId)
@@ -686,7 +679,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully deleted task with id = {taskId}";
                     //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-                    return Ok(new JsonResult($"Succesfully deleted task id: {taskId}."));
+                    return Ok(message);
                 }
                 //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on deleting task of dependency conflict.");
                 return BadRequest();
