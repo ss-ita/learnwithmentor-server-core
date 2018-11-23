@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 
 namespace LearnWithMentor
 {
@@ -66,6 +67,7 @@ namespace LearnWithMentor
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fvConfig =>
                     fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
