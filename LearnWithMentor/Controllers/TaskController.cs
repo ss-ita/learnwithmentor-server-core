@@ -57,7 +57,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                ////tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest();
             }
         }
@@ -81,7 +81,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                ////tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest();
             }
         }
@@ -122,7 +122,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest();
             }
         }
@@ -146,7 +146,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest();
             }
         }
@@ -177,7 +177,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest();
             }
         }
@@ -207,7 +207,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest();
             }
         }
@@ -232,7 +232,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -261,7 +261,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
 
             }
@@ -291,16 +291,16 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully created message with id = {newMessage.Id} by user with id = {newMessage.SenderId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on message creating");
+                //TODO: Log error here
                 var erorMessage = "Creation error.";
                 return BadRequest(erorMessage);
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -323,15 +323,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully created task with id = {newUserTask.Id} for user with id = {newUserTask.UserId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on user task creating");
+                //TODO: Log error here
                 return NoContent();
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -353,16 +353,16 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating task status");
+                //TODO: Log error here
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
                 return BadRequest(errorMessage);
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -381,15 +381,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated usertask message isRead state with id = {userTaskId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating usertask message isRead state");
+                //TODO: Log error here
                 return NoContent();
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -413,16 +413,16 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on result {value}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating user task result");
+                //TODO: Log error here
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
                 return BadRequest(errorMessage);
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -449,7 +449,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -479,7 +479,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -496,21 +496,21 @@ namespace LearnWithMentor.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(); // Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    return BadRequest(); 
                 }
                 bool success = taskService.CreateTask(newTask);
                 if (success)
                 {
                     var message = $"Succesfully created task with id = {newTask.Id} by user with id = {newTask.CreatorId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on creating task");
+                //TODO: Log error here
                 return BadRequest();
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
 
@@ -534,16 +534,16 @@ namespace LearnWithMentor.Controllers
                 if (result != null)
                 {
                     var log = $"Succesfully created task {value.Name} with id = {result} by user with id = {value.CreatorId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, log);
+                    //TODO: Log error here
                     return Ok(result);
                 }
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on creating task");
+            //TODO: Log error here
             const string message = "Incorrect request syntax.";
             return BadRequest(message);
         }
@@ -568,15 +568,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated task with id = {taskId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating task");
+                //TODO: Log error here
                 return NoContent();
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -597,15 +597,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated usertask with id = {userTaskId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on updating usertask");
+                //TODO: Log error here
                 return NoContent();
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -624,15 +624,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully deleted proposeEndDate for usertask with id = {userTaskId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on deleting proposeEndDate");
+                //TODO: Log error here
                 return NoContent();
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -651,15 +651,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully changing endDate for usertask with id = {userTaskId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on changing endDate");
+                //TODO: Log error here
                 return NoContent();
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
@@ -678,15 +678,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully deleted task with id = {taskId}";
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+                    //TODO: Log error here
                     return Ok(message);
                 }
-                //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, "Error occured on deleting task of dependency conflict.");
+                //TODO: Log error here
                 return BadRequest();
             }
             catch (Exception e)
             {
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+                //TODO: Log error here
                 return BadRequest(e);
             }
         }
