@@ -18,9 +18,7 @@ namespace LearnWithMentorDTO
             string modfirstname,
             string modlastname,
             DateTime? createdate,
-            DateTime? moddate
-
-            )
+            DateTime? moddate)
         {
             Id = id;
             Name = name;
