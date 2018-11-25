@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -67,8 +67,8 @@ namespace LearnWithMentor
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
-				.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
-				.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fvConfig =>
                     fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
 
