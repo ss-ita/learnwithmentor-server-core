@@ -10,16 +10,27 @@ using System;
 
 namespace LearnWithMentor.Controllers
 {
+    /// <summary>
+    /// Controller, that provides API for work with comments
+    /// </summary>
     [Authorize]
     public class CommentController : Controller
     {
+        /// <summary>
+        /// Services for work with different DB parts
+        /// </summary>
         private readonly ICommentService commentService;
 
+        /// <summary>
+        /// Services initiation
+        /// </summary>
         public CommentController(ICommentService commentService)
         {
             this.commentService = commentService;
         }
 
+        /// <summary>Returns comment by id.</summary>
+        /// <param name="id">Id of the comment.</param>
         [HttpGet]
         [Route("api/comment")]
         public async Task<ActionResult> GetCommentAsync(int id)
@@ -39,6 +50,8 @@ namespace LearnWithMentor.Controllers
             }
         }
 
+        /// <summary>Returns comments by plantask id.</summary>
+        /// <param name="planTaskId">Id of the plantask.</param>
         [HttpGet]
         [Route("api/comment/plantask/{planTaskId}")]
         public async Task<ActionResult> GetCommentsForPlanTaskAsync(int planTaskId)
@@ -57,7 +70,11 @@ namespace LearnWithMentor.Controllers
                 return BadRequest(e.Message);
             }
         }
-    
+
+
+        /// <summary>Adds comment for planTask.</summary>
+        /// <param name="planTaskId">Id of the plantask.</param>
+        /// <param name="comment">New comment.</param>
         [AllowAnonymous]
         [HttpPost]
         [Route("api/comment")]
@@ -82,6 +99,9 @@ namespace LearnWithMentor.Controllers
             }
         }
 
+        /// <summary>Updates comment by id.</summary>
+        /// <param name="commentId">Id of the comment.</param>
+        /// <param name="comment">New comment.</param>
         [HttpPut]
         [Route("api/comment")]
         public async Task<ActionResult> PutCommentAsync(int commentId, [FromBody]CommentDto comment)
@@ -100,7 +120,9 @@ namespace LearnWithMentor.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
+        /// <summary>Deletes comment by id.</summary>
+        /// <param name="commentId">Id of the comment.</param>
         [HttpDelete]
         [Route("api/comment/{commentId}")]
         public async Task<ActionResult> DeleteAsync(int commentId)
@@ -121,6 +143,9 @@ namespace LearnWithMentor.Controllers
             }
         }
 
+        /// <summary>
+        /// Releases memory
+        /// </summary>
         protected override void Dispose(bool disposing)
         {
             commentService.Dispose();
