@@ -72,7 +72,7 @@ namespace LearnWithMentor
                 .AddFluentValidation(fvConfig =>
                     fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            services.AddCors(o => o.AddPolicy(Constants.Cors.policyName, builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
@@ -94,7 +94,7 @@ namespace LearnWithMentor
             }
 
             app.UseAuthentication();
-            app.UseCors("MyPolicy");
+            app.UseCors(Constants.Cors.policyName);
             app.UseHttpsRedirection();
             app.UseMvc();
         }
