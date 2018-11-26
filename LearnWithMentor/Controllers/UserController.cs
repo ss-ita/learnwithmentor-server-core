@@ -44,7 +44,6 @@ namespace LearnWithMentor.Controllers
 		/// <summary>
 		/// Returns all users of the system.
 		/// </summary>
-		[AllowAnonymous]
 		[Authorize(Roles = "Admin, Mentor")]
         [HttpGet]
         [Route("api/user")]
@@ -60,7 +59,6 @@ namespace LearnWithMentor.Controllers
         /// <summary>
         /// Returns one page of users
         /// </summary>
-		[AllowAnonymous]
         [Authorize(Roles = "Admin, Mentor")]
         [HttpGet]
         [Route("api/user")]
@@ -82,7 +80,7 @@ namespace LearnWithMentor.Controllers
         /// Returns all users with specified role.
         /// </summary>
         /// <param name="roleId"> Id of the role. </param>
-		[AllowAnonymous]
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("api/user/inrole/{roleId}")]
@@ -91,7 +89,7 @@ namespace LearnWithMentor.Controllers
 			
             if (roleId != Constants.Roles.BlockedIndex)
             {
-                var role = roleService.GetAsync(roleId);
+                var role = await roleService.GetAsync(roleId);
                 if (role == null)
                 {
 					return NoContent();
@@ -110,7 +108,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="roleId"> Id of the role. </param>
         /// <param name="pageSize"> Ammount of users that you want to see on one page</param>
         /// <param name="pageNumber"> Page number</param>
-		[AllowAnonymous]
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("api/user/inrole/{roleId}")]
@@ -118,7 +116,7 @@ namespace LearnWithMentor.Controllers
         {
             if (roleId != Constants.Roles.BlockedIndex)
             {
-                var role = roleService.GetAsync(roleId);
+                var role = await roleService.GetAsync(roleId);
                 if (role == null)
                 {
 					return NoContent();
@@ -132,7 +130,7 @@ namespace LearnWithMentor.Controllers
         /// Returns all blocked/unblocked users.
         /// </summary>
         /// <param name="state"> Specifies value of Blocked property of user. </param>
-		[AllowAnonymous]
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("api/user/instate/{state}")]
@@ -152,7 +150,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="state"> Specifies value of Blocked property of user. </param>
         /// <param name="pageSize"> Ammount of users that you want to see on one page</param>
         /// <param name="pageNumber"> Page number</param>
-		[AllowAnonymous]
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("api/user/instate/{state}")]
@@ -167,7 +165,7 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="id">id</param>
         /// <returns></returns>
-		[AllowAnonymous]
+
         [HttpGet]
         [Route("api/user/profile/{id?}")]
         public async Task<ActionResult> GetSingleAsync(int id = 0 )
@@ -378,7 +376,7 @@ namespace LearnWithMentor.Controllers
         /// <summary>
         /// Returns statistics dto with number of tasks in different states for one user.
         /// </summary>
-		[AllowAnonymous]
+
         [HttpGet]
         [Route("api/user/statistics")]
         public async Task<ActionResult> GetStatisticsAsync()
@@ -398,7 +396,7 @@ namespace LearnWithMentor.Controllers
 		/// <param name="id"> Id of the user. </param>
 		/// 
 
-		[AllowAnonymous]
+
 		[HttpPost]
 		[Route("api/user/{id}/image")]
 		public async Task<ActionResult> PostImageAsync(int id)
@@ -453,7 +451,7 @@ namespace LearnWithMentor.Controllers
 		/// </summary>
 		/// <param name="id"> Id of the user. </param>
 		
-		[AllowAnonymous]
+
         [HttpGet]
         [Route("api/user/{id}/image")]
         public async Task<ActionResult> GetImageAsync(int id)
@@ -483,7 +481,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="id"> Id of the user. </param>
         /// <param name="value"> New values. </param>
         
-		[AllowAnonymous]
+
         [HttpPut]
         [Route("api/user/{id}")]
         public async Task<ActionResult> PutAsync(int id, [FromBody]UserDto value)
@@ -508,7 +506,7 @@ namespace LearnWithMentor.Controllers
             //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
         }
 		
-		[AllowAnonymous]
+
         [HttpPut]
         [Route("api/user/update-multiple")]
         public async Task<ActionResult> UpdateUsersAsync([FromBody]UserDto[] value)
@@ -543,7 +541,7 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="id"> Id of the user. </param>
         
-		[AllowAnonymous]
+
         [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("api/user/{id}")]
@@ -574,7 +572,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="key"> String to match. </param>
         /// <param name="role"> Role criteria. </param>
        
-		[AllowAnonymous]
+
         [Authorize(Roles = "Admin, Mentor")]
         [HttpGet]
         [Route("api/user/search")]
@@ -613,7 +611,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="pageSize"> Ammount of users that you want to see on one page</param>
         /// <param name="pageNumber"> Page number</param>
         
-		[AllowAnonymous]
+
         [Authorize(Roles = "Admin, Mentor")]
         [HttpGet]
         [Route("api/user/search")]
@@ -635,7 +633,9 @@ namespace LearnWithMentor.Controllers
                 lines = lines.Take(2).ToArray();
             }
             var users = criteria != null ? await userService.SearchAsync(lines, pageSize, pageNumber, criteria.Id) :
-              await userService.SearchAsync(lines, pageSize, pageNumber, searchParametr);
+
+            await userService.SearchAsync(lines, pageSize, pageNumber, searchParametr);
+
 			return Ok(users);
         }
 
@@ -672,7 +672,7 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="value"> New password value. </param>
         /// <returns></returns>
-		[AllowAnonymous]
+
         [HttpPut]
         [Route("api/user/newpassword")]
         public async Task<ActionResult> UpdatePasswordAsync([FromBody]string value)
@@ -684,7 +684,7 @@ namespace LearnWithMentor.Controllers
         /// <summary>
         /// Returns all roles of the users.
         /// </summary>
-		[AllowAnonymous]
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         [Route("api/user/roles")]
