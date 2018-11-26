@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Http;
 using System.Net;
 using System.Net.Http;
@@ -8,8 +9,10 @@ using LearnWithMentorBLL.Interfaces;
 using System.Text.RegularExpressions;
 using LearnWithMentorDTO.Infrastructure;
 using System.Threading.Tasks;
+using LearnWithMentor.Logger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 
 namespace LearnWithMentor.Controllers
@@ -26,16 +29,18 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IMessageService messageService;
         private readonly IUserIdentityService userIdentityService;
-        private readonly ITraceWriter tracer;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Services initiation.
         /// </summary>
-        public TaskController(ITaskService taskService, IMessageService messageService, IUserIdentityService userIdentityService)
+        public TaskController(ITaskService taskService, IMessageService messageService, IUserIdentityService userIdentityService, ILoggerFactory loggerFactory)
         {
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            logger = loggerFactory.CreateLogger("FileLogger");
         }
 
         /// <summary>
@@ -57,7 +62,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Eror Exeption: {0}", e.Message);
                 return BadRequest();
             }
         }
