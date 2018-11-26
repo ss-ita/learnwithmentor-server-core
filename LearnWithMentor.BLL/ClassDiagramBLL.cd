@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LearnWithMentorBLL.Infrastructure.InternalServiceException" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Infrastructure\InternalServiceException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorBLL.Services.CommentService" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAgAAABAAAAAAAAAIAAAAAAAAQAAA=</HashCode>
+      <FileName>Services\CommentService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.26" />
+  </Class>
+  <Class Name="LearnWithMentorBLL.Services.GroupService" Collapsed="true">
+    <Position X="3.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAIACABAEAABAEBgACAgAAAgAAAAAsCEAACAgALAI=</HashCode>
+      <FileName>Services\GroupService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.263" />
+  </Class>
+  <Class Name="LearnWithMentorBLL.Services.MessageService" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAACAACAAAA=</HashCode>
+      <FileName>Services\MessageService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentorBLL.Services.PlanService" Collapsed="true">
+    <Position X="8.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABABACAAYAAAAAAAAAAAAFAAAAEgAAACoAAIAAgAgE=</HashCode>
+      <FileName>Services\PlanService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentorBLL.Services.RoleService" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAQAAAA=</HashCode>
+      <FileName>Services\RoleService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentorBLL.Services.TaskService" Collapsed="true">
+    <Position X="3.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBAAAAQAERAIEBAAAAgBAgAAgQABAIAAAAAFAAgA=</HashCode>
+      <FileName>Services\TaskService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentorBLL.Services.UserIdentityService" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAACAABAAAAAAA=</HashCode>
+      <FileName>Services\UserIdentityService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LearnWithMentorBLL.Services.UserService" Collapsed="true">
+    <Position X="8.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAABAAAQAIAABAACAAAAAAUIAAAgiAAACAAAIEAAAAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Web.HttpContext" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HttpContextHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="LearnWithMentorBLL.Interfaces.ICommentService" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAgAAABAAAAAAAAAIAAAAAAAAQAAA=</HashCode>
+      <FileName>Interfaces\ICommentService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentorBLL.Interfaces.IGroupService" Collapsed="true">
+    <Position X="3.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIACABAEAAAAEBgAAAgAAAgAAAAAIAEAAAAgALAI=</HashCode>
+      <FileName>Interfaces\IGroupService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentorBLL.Interfaces.IMessageService" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAACAACAAAA=</HashCode>
+      <FileName>Interfaces\IMessageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentorBLL.Interfaces.IPlanService" Collapsed="true">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABABACAAYAAAAAAAAAAAAFAAAAEgAAACgAAIAAgAgE=</HashCode>
+      <FileName>Interfaces\IPlanService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentorBLL.Interfaces.IRoleService" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAQAAAA=</HashCode>
+      <FileName>Interfaces\IRoleService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentorBLL.Interfaces.ITaskService" Collapsed="true">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAQAERAIEBAAAAgBAgAAgQABAIAAAAAFAAgA=</HashCode>
+      <FileName>Interfaces\ITaskService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentorBLL.Interfaces.IUserIdentityService" Collapsed="true">
+    <Position X="5.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IUserIdentityService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentorBLL.Interfaces.IUserService" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAABAAAQAIAABAACAAAAAAUIAAAggAAACAAAIEAAAAA=</HashCode>
+      <FileName>Interfaces\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

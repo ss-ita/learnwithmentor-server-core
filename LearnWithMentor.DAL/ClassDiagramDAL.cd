@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LearnWithMentor.DAL.Repositories.CommentRepository" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAgAAAAAAAAAAAAAAABAAEAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\CommentRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.GroupPlanTaskViewRepository" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\GroupPlanTaskViewRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.GroupRepository" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAiAAAABAAAABAAAKgAAAEAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\GroupRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.325" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.MessageRepository" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAIAAAgAA=</HashCode>
+      <FileName>Repositories\MessageRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.PlanRepository" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACABQAAAABAAABAgAACCAAAAAAAAAAAAgAgAAA=</HashCode>
+      <FileName>Repositories\PlanRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.PlanSuggestionRepository" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\PlanSuggestionRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.PlanTaskRepository" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAARAIBAEAAEAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\PlanTaskRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.RoleRepository" Collapsed="true">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\RoleRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.SectionRepository" Collapsed="true">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\SectionRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.TaskRepository" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAgAAACAAAQAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\TaskRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.UserRepository" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAQAAAABAAAAAAAAAAIAABgAAAAAEAAIkAAAAA=</HashCode>
+      <FileName>Repositories\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.UserRoleViewRepository" Collapsed="true">
+    <Position X="9.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\UserRoleViewRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Repositories.UserTaskRepository" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\UserTaskRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.Comment" Collapsed="true">
+    <Position X="0.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAQAAAAAAAAAAAAAAEAAAAAAAAEAAACEAAQAA=</HashCode>
+      <FileName>Entities\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.Group" Collapsed="true">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAAAAAQCAgAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.GroupPlan" Collapsed="true">
+    <Position X="0.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEAAAAAAAAAAAAAAAAAAAAAAABAAAAACAAAAA=</HashCode>
+      <FileName>Entities\GroupPlan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.GroupPlanTask" Collapsed="true">
+    <Position X="2.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAIAAAgGAAEDAAAAAUAEAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Entities\GroupPlanTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.LearnWithMentorContext" Collapsed="true">
+    <Position X="5.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABHAZAQAIAAQAAAAAISAEEgACRBAEAEAIAwQAMAA=</HashCode>
+      <FileName>Entities\LearnWithMentorContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.Message" Collapsed="true">
+    <Position X="2.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAgAAAAAAAAAAAAgAEAAAAAAAAAAAEAAACAQAAAA=</HashCode>
+      <FileName>Entities\Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.Plan" Collapsed="true">
+    <Position X="4" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACBEAAQAAgAAAACAAAIAQEAAAAABAAEAAAAEAAQAA=</HashCode>
+      <FileName>Entities\Plan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.PlanSuggestion" Collapsed="true">
+    <Position X="4" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACADAAAAAAAAAAACAgAAAAAAAAAAAAABAAAACAAACAA=</HashCode>
+      <FileName>Entities\PlanSuggestion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.PlanTask" Collapsed="true">
+    <Position X="4" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAIBAAEAAAAACAAAAAAAAAAAEAIAAQAKAA=</HashCode>
+      <FileName>Entities\PlanTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.Role" Collapsed="true">
+    <Position X="2.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.Section" Collapsed="true">
+    <Position X="5.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Section.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.StudentTask" Collapsed="true">
+    <Position X="5.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBEAAQAAgAAAAAAAAAAQEEAAAAAAAEAAAAEAAQAA=</HashCode>
+      <FileName>Entities\StudentTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.User" Collapsed="true">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAFIAAiAQAAQAEADCAIAAAAQAABACEAAAAQYAIAg=</HashCode>
+      <FileName>Entities\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.UserGroup" Collapsed="true">
+    <Position X="2.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAEAEAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\UserGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.UserRole" Collapsed="true">
+    <Position X="4" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Entities\UserRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.Entities.UserTask" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oCADAAAAAAAAAAACAgAAIAQEAAAAAAAAAAAABQAAAAA=</HashCode>
+      <FileName>Entities\UserTask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentor.DAL.UnitOfWork.UnitOfWork" Collapsed="true">
+    <Position X="8.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ZAIiAOgAAKAIAAAAAAACIAAEAiAiRAgBIEAIAQQAIAA=</HashCode>
+      <FileName>UnitOfWork\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.ICommentRepository" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAgAAAAAAAAAAAAAAAAAAEAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\ICommentRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IGroupPlanTaskViewRepository" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IGroupPlanTaskViewRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IGroupRepository" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAiAAAABAAAABAAAKgAAAEAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IGroupRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IMessageRepository" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAIAAAgAA=</HashCode>
+      <FileName>Repositories\Interfaces\IMessageRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IPlanRepository" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACABQAAAABAAABAgAACCAAAAAAAAAAAAgAgAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IPlanRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IPlanSuggestionRepository" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IPlanSuggestionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IPlanTaskRepository" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAARAIBAEAAEAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IPlanTaskRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IRepository&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAEAAAAAAAgAAgAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IRoleRepository" Collapsed="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IRoleRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.ISectionRepository" Collapsed="true">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\ISectionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.ITaskRepository" Collapsed="true">
+    <Position X="5.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAgAAACAAAQAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\ITaskRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IUserRepository" Collapsed="true">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAQAAAABAAAAAAAAAAIAABgAAAAAEAAIkAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IUserRoleViewRepository" Collapsed="true">
+    <Position X="9.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IUserRoleViewRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.Repositories.Interfaces.IUserTaskRepository" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Repositories\Interfaces\IUserTaskRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LearnWithMentor.DAL.UnitOfWork.IUnitOfWork" Collapsed="true">
+    <Position X="8.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAOAAAAAIAAAAAAAAIAAEAgACAAAAIEAIAQQAIAA=</HashCode>
+      <FileName>UnitOfWork\IUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LearnWithMentorDTO.CommentDto" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAACAAAAAAEAAAAAABAAAAABCAAAAAA=</HashCode>
+      <FileName>CommentDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.ContentDto" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>ContentDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.EmailDto" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ForgotPasswordDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.GroupDto" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAIAAAEAA=</HashCode>
+      <FileName>GroupDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.ImageDto" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ImageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.ListUserTasksDto" Collapsed="true">
+    <Position X="2.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>ListUserTasksDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.MessageDto" Collapsed="true">
+    <Position X="2.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAAQAAAAAAAAAAAAAEAAAAAABAAAAAAAACAAgAAA=</HashCode>
+      <FileName>MessageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.PagedListDto&lt;T&gt;" Collapsed="true">
+    <Position X="2.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAgAAAAAADAAAAAAAAAAAAAAQAAAAAAAAFAAAAAA=</HashCode>
+      <FileName>PagedListDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.PlanDto" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAgAAAAAgCAACCAAAQA0AAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>PlanDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.RoleDto" Collapsed="true">
+    <Position X="4.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoleDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.SectionDto" Collapsed="true">
+    <Position X="4.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SectionDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.StatisticsDto" Collapsed="true">
+    <Position X="4.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAgAAAAAAAACAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>StatisticsDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.TaskDto" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAwAAAGAAAAAAUEEAQAAAAAAAABAAEQAAA=</HashCode>
+      <FileName>TaskDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.TokenDTO" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>TokenDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.UserDto" Collapsed="true">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAAAAAEABAAAAAAAAAAAAAAAQAAAAAAAg=</HashCode>
+      <FileName>UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.UserIdentityDto" Collapsed="true">
+    <Position X="6.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAAAAAEABAAAAAAAAAAAACAAQAAAAAAAg=</HashCode>
+      <FileName>UserIdentityDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.UserLoginDto" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>UserLoginDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.UserRegistrationDto" Collapsed="true">
+    <Position X="8.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>UserRegistrationDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.UserTaskDto" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAwgAAQAAAAAAAAAFAAAEAA=</HashCode>
+      <FileName>UserTaskDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.UserWithImageDto" Collapsed="true">
+    <Position X="8.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAAAAAEABAAAAAAAAAABAAAAAAAAAAAAg=</HashCode>
+      <FileName>UserWithImageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.PagedList&lt;T, TDto&gt;">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\PagedList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LearnWithMentorDTO.Infrastructure.ValidationRules" Collapsed="true">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAADgIRIACAAAAAAAAAAAEAgAAAAAABAAAQ=</HashCode>
+      <FileName>Infrastructure\ValidationRules.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
