@@ -10,139 +10,117 @@ using System;
 
 namespace LearnWithMentor.Controllers
 {
-    /// <summary>
-    /// Controller, that provides API for work with comments
-    /// </summary>
     [Authorize]
-    public class CommentController : ApiController
+    public class CommentController : Controller
     {
-        /// <summary>
-        /// Services for work with different DB parts
-        /// </summary>
         private readonly ICommentService commentService;
 
-        /// <summary>
-        /// Services initiation
-        /// </summary>
         public CommentController(ICommentService commentService)
         {
             this.commentService = commentService;
         }
 
-        /// <summary>Returns comment by id.</summary>
-        /// <param name="id">Id of the comment.</param>
         [HttpGet]
         [Route("api/comment")]
-        public async Task<HttpResponseMessage> GetCommentAsync(int id)
+        public async Task<ActionResult> GetCommentAsync(int id)
         {
             try
             {
                 CommentDto comment = await commentService.GetCommentAsync(id);
                 if (comment == null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Comment with this Id does not exist in database.");
+                    return NoContent();
                 }
-                return Request.CreateResponse(HttpStatusCode.OK, comment);
+                return Ok(comment);
             }
             catch (Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Internal server error");
+                return BadRequest(e.Message);
             }
         }
 
-        /// <summary>Returns comments by plantask id.</summary>
-        /// <param name="planTaskId">Id of the plantask.</param>
         [HttpGet]
         [Route("api/comment/plantask/{planTaskId}")]
-        public async Task<HttpResponseMessage> GetCommentsForPlanTaskAsync(int planTaskId)
+        public async Task<ActionResult> GetCommentsForPlanTaskAsync(int planTaskId)
         {
             try
             {
                 var comments = await commentService.GetCommentsForPlanTaskAsync(planTaskId);
                 if (comments == null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "There are no comments for this task in that plan");
+                    return NoContent();
                 }
-                return Request.CreateResponse(HttpStatusCode.OK, comments);
+                return Ok(comments);
             }
             catch (Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Internal server error");
+                return BadRequest(e.Message);
             }
         }
-
-        /// <summary>Adds comment for planTask.</summary>
-        /// <param name="planTaskId">Id of the plantask.</param>
-        /// <param name="comment">New comment.</param>
+    
+        [AllowAnonymous]
         [HttpPost]
         [Route("api/comment")]
-        public  async Task<HttpResponseMessage> PostAsync(int planTaskId, CommentDto comment)
+        public  async Task<ActionResult> PostAsync(int planTaskId, CommentDto comment)
         {
             if (!ModelState.IsValid)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                return BadRequest(ModelState);
             }
             try
             {
                 if ( await commentService.AddCommentToPlanTaskAsync(planTaskId, comment))
                 {
                     var log = $"Succesfully created comment with id = {comment.Id} by user id = {comment.CreatorId}";
-                    return Request.CreateResponse(HttpStatusCode.OK, "Comment succesfully created");
+                    return Ok(log);
                 }
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Not possibly to add comment: task in this plan does not exist");
+                return NoContent();
             }
             catch (Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Internal creation error");
+                return BadRequest(e.Message);
             }
         }
 
-        /// <summary>Updates comment by id.</summary>
-        /// <param name="commentId">Id of the comment.</param>
-        /// <param name="comment">New comment.</param>
         [HttpPut]
         [Route("api/comment")]
-        public async Task<HttpResponseMessage> PutCommentAsync(int commentId, [FromBody]CommentDto comment)
+        public async Task<ActionResult> PutCommentAsync(int commentId, [FromBody]CommentDto comment)
         {
             try
             {
                 if (await commentService.UpdateCommentAsync(commentId, comment))
                 {
                     var log = $"Succesfully updated comment with id = {commentId}";
-                    return Request.CreateResponse(HttpStatusCode.OK, $"Succesfully updated comment id: {commentId}.");
+                    return Ok(log);
                 }
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, ("Not possibly to update comment: comment does not exist."));
+                return NoContent(); 
             }
             catch (Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Internal updation error");
+                return BadRequest(e.Message);
             }
         }
-
-        /// <summary>Deletes comment by id.</summary>
-        /// <param name="commentId">Id of the comment.</param>
+        
         [HttpDelete]
         [Route("api/comment/{commentId}")]
-        public async Task<HttpResponseMessage> DeleteAsync(int commentId)
+        public async Task<ActionResult> DeleteAsync(int commentId)
         {
             try
             {
                 if (await commentService.RemoveByIdAsync(commentId))
                 {
                     var log = $"Succesfully deleted comment with id = {commentId}";
-                    return Request.CreateResponse(HttpStatusCode.OK, $"Succesfully deleted comment id: {commentId}.");
+                    return Ok(log);
                 }
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, ("Not possibly to delete comment: comment does not exist."));
+                var message = "Not possibly to delete comment: comment does not exist.";
+                return BadRequest(message);
             }
             catch(Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Internal deletion error.");
+                return BadRequest(e.Message);
             }
         }
 
-        /// <summary>
-        /// Releases memory
-        /// </summary>
         protected override void Dispose(bool disposing)
         {
             commentService.Dispose();
