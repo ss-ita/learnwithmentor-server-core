@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Http;
 using System.Net;
 using System.Net.Http;
@@ -8,8 +9,10 @@ using LearnWithMentorBLL.Interfaces;
 using System.Text.RegularExpressions;
 using LearnWithMentorDTO.Infrastructure;
 using System.Threading.Tasks;
+using LearnWithMentor.Logger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 
 namespace LearnWithMentor.Controllers
@@ -26,16 +29,18 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IMessageService messageService;
         private readonly IUserIdentityService userIdentityService;
-        private readonly ITraceWriter tracer;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Services initiation.
         /// </summary>
-        public TaskController(ITaskService taskService, IMessageService messageService, IUserIdentityService userIdentityService)
+        public TaskController(ITaskService taskService, IMessageService messageService, IUserIdentityService userIdentityService, ILoggerFactory loggerFactory)
         {
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            logger = loggerFactory.CreateLogger("FileLogger");
         }
 
         /// <summary>
@@ -57,7 +62,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest();
             }
         }
@@ -81,7 +86,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest();
             }
         }
@@ -122,7 +127,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest();
             }
         }
@@ -146,7 +151,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest();
             }
         }
@@ -177,7 +182,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest();
             }
         }
@@ -207,7 +212,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest();
             }
         }
@@ -232,7 +237,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -261,7 +266,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
 
             }
@@ -291,16 +296,16 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully created message with id = {newMessage.Id} by user with id = {newMessage.SenderId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
                 var erorMessage = "Creation error.";
+                logger.LogInformation("Error :  {0}", erorMessage);
                 return BadRequest(erorMessage);
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -323,15 +328,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully created task with id = {newUserTask.Id} for user with id = {newUserTask.UserId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -353,16 +358,16 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
-                }
-                //TODO: Log error here
+                } 
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
+                logger.LogInformation("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -381,15 +386,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated usertask message isRead state with id = {userTaskId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -413,16 +418,16 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on result {value}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
-                }
-                //TODO: Log error here
+                }              
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
+                logger.LogInformation("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -449,7 +454,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -479,7 +484,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -502,15 +507,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully created task with id = {newTask.Id} by user with id = {newTask.CreatorId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return BadRequest();
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
 
@@ -534,17 +539,17 @@ namespace LearnWithMentor.Controllers
                 if (result != null)
                 {
                     var log = $"Succesfully created task {value.Name} with id = {result} by user with id = {value.CreatorId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", log);
                     return Ok(result);
                 }
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
-            }
-            //TODO: Log error here
+            }  
             const string message = "Incorrect request syntax.";
+            logger.LogInformation("Error :  {0}", message);
             return BadRequest(message);
         }
 
@@ -568,15 +573,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated task with id = {taskId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -597,15 +602,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated usertask with id = {userTaskId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -624,15 +629,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully deleted proposeEndDate for usertask with id = {userTaskId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -651,15 +656,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully changing endDate for usertask with id = {userTaskId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
@@ -678,15 +683,15 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully deleted task with id = {taskId}";
-                    //TODO: Log error here
+                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return BadRequest();
             }
             catch (Exception e)
             {
-                //TODO: Log error here
+                logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
         }
