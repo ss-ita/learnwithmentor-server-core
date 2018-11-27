@@ -1,0 +1,1019 @@
+Executing action method LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor) with arguments (System.Int32[], System.Int32[]) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (7ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed action method LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 215.5549ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.ListUserTasksDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor) in 256.0136ms
+Request finished in 276.431ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/group/mygroups  
+Policy execution successful.
+Request finished in 13.7849ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/group/mygroups  
+Successfully validated the token.
+Policy execution successful.
+Route matched with {action = "GetUserGroupsAsync", controller = "Group"}. Executing action LearnWithMentor.Controllers.GroupController.GetUserGroupsAsync (LearnWithMentor)
+Policy execution successful.
+Authorization was successful.
+Executing action method LearnWithMentor.Controllers.GroupController.GetUserGroupsAsync (LearnWithMentor) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [user]
+        WHERE [user].[Id] = @__id_0)
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Groups] AS [g]
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [user].[Id], [user].[Blocked], [user].[Email], [user].[Email_Confirmed], [user].[FirstName], [user].[Image], [user].[Image_Name], [user].[LastName], [user].[Password], [user].[Role_Id]
+FROM [Users] AS [user]
+WHERE [user].[Id] = @__id_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name]
+FROM [Roles] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (1ms) [Parameters=[@__mentorId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [group].[Id], [group].[Mentor_Id], [group].[Name]
+FROM [Groups] AS [group]
+WHERE [group].[Mentor_Id] = @__mentorId_0
+Executed DbCommand (1ms) [Parameters=[@__id_Value_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [user].[Id], [user].[Blocked], [user].[Email], [user].[Email_Confirmed], [user].[FirstName], [user].[Image], [user].[Image_Name], [user].[LastName], [user].[Password], [user].[Role_Id]
+FROM [Users] AS [user]
+WHERE [user].[Id] = @__id_Value_0
+Executed action method LearnWithMentor.Controllers.GroupController.GetUserGroupsAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 51.0683ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.GroupDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.GroupController.GetUserGroupsAsync (LearnWithMentor) in 72.7482ms
+Request finished in 100.7318ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/group/78/plans  
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/group/78/users  
+Policy execution successful.
+Request finished in 21190.5871ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/group/78/users  
+Successfully validated the token.
+Policy execution successful.
+Route matched with {action = "GetUsersAsync", controller = "Group"}. Executing action LearnWithMentor.Controllers.GroupController.GetUsersAsync (LearnWithMentor)
+Policy execution successful.
+Authorization was successful.
+Executing action method LearnWithMentor.Controllers.GroupController.GetUsersAsync (LearnWithMentor) with arguments (78) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (1ms) [Parameters=[@__mentorId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [group].[Id], [group].[Mentor_Id], [group].[Name]
+FROM [Groups] AS [group]
+WHERE [group].[Mentor_Id] = @__mentorId_0
+Executed DbCommand (0ms) [Parameters=[@__groupId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [ug.User].[Id], [ug.User].[Blocked], [ug.User].[Email], [ug.User].[Email_Confirmed], [ug.User].[FirstName], [ug.User].[Image], [ug.User].[Image_Name], [ug.User].[LastName], [ug.User].[Password], [ug.User].[Role_Id]
+FROM [UserGroups] AS [ug]
+INNER JOIN [Users] AS [ug.User] ON [ug].[UserId] = [ug.User].[Id]
+WHERE [ug].[GroupId] = @__groupId_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name]
+FROM [Roles] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed action method LearnWithMentor.Controllers.GroupController.GetUsersAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 84.8998ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.UserIdentityDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.GroupController.GetUsersAsync (LearnWithMentor) in 106.5115ms
+Request finished in 147.4582ms 200 application/json; charset=utf-8
+An unhandled exception has occurred while executing the request.
+Request finished in 21547.5295ms 500 text/html; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/some?prevAmount=0&amount=4  
+Policy execution successful.
+Request finished in 16.1238ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/some?prevAmount=0&amount=4  
+Policy execution successful.
+Route matched with {action = "GetSome", controller = "Plan"}. Executing action LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor)
+Executing action method LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor) with arguments (0, 4) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [p].[Id], [p].[Create_Date], [p].[Create_Id], [p].[Description], [p].[Image], [p].[Image_Name], [p].[Mod_Date], [p].[Mod_Id], [p].[Name], [p].[Published]
+FROM [Plans] AS [p]
+ORDER BY [p].[Id]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed action method LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 39.1683ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.PlanDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor) in 54.6423ms
+Request finished in 72.0599ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/1/image  
+Policy execution successful.
+Request finished in 9.6821ms 204 
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/2/image  
+Policy execution successful.
+Request finished in 9.388ms 204 
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/3/image  
+Policy execution successful.
+Request finished in 9.0207ms 204 
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/4/image  
+Policy execution successful.
+Request finished in 10.4821ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/1/image  
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/3/image  
+Executing action method LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor) with arguments (System.Int32[], System.Int32[]) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed action method LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 263.2484ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.ListUserTasksDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor) in 307.3967ms
+Request finished in 327.6076ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/some?prevAmount=0&amount=4  
+Policy execution successful.
+Request finished in 15.7543ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/some?prevAmount=0&amount=4  
+Policy execution successful.
+Route matched with {action = "GetSome", controller = "Plan"}. Executing action LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor)
+Executing action method LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor) with arguments (0, 4) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [p].[Id], [p].[Create_Date], [p].[Create_Id], [p].[Description], [p].[Image], [p].[Image_Name], [p].[Mod_Date], [p].[Mod_Id], [p].[Name], [p].[Published]
+FROM [Plans] AS [p]
+ORDER BY [p].[Id]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed action method LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 42.2483ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.PlanDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor) in 55.9779ms
+Request finished in 75.978ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/1/image  
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/2/image  
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/4/image  
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/3/image  
+Policy execution successful.
+Policy execution successful.
+Request finished in 3532.5428ms 204 
+Request finished in 3533.2994ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/2/image  
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/4/image  
+Policy execution successful.
+Policy execution successful.
+Route matched with {action = "GetImageAsync", controller = "Plan"}. Executing action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor)
+Executing action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) with arguments (4) - Validation state: Valid
+Route matched with {action = "GetImageAsync", controller = "Plan"}. Executing action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor)
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executing action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) with arguments (2) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (8ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Plans] AS [p]
+        WHERE [p].[Id] = @__id_0)
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Plans] AS [p]
+        WHERE [p].[Id] = @__id_0)
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Create_Date], [p].[Create_Id], [p].[Description], [p].[Image], [p].[Image_Name], [p].[Mod_Date], [p].[Mod_Id], [p].[Name], [p].[Published]
+FROM [Plans] AS [p]
+WHERE [p].[Id] = @__id_0
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Create_Date], [p].[Create_Id], [p].[Description], [p].[Image], [p].[Image_Name], [p].[Mod_Date], [p].[Mod_Id], [p].[Name], [p].[Published]
+FROM [Plans] AS [p]
+WHERE [p].[Id] = @__id_0
+Executed action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 71.7667ms.
+Executing ObjectResult, writing value of type 'LearnWithMentorDTO.ImageDto'.
+Executed action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) in 88.0301ms
+Request finished in 1079.6796ms 200 application/json; charset=utf-8
+Executed action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 99.8778ms.
+An unhandled exception has occurred while executing the request.
+Executing ObjectResult, writing value of type 'LearnWithMentorDTO.ImageDto'.
+Executed action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) in 961.8767ms
+Connection id "0HLIKM5GEBF9B", Request id "0HLIKM5GEBF9B:00000009": An unhandled exception was thrown by the application.
+Request finished in 1002.3179ms 200 application/json; charset=utf-8
+Request finished in 5503.6699ms 500 
+Request finished in 5530.7009ms 500 text/html; charset=utf-8
+Executing action method LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor) with arguments (System.Int32[], System.Int32[]) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32), @__planTaskId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [userTask].[Id], [userTask].[End_Date], [userTask].[Mentor_Id], [userTask].[PlanTask_Id], [userTask].[Propose_End_Date], [userTask].[Result], [userTask].[State], [userTask].[User_Id]
+FROM [UserTasks] AS [userTask]
+WHERE ([userTask].[User_Id] = @__userId_0) AND ([userTask].[PlanTask_Id] = @__planTaskId_1)
+Executed action method LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 214.1733ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.ListUserTasksDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.TaskController.GetUsersTasksAsync (LearnWithMentor) in 253.1723ms
+Request finished in 272.6849ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/group/mygroups  
+Policy execution successful.
+Request finished in 10.2372ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/group/mygroups  
+Successfully validated the token.
+Policy execution successful.
+Route matched with {action = "GetUserGroupsAsync", controller = "Group"}. Executing action LearnWithMentor.Controllers.GroupController.GetUserGroupsAsync (LearnWithMentor)
+Policy execution successful.
+Authorization was successful.
+Executing action method LearnWithMentor.Controllers.GroupController.GetUserGroupsAsync (LearnWithMentor) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [user]
+        WHERE [user].[Id] = @__id_0)
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Groups] AS [g]
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [user].[Id], [user].[Blocked], [user].[Email], [user].[Email_Confirmed], [user].[FirstName], [user].[Image], [user].[Image_Name], [user].[LastName], [user].[Password], [user].[Role_Id]
+FROM [Users] AS [user]
+WHERE [user].[Id] = @__id_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name]
+FROM [Roles] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (1ms) [Parameters=[@__mentorId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [group].[Id], [group].[Mentor_Id], [group].[Name]
+FROM [Groups] AS [group]
+WHERE [group].[Mentor_Id] = @__mentorId_0
+Executed DbCommand (1ms) [Parameters=[@__id_Value_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [user].[Id], [user].[Blocked], [user].[Email], [user].[Email_Confirmed], [user].[FirstName], [user].[Image], [user].[Image_Name], [user].[LastName], [user].[Password], [user].[Role_Id]
+FROM [Users] AS [user]
+WHERE [user].[Id] = @__id_Value_0
+Executed action method LearnWithMentor.Controllers.GroupController.GetUserGroupsAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 46.8807ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.GroupDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.GroupController.GetUserGroupsAsync (LearnWithMentor) in 66.6899ms
+Request finished in 89.3767ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/group/1/plans  
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/group/1/users  
+Policy execution successful.
+Policy execution successful.
+Request finished in 11.6433ms 204 
+Request finished in 12.1382ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/group/1/plans  
+Request starting HTTP/1.1 GET http://localhost:44338/api/group/1/users  
+Successfully validated the token.
+Successfully validated the token.
+Policy execution successful.
+Policy execution successful.
+Route matched with {action = "GetPlansAsync", controller = "Group"}. Executing action LearnWithMentor.Controllers.GroupController.GetPlansAsync (LearnWithMentor)
+Route matched with {action = "GetUsersAsync", controller = "Group"}. Executing action LearnWithMentor.Controllers.GroupController.GetUsersAsync (LearnWithMentor)
+Policy execution successful.
+Policy execution successful.
+Authorization was successful.
+Executing action method LearnWithMentor.Controllers.GroupController.GetUsersAsync (LearnWithMentor) with arguments (1) - Validation state: Valid
+Executing action method LearnWithMentor.Controllers.GroupController.GetPlansAsync (LearnWithMentor) with arguments (1) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (2ms) [Parameters=[@__mentorId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [group].[Id], [group].[Mentor_Id], [group].[Name]
+FROM [Groups] AS [group]
+WHERE [group].[Mentor_Id] = @__mentorId_0
+Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [group].[Id], [group].[Mentor_Id], [group].[Name]
+FROM [Groups] AS [group]
+WHERE [group].[Id] = @__id_0
+Executed DbCommand (1ms) [Parameters=[@__groupId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [ug.User].[Id], [ug.User].[Blocked], [ug.User].[Email], [ug.User].[Email_Confirmed], [ug.User].[FirstName], [ug.User].[Image], [ug.User].[Image_Name], [ug.User].[LastName], [ug.User].[Password], [ug.User].[Role_Id]
+FROM [UserGroups] AS [ug]
+INNER JOIN [Users] AS [ug.User] ON [ug].[UserId] = [ug.User].[Id]
+WHERE [ug].[GroupId] = @__groupId_0
+Executed DbCommand (1ms) [Parameters=[@__groupId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [g].[Id], [g].[Mentor_Id], [g].[Name]
+FROM [Groups] AS [g]
+WHERE [g].[Id] = @__groupId_0
+Executed DbCommand (1ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[GroupId], [e].[PlanId]
+FROM [GroupPlans] AS [e]
+WHERE [e].[GroupId] = @__get_Item_0
+Executed DbCommand (8ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Create_Date], [e].[Create_Id], [e].[Description], [e].[Image], [e].[Image_Name], [e].[Mod_Date], [e].[Mod_Id], [e].[Name], [e].[Published]
+FROM [Plans] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed action method LearnWithMentor.Controllers.GroupController.GetPlansAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 341.8479ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.PlanDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.GroupController.GetPlansAsync (LearnWithMentor) in 370.0811ms
+Request finished in 401.4796ms 200 application/json; charset=utf-8
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name]
+FROM [Roles] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed action method LearnWithMentor.Controllers.GroupController.GetUsersAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 644.5399ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.UserIdentityDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.GroupController.GetUsersAsync (LearnWithMentor) in 664.7065ms
+Request finished in 696.4568ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/user/profile?id=1  
+Policy execution successful.
+Request finished in 27.2851ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/user/profile?id=1  
+Successfully validated the token.
+Policy execution successful.
+Route matched with {action = "GetSingleAsync", controller = "User"}. Executing action LearnWithMentor.Controllers.UserController.GetSingleAsync (LearnWithMentor)
+Authorization was successful.
+Executing action method LearnWithMentor.Controllers.UserController.GetSingleAsync (LearnWithMentor) with arguments (1) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [user].[Id], [user].[Blocked], [user].[Email], [user].[Email_Confirmed], [user].[FirstName], [user].[Image], [user].[Image_Name], [user].[LastName], [user].[Password], [user].[Role_Id]
+FROM [Users] AS [user]
+WHERE [user].[Id] = @__id_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name]
+FROM [Roles] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed action method LearnWithMentor.Controllers.UserController.GetSingleAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 31.7235ms.
+Executing ObjectResult, writing value of type 'LearnWithMentorDTO.UserDto'.
+Executed action LearnWithMentor.Controllers.UserController.GetSingleAsync (LearnWithMentor) in 55.5515ms
+Request finished in 81.9434ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/user/1/image  
+Policy execution successful.
+Request finished in 8.758ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/user/1/image  
+Successfully validated the token.
+Policy execution successful.
+Route matched with {action = "GetImageAsync", controller = "User"}. Executing action LearnWithMentor.Controllers.UserController.GetImageAsync (LearnWithMentor)
+Authorization was successful.
+Executing action method LearnWithMentor.Controllers.UserController.GetImageAsync (LearnWithMentor) with arguments (1) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [user]
+        WHERE [user].[Id] = @__id_0)
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [user].[Id], [user].[Blocked], [user].[Email], [user].[Email_Confirmed], [user].[FirstName], [user].[Image], [user].[Image_Name], [user].[LastName], [user].[Password], [user].[Role_Id]
+FROM [Users] AS [user]
+WHERE [user].[Id] = @__id_0
+Executed action method LearnWithMentor.Controllers.UserController.GetImageAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 27.1828ms.
+Executing ObjectResult, writing value of type 'LearnWithMentorDTO.ImageDto'.
+Executed action LearnWithMentor.Controllers.UserController.GetImageAsync (LearnWithMentor) in 45.7727ms
+Request finished in 76.4787ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/some?prevAmount=0&amount=4  
+Policy execution successful.
+Request finished in 17.77ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/some?prevAmount=0&amount=4  
+Policy execution successful.
+Route matched with {action = "GetSome", controller = "Plan"}. Executing action LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor)
+Executing action method LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor) with arguments (0, 4) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [p].[Id], [p].[Create_Date], [p].[Create_Id], [p].[Description], [p].[Image], [p].[Image_Name], [p].[Mod_Date], [p].[Mod_Id], [p].[Name], [p].[Published]
+FROM [Plans] AS [p]
+ORDER BY [p].[Id]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [e].[Id], [e].[Blocked], [e].[Email], [e].[Email_Confirmed], [e].[FirstName], [e].[Image], [e].[Image_Name], [e].[LastName], [e].[Password], [e].[Role_Id]
+FROM [Users] AS [e]
+WHERE [e].[Id] = @__get_Item_0
+Executed action method LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 40.6652ms.
+Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[LearnWithMentorDTO.PlanDto, LearnWithMentorDTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Executed action LearnWithMentor.Controllers.PlanController.GetSome (LearnWithMentor) in 54.3851ms
+Request finished in 78.2093ms 200 application/json; charset=utf-8
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/1/image  
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/3/image  
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/4/image  
+Request starting HTTP/1.1 OPTIONS http://localhost:44338/api/plan/2/image  
+Policy execution successful.
+Policy execution successful.
+Policy execution successful.
+Policy execution successful.
+Request finished in 52.0047ms 204 
+Request finished in 56.0138ms 204 
+Request finished in 91.5229ms 204 
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/2/image  
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/4/image  
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/3/image  
+Policy execution successful.
+Policy execution successful.
+Route matched with {action = "GetImageAsync", controller = "Plan"}. Executing action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor)
+Route matched with {action = "GetImageAsync", controller = "Plan"}. Executing action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor)
+Executing action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) with arguments (4) - Validation state: Valid
+Executing action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) with arguments (3) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Plans] AS [p]
+        WHERE [p].[Id] = @__id_0)
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Plans] AS [p]
+        WHERE [p].[Id] = @__id_0)
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Create_Date], [p].[Create_Id], [p].[Description], [p].[Image], [p].[Image_Name], [p].[Mod_Date], [p].[Mod_Id], [p].[Name], [p].[Published]
+FROM [Plans] AS [p]
+WHERE [p].[Id] = @__id_0
+Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Create_Date], [p].[Create_Id], [p].[Description], [p].[Image], [p].[Image_Name], [p].[Mod_Date], [p].[Mod_Id], [p].[Name], [p].[Published]
+FROM [Plans] AS [p]
+WHERE [p].[Id] = @__id_0
+Executed action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 87.2173ms.
+Executing ObjectResult, writing value of type 'LearnWithMentorDTO.ImageDto'.
+Executed action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 170.0447ms.
+Executed action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) in 178.6368ms
+Executing ObjectResult, writing value of type 'LearnWithMentorDTO.ImageDto'.
+Request finished in 1275.9658ms 200 application/json; charset=utf-8
+Executed action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) in 214.5295ms
+An unhandled exception has occurred while executing the request.
+Request finished in 1315.6356ms 200 application/json; charset=utf-8
+Connection processing ended abnormally.
+Request starting HTTP/1.1 GET http://localhost:44338/api/plan/1/image  
+Policy execution successful.
+Route matched with {action = "GetImageAsync", controller = "Plan"}. Executing action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor)
+Executing action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) with arguments (1) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'LearnWithMentorContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: using lazy-loading proxies 
+Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Plans] AS [p]
+        WHERE [p].[Id] = @__id_0)
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+Request finished in 1519.1051ms 500 text/html; charset=utf-8
+Failed executing DbCommand (1,147ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Create_Date], [p].[Create_Id], [p].[Description], [p].[Image], [p].[Image_Name], [p].[Mod_Date], [p].[Mod_Id], [p].[Name], [p].[Published]
+FROM [Plans] AS [p]
+WHERE [p].[Id] = @__id_0
+An exception occurred in the database while iterating the results of a query for context type 'LearnWithMentor.DAL.Entities.LearnWithMentorContext'.
+System.AggregateException: An error occurred while writing to logger(s). (The process cannot access the file 'H:\ita\learnwithmentor-server-core\LearnWithMentor\logger.txt' because it is being used by another process.) ---> System.IO.IOException: The process cannot access the file 'H:\ita\learnwithmentor-server-core\LearnWithMentor\logger.txt' because it is being used by another process.
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamWriter..ctor(String path, Boolean append)
+   at System.IO.File.AppendAllText(String path, String contents)
+   at LearnWithMentor.Logger.FileLogger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter) in H:\ita\learnwithmentor-server-core\LearnWithMentor\Logger\FileLogger.cs:line 34
+   at Microsoft.Extensions.Logging.Logger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter)
+   --- End of inner exception stack trace ---
+   at Microsoft.Extensions.Logging.Logger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter)
+   at Microsoft.Extensions.Logging.LoggerMessage.<>c__DisplayClass10_0`6.<Define>b__0(ILogger logger, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, Exception exception)
+   at Microsoft.EntityFrameworkCore.Internal.RelationalLoggerExtensions.CommandExecuted(IDiagnosticsLogger`1 diagnostics, DbCommand command, DbCommandMethod executeMethod, Guid commandId, Guid connectionId, Object methodResult, Boolean async, DateTimeOffset startTime, TimeSpan duration)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.FirstOrDefault_[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.TaskResultAsyncEnumerable`1.Enumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+---> (Inner Exception #0) System.IO.IOException: The process cannot access the file 'H:\ita\learnwithmentor-server-core\LearnWithMentor\logger.txt' because it is being used by another process.
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamWriter..ctor(String path, Boolean append)
+   at System.IO.File.AppendAllText(String path, String contents)
+   at LearnWithMentor.Logger.FileLogger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter) in H:\ita\learnwithmentor-server-core\LearnWithMentor\Logger\FileLogger.cs:line 34
+   at Microsoft.Extensions.Logging.Logger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter)<---
+
+An exception occurred in the database while iterating the results of a query for context type 'LearnWithMentor.DAL.Entities.LearnWithMentorContext'.
+System.AggregateException: An error occurred while writing to logger(s). (The process cannot access the file 'H:\ita\learnwithmentor-server-core\LearnWithMentor\logger.txt' because it is being used by another process.) ---> System.IO.IOException: The process cannot access the file 'H:\ita\learnwithmentor-server-core\LearnWithMentor\logger.txt' because it is being used by another process.
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamWriter..ctor(String path, Boolean append)
+   at System.IO.File.AppendAllText(String path, String contents)
+   at LearnWithMentor.Logger.FileLogger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter) in H:\ita\learnwithmentor-server-core\LearnWithMentor\Logger\FileLogger.cs:line 34
+   at Microsoft.Extensions.Logging.Logger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter)
+   --- End of inner exception stack trace ---
+   at Microsoft.Extensions.Logging.Logger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter)
+   at Microsoft.Extensions.Logging.LoggerMessage.<>c__DisplayClass10_0`6.<Define>b__0(ILogger logger, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, Exception exception)
+   at Microsoft.EntityFrameworkCore.Internal.RelationalLoggerExtensions.CommandExecuted(IDiagnosticsLogger`1 diagnostics, DbCommand command, DbCommandMethod executeMethod, Guid commandId, Guid connectionId, Object methodResult, Boolean async, DateTimeOffset startTime, TimeSpan duration)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.FirstOrDefault_[TSource](IAsyncEnumerable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.TaskResultAsyncEnumerable`1.Enumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteSingletonAsyncQuery[TResult](QueryContext queryContext, Func`2 compiledQuery, IDiagnosticsLogger`1 logger, Type contextType)
+---> (Inner Exception #0) System.IO.IOException: The process cannot access the file 'H:\ita\learnwithmentor-server-core\LearnWithMentor\logger.txt' because it is being used by another process.
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamWriter..ctor(String path, Boolean append)
+   at System.IO.File.AppendAllText(String path, String contents)
+   at LearnWithMentor.Logger.FileLogger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter) in H:\ita\learnwithmentor-server-core\LearnWithMentor\Logger\FileLogger.cs:line 34
+   at Microsoft.Extensions.Logging.Logger.Log[TState](LogLevel logLevel, EventId eventId, TState state, Exception exception, Func`3 formatter)<---
+
+Executed action method LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor), returned result Microsoft.AspNetCore.Mvc.BadRequestResult in 1475.8568ms.
+Executing HttpStatusCodeResult, setting HTTP status code 400
+Executed action LearnWithMentor.Controllers.PlanController.GetImageAsync (LearnWithMentor) in 1501.7082ms
+Request finished in 1558.2524ms 400 

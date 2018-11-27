@@ -26,7 +26,7 @@ namespace LearnWithMentor.DAL.Repositories
 
         public async Task<IEnumerable<User>> GetUsersByGroupAsync(int groupId)
         {
-            return Context.UserGroups.Where(ug => ug.GroupId == groupId).Select(ug => ug.User);
+            return await Context.UserGroups.Where(ug => ug.GroupId == groupId).Select(ug => ug.User).ToListAsync();
         }
 
         public async Task<IEnumerable<User>> SearchAsync(string[] searchString, int? roleId)

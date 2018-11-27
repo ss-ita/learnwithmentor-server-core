@@ -318,7 +318,7 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Creator")
                         .WithMany("Comments")
                         .HasForeignKey("Create_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearnWithMentor.DAL.Entities.PlanTask", "PlanTask")
                         .WithMany("Comments")
@@ -331,7 +331,7 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Mentor")
                         .WithMany("GroupMentor")
                         .HasForeignKey("Mentor_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.GroupPlan", b =>
@@ -352,7 +352,7 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.UserTask", "UserTask")
                         .WithMany("Messages")
                         .HasForeignKey("UserTask_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Creator")
                         .WithMany("Messages")
@@ -365,11 +365,12 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Creator")
                         .WithMany("PlansCreated")
                         .HasForeignKey("Create_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Modifier")
                         .WithMany("PlansModified")
-                        .HasForeignKey("Mod_Id");
+                        .HasForeignKey("Mod_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.PlanSuggestion", b =>
@@ -395,11 +396,12 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.Plan", "Plans")
                         .WithMany("PlanTasks")
                         .HasForeignKey("Plan_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearnWithMentor.DAL.Entities.Section", "Sections")
                         .WithMany("PlanTasks")
-                        .HasForeignKey("Section_Id");
+                        .HasForeignKey("Section_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearnWithMentor.DAL.Entities.StudentTask", "Tasks")
                         .WithMany("PlanTasks")
@@ -412,11 +414,12 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Creator")
                         .WithMany("TasksCreated")
                         .HasForeignKey("Create_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Modifier")
                         .WithMany("TasksModified")
-                        .HasForeignKey("Mod_Id");
+                        .HasForeignKey("Mod_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.User", b =>
@@ -424,7 +427,7 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("Role_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.UserGroup", b =>
@@ -445,7 +448,7 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Mentor")
                         .WithMany("UserTaskMentor")
                         .HasForeignKey("Mentor_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearnWithMentor.DAL.Entities.PlanTask", "PlanTask")
                         .WithMany("UserTasks")

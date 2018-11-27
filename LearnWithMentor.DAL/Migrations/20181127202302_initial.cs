@@ -58,7 +58,7 @@ namespace LearnWithMentor.DAL.Migrations
                         column: x => x.Role_Id,
                         principalTable: "Roles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,7 +78,7 @@ namespace LearnWithMentor.DAL.Migrations
                         column: x => x.Mentor_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,7 +105,7 @@ namespace LearnWithMentor.DAL.Migrations
                         column: x => x.Create_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Plans_Users_Mod_Id",
                         column: x => x.Mod_Id,
@@ -136,7 +136,7 @@ namespace LearnWithMentor.DAL.Migrations
                         column: x => x.Create_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tasks_Users_Mod_Id",
                         column: x => x.Mod_Id,
@@ -246,7 +246,7 @@ namespace LearnWithMentor.DAL.Migrations
                         column: x => x.Plan_Id,
                         principalTable: "Plans",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PlanTasks_Sections_Section_Id",
                         column: x => x.Section_Id,
@@ -281,7 +281,7 @@ namespace LearnWithMentor.DAL.Migrations
                         column: x => x.Create_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_PlanTasks_PlanTask_Id",
                         column: x => x.PlanTask_Id,
@@ -312,7 +312,7 @@ namespace LearnWithMentor.DAL.Migrations
                         column: x => x.Mentor_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserTasks_PlanTasks_PlanTask_Id",
                         column: x => x.PlanTask_Id,
@@ -347,7 +347,7 @@ namespace LearnWithMentor.DAL.Migrations
                         column: x => x.UserTask_Id,
                         principalTable: "UserTasks",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Messages_Users_User_Id",
                         column: x => x.User_Id,
