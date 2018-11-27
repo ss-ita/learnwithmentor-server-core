@@ -104,7 +104,6 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpGet]
         [Route("api/group/{id}/users")]
         public async Task<ActionResult> GetUsersAsync(int id)
