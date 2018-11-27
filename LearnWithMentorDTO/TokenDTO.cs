@@ -1,4 +1,5 @@
-﻿namespace LearnWithMentorDTO
+﻿
+namespace LearnWithMentorDTO
 {
     public class TokenDTO
     {

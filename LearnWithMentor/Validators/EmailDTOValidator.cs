@@ -3,7 +3,7 @@ using LearnWithMentorDTO;
 
 namespace LearnWithMentor.Validators
 {
-    public class EmailDTOValidator : AbstractValidator<EmailDto>
+    public class EmailDTOValidator : AbstractValidator<EmailDTO>
     {
         public EmailDTOValidator()
         {

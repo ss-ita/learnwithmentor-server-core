@@ -1,8 +1,9 @@
-﻿namespace LearnWithMentorDTO
+﻿
+namespace LearnWithMentorDTO
 {
-    public class RoleDto
+    public class RoleDTO
     {
-        public RoleDto(int id, string name)
+        public RoleDTO(int id, string name)
         {
             Id = id;
             Name = name;

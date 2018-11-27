@@ -1,13 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using LearnWithMentorDTO.Infrastructure;
 
 namespace LearnWithMentorDTO
 {
-    public class PlanDto
+    public class PlanDTO
     {
-        public PlanDto() { }
-        public PlanDto(int id,
+        public PlanDTO() { }
+        public PlanDTO(int id,
             string name,
             string description,
             bool published,
@@ -35,15 +33,8 @@ namespace LearnWithMentorDTO
 
         }
         public int Id { get; set; }
-        [Required]
-        [StringLength(ValidationRules.MAX_PLAN_NAME_LENGTH,
-            ErrorMessage = "Plan name too long")]
         public string Name { get; set; }
-        [Required]
-        [StringLength(ValidationRules.MAX_PLAN_DESCRIPTION_LENGTH,
-            ErrorMessage = "Plan description too long")]
         public string Description { get; set; }
-        [Required]
         public bool Published { get; set; }
         public int CreatorId { get; set; }
         public string CreatorFirstName { get; set; }

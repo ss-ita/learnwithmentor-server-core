@@ -37,7 +37,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                CommentDto comment = await commentService.GetCommentAsync(id);
+                CommentDTO comment = await commentService.GetCommentAsync(id);
                 if (comment == null)
                 {
                     return NoContent();
@@ -78,7 +78,7 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/comment")]
-        public  async Task<ActionResult> PostAsync(int planTaskId, CommentDto comment)
+        public  async Task<ActionResult> PostAsync(int planTaskId, CommentDTO comment)
         {
             if (!ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="comment">New comment.</param>
         [HttpPut]
         [Route("api/comment")]
-        public async Task<ActionResult> PutCommentAsync(int commentId, [FromBody]CommentDto comment)
+        public async Task<ActionResult> PutCommentAsync(int commentId, [FromBody]CommentDTO comment)
         {
             try
             {

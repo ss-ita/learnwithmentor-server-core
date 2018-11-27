@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace LearnWithMentor.Logger
 {
@@ -31,7 +28,14 @@ namespace LearnWithMentor.Logger
             {
                 lock (_lock)
                 {
-                    File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
+                    using (var stream = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write))
+                    {
+                        using (var writer = new StreamWriter(stream))
+                        {
+                            string logText = formatter(state, exception) + Environment.NewLine;
+                            writer.Write(logText);
+                        }
+                    }
                 }
             }
         }

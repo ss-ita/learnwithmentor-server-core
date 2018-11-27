@@ -39,7 +39,7 @@ namespace LearnWithMentor.Controllers
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
-            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
             logger = loggerFactory.CreateLogger("FileLogger");
         }
 
@@ -100,7 +100,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/plan/{planId}/tasks/notinplan")]
         public async Task<ActionResult> GetTasksNotInCurrentPlanAsync(int planId)
         {
-            IEnumerable<TaskDto> task = await taskService.GetTasksNotInPlanAsync(planId);
+            IEnumerable<TaskDTO> task = await taskService.GetTasksNotInPlanAsync(planId);
             if (task != null)
             {
                 return Ok(task);
@@ -118,7 +118,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                TaskDto task = await taskService.GetTaskByIdAsync(taskId);
+                TaskDTO task = await taskService.GetTaskByIdAsync(taskId);
                 if (task == null)
                 {
                     return NoContent();
@@ -142,7 +142,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                TaskDto task = await taskService.GetTaskForPlanAsync(planTaskId);
+                TaskDTO task = await taskService.GetTaskForPlanAsync(planTaskId);
                 if (task != null)
                 {
                     return Ok(task);
@@ -173,7 +173,7 @@ namespace LearnWithMentor.Controllers
                 {
                     return BadRequest();
                 }
-                UserTaskDto userTask = await taskService.GetUserTaskByUserPlanTaskIdAsync(userId, planTaskId);
+                UserTaskDTO userTask = await taskService.GetUserTaskByUserPlanTaskIdAsync(userId, planTaskId);
                 if (userTask != null)
                 {
                     return Ok(userTask);
@@ -198,7 +198,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                var allUserTasks = new List<ListUserTasksDto>();
+                var allUserTasks = new List<ListUserTasksDTO>();
                 foreach (var userid in userId)
                 {
                     var userTasks = await taskService.GetTaskStatesForUserAsync(planTaskId, userid);
@@ -206,7 +206,7 @@ namespace LearnWithMentor.Controllers
                     {
                         return NoContent();
                     }
-                    allUserTasks.Add(new ListUserTasksDto() { UserTasks = userTasks });
+                    allUserTasks.Add(new ListUserTasksDTO() { UserTasks = userTasks });
                 }
                 return Ok(allUserTasks);
             }
@@ -228,7 +228,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                List<UserTaskDto> userTasks = await taskService.GetTaskStatesForUserAsync(planTaskId, userId);
+                List<UserTaskDTO> userTasks = await taskService.GetTaskStatesForUserAsync(planTaskId, userId);
                 if (userTasks == null)
                 {
                     return NoContent();
@@ -256,7 +256,7 @@ namespace LearnWithMentor.Controllers
                 {
                     return BadRequest(HttpStatusCode.Unauthorized);
                 }
-                IEnumerable<MessageDto> messageList = await messageService.GetMessagesAsync(userTaskId);
+                IEnumerable<MessageDTO> messageList = await messageService.GetMessagesAsync(userTaskId);
                 if (messageList != null)
                 {
                     return Ok(messageList);
@@ -281,7 +281,7 @@ namespace LearnWithMentor.Controllers
 
         [HttpPost]
         [Route("api/task/userTask/{userTaskId}/messages")]
-        public ActionResult PostUserTaskMessage(int userTaskId, [FromBody]MessageDto newMessage)
+        public ActionResult PostUserTaskMessage(int userTaskId, [FromBody]MessageDTO newMessage)
         {
             try
             {
@@ -316,7 +316,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="newUserTask">New userTask object.</param>
         [HttpPost]
         [Route("api/task/usertask")]
-        public async Task<ActionResult> PostNewUserTaskAsync([FromBody]UserTaskDto newUserTask)
+        public async Task<ActionResult> PostNewUserTaskAsync([FromBody]UserTaskDTO newUserTask)
         {
             try
             {
@@ -378,7 +378,7 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         [HttpPut]
         [Route("api/task/userTask/{userTaskId}/messages/isRead")]
-        public async Task<ActionResult> PutNewIsReadValueAsync(int userTaskId, MessageDto NewMessage)
+        public async Task<ActionResult> PutNewIsReadValueAsync(int userTaskId, MessageDTO NewMessage)
         {
             try
             {
@@ -445,7 +445,7 @@ namespace LearnWithMentor.Controllers
                     return await GetAllTasksAsync();
                 }
                 var lines = key.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                List<TaskDto> taskList = await taskService.SearchAsync(lines);
+                List<TaskDTO> taskList = await taskService.SearchAsync(lines);
                 if (taskList == null || taskList.Count == 0)
                 {
                     return NoContent();
@@ -475,7 +475,7 @@ namespace LearnWithMentor.Controllers
                     return BadRequest();
                 }
                 var lines = key.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                IEnumerable<TaskDto> taskList = await taskService.SearchAsync(lines, planId);
+                IEnumerable<TaskDTO> taskList = await taskService.SearchAsync(lines, planId);
                 if (taskList == null)
                 {
                     return NoContent();
@@ -495,7 +495,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="newTask">Task object for creation.</param>
         [HttpPost]
         [Route("api/task")]
-        public ActionResult Post([FromBody]TaskDto newTask)
+        public ActionResult Post([FromBody]TaskDTO newTask)
         {
             try
             {
@@ -527,7 +527,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="value"> New plan to be created. </param>
         [HttpPost]
         [Route("api/task/return")]
-        public async Task<ActionResult> PostAndReturnIdAsync([FromBody]TaskDto value)
+        public async Task<ActionResult> PostAndReturnIdAsync([FromBody]TaskDTO value)
         {
             try
             {
@@ -561,7 +561,7 @@ namespace LearnWithMentor.Controllers
         //[Authorize(Roles = "Mentor")]
         [HttpPut]
         [Route("api/task/{taskId}")]
-        public async Task<ActionResult> PutAsync(int taskId, [FromBody]TaskDto task)
+        public async Task<ActionResult> PutAsync(int taskId, [FromBody]TaskDTO task)
         {
             try
             {

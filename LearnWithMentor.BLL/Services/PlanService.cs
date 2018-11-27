@@ -16,14 +16,14 @@ namespace LearnWithMentorBLL.Services
         {
         }
 
-        public async Task<PlanDto> GetAsync(int id)
+        public async Task<PlanDTO> GetAsync(int id)
         {
             var plan = await db.Plans.Get(id);
             if (plan == null)
             {
                 return null;
             }
-            return new PlanDto(plan.Id,
+            return new PlanDTO(plan.Id,
                                plan.Name,
                                plan.Description,
                                plan.Published,
@@ -36,17 +36,17 @@ namespace LearnWithMentorBLL.Services
                                plan.Create_Date,
                                plan.Mod_Date);
         }
-        public async Task<List<PlanDto>> GetAll()
+        public async Task<List<PlanDTO>> GetAll()
         {
             var allPlans = db.Plans.GetAll();
             if (allPlans == null)
             {
                 return null;
             }
-            var dtosList = new List<PlanDto>();
+            var dtosList = new List<PlanDTO>();
             foreach (var plan in await allPlans)
             {
-                dtosList.Add(new PlanDto(plan.Id,
+                dtosList.Add(new PlanDTO(plan.Id,
                                plan.Name,
                                plan.Description,
                                plan.Published,
@@ -61,17 +61,17 @@ namespace LearnWithMentorBLL.Services
             }
             return dtosList;
         }
-        public List<PlanDto> GetSomeAmount(int prevAmount, int amount)
+        public List<PlanDTO> GetSomeAmount(int prevAmount, int amount)
         {
             var somePlans = db.Plans.GetSomePlans(prevAmount, amount);
             if (somePlans == null)
             {
                 return null;
             }
-            var dtosList = new List<PlanDto>();
+            var dtosList = new List<PlanDTO>();
             foreach (var plan in somePlans)
             {
-                dtosList.Add(new PlanDto(plan.Id,
+                dtosList.Add(new PlanDTO(plan.Id,
                                plan.Name,
                                plan.Description,
                                plan.Published,
@@ -87,7 +87,7 @@ namespace LearnWithMentorBLL.Services
             return dtosList;
         }
 
-        public async ThreadTask.Task<List<TaskDto>> GetAllTasksAsync(int planId)
+        public async ThreadTask.Task<List<TaskDTO>> GetAllTasksAsync(int planId)
         {
             var plan = await db.Plans.Get(planId);
             if (plan == null)
@@ -105,10 +105,10 @@ namespace LearnWithMentorBLL.Services
             {
                 return null;
             }
-            var dtosList = new List<TaskDto>();
+            var dtosList = new List<TaskDTO>();
             foreach (var task in tasksForConcretePlan)
             {
-                var toAdd = new TaskDto(task.Id,
+                var toAdd = new TaskDTO(task.Id,
                                          task.Name,
                                          task.Description,
                                          task.Private,
@@ -143,7 +143,7 @@ namespace LearnWithMentorBLL.Services
             return planTaskIds;
         }
 
-        public async ThreadTask.Task<List<SectionDto>> GetTasksForPlanAsync(int planId)
+        public async ThreadTask.Task<List<SectionDTO>> GetTasksForPlanAsync(int planId)
         {
             var plan = await db.Plans.Get(planId);
             if (plan == null)
@@ -164,15 +164,15 @@ namespace LearnWithMentorBLL.Services
                         .Select(pt => pt.Tasks)
                 }).ToList();
 
-            List<SectionDto> sectionDTOs = new List<SectionDto>();
+            List<SectionDTO> sectionDTOs = new List<SectionDTO>();
 
             foreach (var sec in section)
             {
-                List<TaskDto> taskDTOs = new List<TaskDto>();
-                ContentDto contentDTO = new ContentDto();
+                List<TaskDTO> taskDTOs = new List<TaskDTO>();
+                ContentDTO contentDTO = new ContentDTO();
                 foreach (var task in sec.Tasks)
                 {
-                    var toAdd = new TaskDto(task.Id,
+                    var toAdd = new TaskDTO(task.Id,
                         task.Name,
                         task.Description,
                         task.Private,
@@ -188,7 +188,7 @@ namespace LearnWithMentorBLL.Services
                     taskDTOs.Add(toAdd);
                 }
                 contentDTO.Tasks = taskDTOs;
-                SectionDto sectionDTO = new SectionDto()
+                SectionDTO sectionDTO = new SectionDTO()
                 {
                     Id = sec.Id,
                     Name = sec.Name,
@@ -199,7 +199,7 @@ namespace LearnWithMentorBLL.Services
             return sectionDTOs;
         }
 
-        public async ThreadTask.Task<bool> UpdateByIdAsync(PlanDto plan, int id)
+        public async ThreadTask.Task<bool> UpdateByIdAsync(PlanDTO plan, int id)
         {
             var toUpdate = await db.Plans.Get(id);
             if (toUpdate == null)
@@ -294,21 +294,21 @@ namespace LearnWithMentorBLL.Services
             return true;
         }
 
-        public async ThreadTask.Task<ImageDto> GetImageAsync(int id)
+        public async ThreadTask.Task<ImageDTO> GetImageAsync(int id)
         {
             var toGetImage = await db.Plans.Get(id);
             if (toGetImage?.Image == null || toGetImage.Image_Name == null)
             {
                 return null;
             }
-            return new ImageDto()
+            return new ImageDTO()
             {
                 Name = toGetImage.Image_Name,
                 Base64Data = toGetImage.Image
             };
         }
 
-        public async ThreadTask.Task<bool> AddAsync(PlanDto dto)
+        public async ThreadTask.Task<bool> AddAsync(PlanDTO dto)
         {
             if (! await ContainsId(dto.CreatorId))
             {
@@ -325,7 +325,7 @@ namespace LearnWithMentorBLL.Services
             db.Save();
             return true;
         }
-        public async ThreadTask.Task<int?> AddAndGetIdAsync(PlanDto dto)
+        public async ThreadTask.Task<int?> AddAndGetIdAsync(PlanDTO dto)
         {
             if (!(await db.Users.ContainsIdAsync(dto.CreatorId)))
             {
@@ -343,17 +343,17 @@ namespace LearnWithMentorBLL.Services
             return createdPlan?.Id;
         }
 
-        public List<PlanDto> Search(string[] searchString)
+        public List<PlanDTO> Search(string[] searchString)
         {
             var result = db.Plans.Search(searchString);
             if (result == null)
             {
                 return null;
             }
-            var dtosList = new List<PlanDto>();
+            var dtosList = new List<PlanDTO>();
             foreach (var plan in result)
             {
-                dtosList.Add(new PlanDto(plan.Id,
+                dtosList.Add(new PlanDTO(plan.Id,
                                          plan.Name,
                                          plan.Description,
                                          plan.Published,

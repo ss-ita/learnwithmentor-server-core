@@ -1,5 +1,4 @@
 ﻿using LearnWithMentor.DAL.Entities;
-using LearnWithMentor.DAL.Repositories.Interfaces;
 using LearnWithMentor.DAL.UnitOfWork;
 using LearnWithMentorBLL.Services;
 using LearnWithMentorDTO;
@@ -33,7 +32,6 @@ namespace LearnWithMentor.Tests.BLL
         [Test]
         public async Task GetCommentById_ShouldReturnCommentDTO()
         {
-            //arrange
             int commentId = 3;
             string text = "test";
             string fullName = "Full Name";
@@ -55,11 +53,9 @@ namespace LearnWithMentor.Tests.BLL
                 .Setup(u => u.Users.ExtractFullNameAsync(It.IsAny<int>()))
                 .ReturnsAsync(fullName);
 
-            //act
             var result = await commentService.GetCommentAsync(commentId);
 
-            //assert
-            Assert.IsInstanceOf(typeof(CommentDto), result);
+            Assert.IsInstanceOf(typeof(CommentDTO), result);
             Assert.AreEqual(commentId, result.Id);
             Assert.AreEqual(text, result.Text);
             Assert.AreEqual(fullName, result.CreatorFullName);
@@ -67,12 +63,11 @@ namespace LearnWithMentor.Tests.BLL
         [Test]
         public async Task AddCommentToPlanTask_ShouldReturnTrue()
         {
-            //arrange
             int planTaskId = 3;
             int creatorID = 1;
             string creatorFullName = "Full Name";
 
-            var comment = new CommentDto(3, "test text", creatorID, creatorFullName, DateTime.Now, null);
+            var comment = new CommentDTO(3, "test text", creatorID, creatorFullName, DateTime.Now, null);
             var planTask = new PlanTask { Id = planTaskId };
             var creator = new User { Id = creatorID };
 
@@ -89,21 +84,18 @@ namespace LearnWithMentor.Tests.BLL
                     Id = c.Id
                 }));
 
-            //act
             var result = await commentService.AddCommentToPlanTaskAsync(planTaskId, comment);
 
-            //assert
             Assert.IsTrue(result);
         }
         [Test]
         public async Task AddCommentToPlanTask_ShouldReturnFalseBecauseNoPlanTask()
         {
-            //arrange
             int planTaskId = 3;
             int creatorID = 1;
             string creatorFullName = "Full Name";
 
-            var comment = new CommentDto(3, "test text", creatorID, creatorFullName, DateTime.Now, null);
+            var comment = new CommentDTO(3, "test text", creatorID, creatorFullName, DateTime.Now, null);
             PlanTask planTask = null;
             var creator = new User { Id = creatorID };
 
@@ -120,21 +112,18 @@ namespace LearnWithMentor.Tests.BLL
                     Id = c.Id
                 }));
 
-            //act
             var result = await commentService.AddCommentToPlanTaskAsync(planTaskId, comment);
 
-            //assert
             Assert.IsFalse(result);
         }
         [Test]
         public async Task AddCommentToPlanTask_ShouldReturnFalseBecauseNoCreator()
         {
-            //arrange
             int planTaskId = 3;
             int creatorID = 1;
             string creatorFullName = "Full Name";
 
-            var comment = new CommentDto(3, "test text", creatorID, creatorFullName, DateTime.Now, null);
+            var comment = new CommentDTO(3, "test text", creatorID, creatorFullName, DateTime.Now, null);
             var planTask = new PlanTask { Id = planTaskId };
             User creator = null;
 
@@ -151,16 +140,13 @@ namespace LearnWithMentor.Tests.BLL
                     Id = c.Id
                 }));
 
-            //act
             var result = await commentService.AddCommentToPlanTaskAsync(planTaskId, comment);
 
-            //assert
             Assert.IsFalse(result);
         }
         [Test]
         public async Task UpdateCommentIdText_ShouldReturnUpdatedCommentText()
         {
-            //arrange
             int commentId = 3;
             string newText = "Hello";
             var comment = new Comment()
@@ -176,16 +162,13 @@ namespace LearnWithMentor.Tests.BLL
                 .Setup(u => u.Comments.UpdateAsync(It.IsAny<Comment>()))
                 .Callback<Comment>((c) => c.Text = newText);
 
-            //act
             var result = await commentService.UpdateCommentIdTextAsync(commentId, newText);
 
-            //assert
             Assert.AreEqual(newText, comment.Text);
         }
         [Test]
         public async Task UpdateCommentIdText_ShouldReturnFalseBecauseEmptyNewString()
         {
-            //arrange
             int commentId = 3;
             string newText = "";
             var comment = new Comment()
@@ -201,16 +184,13 @@ namespace LearnWithMentor.Tests.BLL
                 .Setup(u => u.Comments.UpdateAsync(It.IsAny<Comment>()))
                 .Callback<Comment>((c) => c.Text = newText);
 
-            //act
             var result = await commentService.UpdateCommentIdTextAsync(commentId, newText);
 
-            //assert
             Assert.IsFalse(result);
         }
         [Test]
         public async Task UpdateCommentIdText_ShouldReturnFalseBecauseCommentDoesNotExits()
         {
-            //arrange
             int commentId = 3;
             string newText = "";
             var comment = new Comment()
@@ -226,16 +206,13 @@ namespace LearnWithMentor.Tests.BLL
                 .Setup(u => u.Comments.UpdateAsync(It.IsAny<Comment>()))
                 .Callback<Comment>((c) => c.Text = newText);
 
-            //act
             var result = await commentService.UpdateCommentIdTextAsync(commentId, newText);
 
-            //assert
             Assert.IsFalse(result);
         }
         [Test]
         public async Task GetCommentsForPlanTask_ShouldReturnComments()
         {
-            //arrange
             int planTaskId = 3;
             var planTask = new PlanTask
             {
@@ -254,10 +231,8 @@ namespace LearnWithMentor.Tests.BLL
                 .Setup(u => u.Users.ExtractFullNameAsync(It.IsAny<int>()))
                 .ReturnsAsync("Creator Full Name");
 
-            //act
             var result = await commentService.GetCommentsForPlanTaskAsync(planTaskId);
 
-            //assert
             Assert.AreEqual(2, result.ToList().Count);
             for (int i = 0; i < planTask.Comments.Count; i++)
             { 
@@ -268,7 +243,6 @@ namespace LearnWithMentor.Tests.BLL
         [Test]
         public async Task GetCommentsForPlanTask_ShouldReturnNullBecausePlanTaskIsNull()
         {
-            //arrange
             int planTaskId = 3;
             PlanTask planTask = null;
 
@@ -279,16 +253,13 @@ namespace LearnWithMentor.Tests.BLL
                 .Setup(u => u.Users.ExtractFullNameAsync(It.IsAny<int>()))
                 .ReturnsAsync("Creator Full Name");
 
-            //act
             var result = await commentService.GetCommentsForPlanTaskAsync(planTaskId);
 
-            //assert
             Assert.IsNull(result);
         }
         [Test]
         public async Task GetCommentsForPlanTask_ShouldReturnEmptyCollectionBecauseNoComments()
         {
-            //arrange
             int planTaskId = 3;
             var planTask = new PlanTask
             {
@@ -302,26 +273,21 @@ namespace LearnWithMentor.Tests.BLL
                 .Setup(u => u.Users.ExtractFullNameAsync(It.IsAny<int>()))
                 .ReturnsAsync("Creator Full Name");
 
-            //act
             var result = await commentService.GetCommentsForPlanTaskAsync(planTaskId);
 
-            //assert
             Assert.AreEqual(0, result.ToList().Count);
         }
         [Test]
         public async Task RemoveById_ShouldNotRemoveBecauseDoesNotExist()
         {
-            //arrange
             uowMock
                 .Setup(u => u.Comments.ContainsIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(false);
 
             int commentId = 3;
 
-            //act
             var result = await commentService.RemoveByIdAsync(commentId);
 
-            //assert
             Assert.IsFalse(result);
         }
     }

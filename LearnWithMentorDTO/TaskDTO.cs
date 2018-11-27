@@ -1,25 +1,24 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using LearnWithMentorDTO.Infrastructure;
 
 namespace LearnWithMentorDTO
 {
-    public class TaskDto
+    public class TaskDTO
     {
-        public TaskDto() { }
-        public TaskDto(int id,
-                        string name,
-                        string description,
-                        bool privateness,
-                        int createId,
-                        string creatorName,
-                        int? modId,
-                        string modifierName,
-                        DateTime? createDate,
-                        DateTime? modDate,
-                        int? priority,
-                        int? sectionId,
-                        int? planTaskId)
+        public TaskDTO() { }
+        public TaskDTO(
+            int id,
+            string name,
+            string description,
+            bool privateness,
+            int createId,
+            string creatorName,
+            int? modId,
+            string modifierName,
+            DateTime? createDate,
+            DateTime? modDate,
+            int? priority,
+            int? sectionId,
+            int? planTaskId)
         {
             Id = id;
             Name = name;
@@ -37,17 +36,9 @@ namespace LearnWithMentorDTO
         }
 
         public int Id { get; set; }
-        [Required]
-        [StringLength(ValidationRules.MAX_TASK_NAME_LENGTH,
-            ErrorMessage = "Task name too long")]
         public string Name { get; set; }
-        [Required]
-        [StringLength(ValidationRules.MAX_TASK_DESCRIPTION_LENGTH,
-            ErrorMessage = "Description too long")]
         public string Description { get; set; }
-        [Required]
         public bool Private { get; set; }
-        [Required]
         public int CreatorId { get; set; }
         public string CreatorName { get; set; }      
         public int? ModifierId { get; set; }

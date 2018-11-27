@@ -11,34 +11,34 @@ namespace LearnWithMentorBLL.Services
         public RoleService(IUnitOfWork db) : base(db)
         {
         }
-        public async Task<RoleDto> GetAsync(int id)
+        public async Task<RoleDTO> GetAsync(int id)
         {
             var role = await db.Roles.Get(id);
             return role == null ? null :
-                new RoleDto(role.Id, role.Name);
+                new RoleDTO(role.Id, role.Name);
         }
-        public async Task<List<RoleDto>> GetAllRoles()
+        public async Task<List<RoleDTO>> GetAllRoles()
         {
             var roles = await db.Roles.GetAll();
             if (roles == null)
             {
                 return null;
             }
-            var dtos = new List<RoleDto>();
+            var dtos = new List<RoleDTO>();
             foreach (var role in roles)
             {
-                dtos.Add(new RoleDto(role.Id, role.Name));
+                dtos.Add(new RoleDTO(role.Id, role.Name));
             }
             return dtos;
         }
-        public async Task<RoleDto> GetByNameAsync(string name)
+        public async Task<RoleDTO> GetByNameAsync(string name)
         {
             var role = await db.Roles.TryGetByName(name);
             if (role == null)
             {
                 return null;
             }
-            return new RoleDto(role.Id, role.Name);
+            return new RoleDTO(role.Id, role.Name);
         }
     }
 }

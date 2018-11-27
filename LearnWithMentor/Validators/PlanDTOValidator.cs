@@ -3,7 +3,7 @@ using LearnWithMentorDTO;
 
 namespace LearnWithMentor.Validators
 {
-    public class PlanDTOValidator : AbstractValidator<PlanDto>
+    public class PlanDTOValidator : AbstractValidator<PlanDTO>
     {
         public PlanDTOValidator()
         {
