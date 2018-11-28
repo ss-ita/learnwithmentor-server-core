@@ -1,12 +1,16 @@
-﻿using LearnWithMentorDTO.Infrastructure;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 
 namespace LearnWithMentorDTO
 {
-    public class CommentDto
+    public class CommentDTO
     {
-        public CommentDto(int id, string text, int creatorId, string creatorFullName, DateTime? createDate, DateTime? modDate)
+        public CommentDTO(
+            int id, 
+            string text, 
+            int creatorId, 
+            string creatorFullName, 
+            DateTime? createDate, 
+            DateTime? modDate)
         {
             Id = id;
             Text = text;
@@ -17,9 +21,6 @@ namespace LearnWithMentorDTO
         }
 
         public int Id { get; set; }
-        [Required]
-        [StringLength(ValidationRules.MAX_COMMENT_TEXT_LENGTH,
-            ErrorMessage = "Comment text too long")]
         public string Text { get; set; }
         public int CreatorId { get; set; }
         public string CreatorFullName { get; set; }

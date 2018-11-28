@@ -1,5 +1,4 @@
 ﻿using LearnWithMentor.DAL.Entities;
-using LearnWithMentor.DAL.Repositories.Interfaces;
 using LearnWithMentor.DAL.UnitOfWork;
 using LearnWithMentorBLL.Services;
 using LearnWithMentorDTO;
@@ -32,7 +31,6 @@ namespace LearnWithMentor.Tests.BLL
         [Test]
         public async Task GetTaskAsync_ShouldReturnMessageDTOs()
         {
-            //arrange
             int userTaskIdTest = 1;
             string fullNameTest = "Full Name Test";
             var userTask = new UserTask()
@@ -40,8 +38,8 @@ namespace LearnWithMentor.Tests.BLL
                 Id = userTaskIdTest,
                 Messages = new Message[]
                 {
-                    new Message{Id = 0,Text = "Test 0"},
-                    new Message{Id = 1,Text = "Test 1"}
+                    new Message {Id = 0, Text = "Test 0"},
+                    new Message {Id = 1, Text = "Test 1"}
                 }
             };
 
@@ -51,10 +49,9 @@ namespace LearnWithMentor.Tests.BLL
             uowMock
                 .Setup(u => u.Users.ExtractFullNameAsync(It.IsAny<int>()))
                 .ReturnsAsync(fullNameTest);
-            //act 
+
             var result = await messageService.GetMessagesAsync(userTaskIdTest);
 
-            //asert
             Assert.AreEqual(2, result.ToList().Count);
             for (int i = 0; i < userTask.Messages.Count; i++)
             {
@@ -66,9 +63,8 @@ namespace LearnWithMentor.Tests.BLL
         [Test]
         public async Task UpdateIsReadStateAsync_ShouldReturnTrue()
         {
-            //arrange
             int userTaskIdTest = 1;
-            var messageDtoTest = new MessageDto(1, 2, 3, "Test", "TestText", DateTime.Now, true);
+            var messageDtoTest = new MessageDTO(1, 2, 3, "Test", "TestText", DateTime.Now, true);
             var messageTest = new Message() { Id = messageDtoTest.Id };
 
             uowMock
@@ -77,18 +73,15 @@ namespace LearnWithMentor.Tests.BLL
             uowMock
                 .Setup(u => u.Save());
 
-            //act
             var result = await messageService.UpdateIsReadStateAsync(userTaskIdTest, messageDtoTest);
 
-            //assert
             Assert.IsTrue(result);
         }
 
         [Test]
-        public async Task SendMessage_ShouldReturnTrue()
+        public void SendMessage_ShouldReturnTrue()
         {
-            //arrange
-            var newMessageTest = new MessageDto(1, 2, 3, "Test", "TestText", DateTime.Now, true);
+            var newMessageTest = new MessageDTO(1, 2, 3, "Test", "TestText", DateTime.Now, true);
             var userTaskTest = new UserTask();
 
             uowMock
@@ -101,10 +94,9 @@ namespace LearnWithMentor.Tests.BLL
                }));
             uowMock
                 .Setup(u => u.Save());
-            //act 
+
             var result = messageService.SendMessage(newMessageTest);
 
-            //assert
             Assert.IsTrue(result);
         }
     }

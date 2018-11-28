@@ -3,7 +3,7 @@ using LearnWithMentorDTO;
 
 namespace LearnWithMentor.Validators
 {
-    public class PagedListDTOValidator<T> : AbstractValidator<PagedListDto<T>>
+    public class PagedListDTOValidator<T> : AbstractValidator<PagedListDTO<T>>
     {
         public PagedListDTOValidator()
         {

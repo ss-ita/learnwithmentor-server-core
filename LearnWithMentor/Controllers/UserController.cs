@@ -49,7 +49,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/user")]
         public async Task<ActionResult> GetAsync()
         {
-            List<UserDto> users = await userService.GetAllUsersAsync();
+            List<UserDTO> users = await userService.GetAllUsersAsync();
             if (users.Count != 0)
             {
 				return Ok(users);
@@ -66,7 +66,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                PagedListDto<UserDto> users = await userService.GetUsers(pageSize, pageNumber);
+                PagedListDTO<UserDTO> users = await userService.GetUsers(pageSize, pageNumber);
 				return Ok(users);
             }
             catch (Exception e)
@@ -95,7 +95,7 @@ namespace LearnWithMentor.Controllers
 					return NoContent();
                 }
             }
-            List<UserDto> users = await userService.GetUsersByRoleAsync(roleId);
+            List<UserDTO> users = await userService.GetUsersByRoleAsync(roleId);
             if (users.Count == 0)
             {
 				return NoContent();
@@ -122,7 +122,7 @@ namespace LearnWithMentor.Controllers
 					return NoContent();
                 }
             }
-            PagedListDto<UserDto> users = await userService.GetUsersByRoleAsync(roleId, pageSize, pageNumber);
+            PagedListDTO<UserDTO> users = await userService.GetUsersByRoleAsync(roleId, pageSize, pageNumber);
 			return Ok(users);
         }
 
@@ -136,7 +136,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/user/instate/{state}")]
         public async Task<ActionResult> GetUsersbyStateAsync(bool state)
         {
-            List<UserDto> users = await userService.GetUsersByStateAsync(state);
+            List<UserDTO> users = await userService.GetUsersByStateAsync(state);
             if (users.Count == 0)
             {
 				return NoContent();
@@ -156,7 +156,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/user/instate/{state}")]
         public async Task<ActionResult> GetUsersbyStateAsync(bool state, [FromQuery]int pageSize, [FromQuery]int pageNumber)
         {
-            PagedListDto<UserDto> users = await userService.GetUsersByStateAsync(state, pageSize, pageNumber);
+            PagedListDTO<UserDTO> users = await userService.GetUsersByStateAsync(state, pageSize, pageNumber);
 			return Ok(users);
         }
 
@@ -175,7 +175,7 @@ namespace LearnWithMentor.Controllers
                 id = userIdentityService.GetUserId();
             }
 
-            UserDto user = await userService.GetAsync(id);
+            UserDTO user = await userService.GetAsync(id);
             if (user != null)
             {
 				return Ok(user);
@@ -190,7 +190,7 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/user")]
-        public async Task<ActionResult> PostAsync([FromBody]UserRegistrationDto value)
+        public async Task<ActionResult> PostAsync([FromBody]UserRegistrationDTO value)
         {
             if (!ModelState.IsValid)
             {
@@ -296,7 +296,7 @@ namespace LearnWithMentor.Controllers
 		[AllowAnonymous]
         [HttpPost]
         [Route("api/user/password-reset")]
-        public async Task<ActionResult> SendPasswordResetLinkAsync([FromBody] EmailDto emailModel, string resetPasswordLink)
+        public async Task<ActionResult> SendPasswordResetLinkAsync([FromBody] EmailDTO emailModel, string resetPasswordLink)
         {
             try
             {
@@ -307,7 +307,7 @@ namespace LearnWithMentor.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-                    UserIdentityDto user = await userService.GetByEmailAsync(emailModel.Email);
+                    UserIdentityDTO user = await userService.GetByEmailAsync(emailModel.Email);
                     if (user == null)
                     {
 						return NoContent();
@@ -338,7 +338,7 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/user/confirm-email")]
-        public async Task<ActionResult> SendEmailConfirmLinkAsync([FromBody] EmailDto emailModel, string emailConfirmLink)
+        public async Task<ActionResult> SendEmailConfirmLinkAsync([FromBody] EmailDTO emailModel, string emailConfirmLink)
         {
             try
             {
@@ -349,7 +349,7 @@ namespace LearnWithMentor.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-                    UserIdentityDto user = await userService.GetByEmailAsync(emailModel.Email);
+                    UserIdentityDTO user = await userService.GetByEmailAsync(emailModel.Email);
                     if (user == null)
                     {
 						return NoContent();
@@ -382,7 +382,7 @@ namespace LearnWithMentor.Controllers
         public async Task<ActionResult> GetStatisticsAsync()
         {
             var id = userIdentityService.GetUserId();
-            StatisticsDto statistics = await taskService.GetUserStatisticsAsync(id);
+            StatisticsDTO statistics = await taskService.GetUserStatisticsAsync(id);
             if (statistics == null)
             {
 				return NoContent();
@@ -462,7 +462,7 @@ namespace LearnWithMentor.Controllers
                 {
 					return NoContent();
                 }
-                ImageDto dto = await userService.GetImageAsync(id);
+                ImageDTO dto = await userService.GetImageAsync(id);
                 if (dto == null)
                 {
 					return NoContent();
@@ -484,7 +484,7 @@ namespace LearnWithMentor.Controllers
 
         [HttpPut]
         [Route("api/user/{id}")]
-        public async Task<ActionResult> PutAsync(int id, [FromBody]UserDto value)
+        public async Task<ActionResult> PutAsync(int id, [FromBody]UserDTO value)
         {
             try
             {
@@ -509,7 +509,7 @@ namespace LearnWithMentor.Controllers
 
         [HttpPut]
         [Route("api/user/update-multiple")]
-        public async Task<ActionResult> UpdateUsersAsync([FromBody]UserDto[] value)
+        public async Task<ActionResult> UpdateUsersAsync([FromBody]UserDTO[] value)
         {
             try
             {
@@ -583,7 +583,7 @@ namespace LearnWithMentor.Controllers
                 key = "";
             }
 
-            RoleDto criteria = await  roleService.GetByNameAsync(role);
+            RoleDTO criteria = await  roleService.GetByNameAsync(role);
             var lines = key.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             int? searchParametr = null;
             if (role == Constants.Roles.Blocked)
@@ -594,7 +594,7 @@ namespace LearnWithMentor.Controllers
             {
                 lines = lines.Take(2).ToArray();
             }
-            List<UserDto> users =  criteria != null ? await userService.SearchAsync(lines, criteria.Id) :
+            List<UserDTO> users =  criteria != null ? await userService.SearchAsync(lines, criteria.Id) :
                 await userService.SearchAsync(lines, searchParametr);
             if ( users.Count != 0)
             {

@@ -25,5 +25,9 @@
         {
             public const string policyName = "MyPolicy";
         }
+        public static class Logger
+        {
+            public const string logFileName = "logger.txt";
+        }
     }
 }
