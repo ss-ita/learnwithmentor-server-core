@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using LearnWithMentor.DAL.Configurations;
 
 namespace LearnWithMentor.DAL.Entities
 {
@@ -17,9 +16,7 @@ namespace LearnWithMentor.DAL.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region CallConfiguringMethods
-
-            /*CreateUserReferences(modelBuilder);
+            CreateUserReferences(modelBuilder);
             CreateCommentReferences(modelBuilder);
             CreateGroupReferences(modelBuilder);
             CreateMessageReferences(modelBuilder);
@@ -30,23 +27,7 @@ namespace LearnWithMentor.DAL.Entities
             CreateSectionReferences(modelBuilder);
             CreateTaskReferences(modelBuilder);
             CreateUserTaskReferences(modelBuilder);
-            CreateManyToManyReferences(modelBuilder);*/
-
-            #endregion
-
-            modelBuilder.ApplyConfiguration(new CommentConfiguration());
-            modelBuilder.ApplyConfiguration(new GroupConfiguration());
-            modelBuilder.ApplyConfiguration(new GroupPlanConfiguration());
-            modelBuilder.ApplyConfiguration(new MessageConfiguration());
-            modelBuilder.ApplyConfiguration(new PlanConfiguration());
-            modelBuilder.ApplyConfiguration(new PlanSuggestionConfiguration());
-            modelBuilder.ApplyConfiguration(new PlanTaskConfiguration());
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            modelBuilder.ApplyConfiguration(new SectionConfiguration());
-            modelBuilder.ApplyConfiguration(new StudentTaskConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new UserGroupConfiguration());
-            modelBuilder.ApplyConfiguration(new UserTaskConfiguration());
+            CreateManyToManyReferences(modelBuilder);
         }
 
         public virtual DbSet<Comment> Comments { get; set; }
@@ -63,10 +44,7 @@ namespace LearnWithMentor.DAL.Entities
         public virtual DbSet<UserGroup> UserGroups { get; set; }                
         public virtual DbSet<GroupPlan> GroupPlans { get; set; }
 
-
-        #region ConfiguringMethods
-
-        /*private void CreateUserReferences(ModelBuilder modelBuilder)
+        private void CreateUserReferences(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
                 .HasKey(user => user.Id);
@@ -290,8 +268,6 @@ namespace LearnWithMentor.DAL.Entities
                 .WithMany(s => s.GroupPlans)
                 .HasForeignKey(s => s.GroupId)
                 .OnDelete(DeleteBehavior.Restrict);
-        }*/
-
-        #endregion
+        }
     }
 }

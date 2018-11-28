@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnWithMentor.DAL.Migrations
 {
     [DbContext(typeof(LearnWithMentorContext))]
-    [Migration("20181127202302_initial")]
+    [Migration("20181128211113_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
