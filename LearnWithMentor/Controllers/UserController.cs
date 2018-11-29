@@ -16,6 +16,8 @@ using System.Linq;
 using LearnWithMentor.Services;
 using LearnWithMentor.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using LearnWithMentor.Logger;
 
 namespace LearnWithMentor.Controllers
 {
@@ -30,17 +32,20 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IUserIdentityService userIdentityService;
 		private readonly IHttpContextAccessor _accessor;
+		private readonly ILogger logger;
 		/// <summary>
 		/// Creates an instance of UserController.
 		/// </summary>
-		public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor)
+		public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, ILoggerFactory loggerFactory)
         {
             this.userService = userService;
             this.roleService = roleService;
             this.taskService = taskService;
             this.userIdentityService = userIdentityService;
 			this._accessor = accessor;
-        }
+			loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
+			logger = loggerFactory.CreateLogger("FileLogger");
+		}
 		/// <summary>
 		/// Returns all users of the system.
 		/// </summary>
@@ -71,7 +76,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-				//tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
 			}
         }
@@ -207,11 +212,11 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-				//tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
             const string message = "Incorrect request syntax.";
-			//tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+			logger.LogInformation("Error :  {0}", message);
 			return BadRequest(message);
         }
 
@@ -326,6 +331,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
         }
@@ -369,6 +375,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
         }
@@ -442,6 +449,7 @@ namespace LearnWithMentor.Controllers
 			}
 			catch (Exception e)
 			{
+				logger.LogInformation("Error :  {0}", e.Message);
 				return BadRequest();
 			}
 		}
@@ -471,6 +479,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return BadRequest(e);
             }
         }
@@ -493,18 +502,18 @@ namespace LearnWithMentor.Controllers
 				{
 					var okMessage = $"Succesfully updated user id: {id}.";
 					return Ok(okMessage);
-					//tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
+					logger.LogInformation("Error :  {0}", okMessage);
 				}
             }
             catch (Exception e)
             {
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-            }
+				logger.LogInformation("Error :  {0}", e.Message);
+			}
             const string message = "Incorrect request syntax or user does not exist.";
 			return BadRequest(message);
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-        }
+			logger.LogInformation("Error :  {0}", message);
+		}
 		
 
         [HttpPut]
@@ -523,18 +532,18 @@ namespace LearnWithMentor.Controllers
                 {
                     var okMessage = "Succesfully updated users.";
 					return Ok(okMessage);
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
-                }
+					logger.LogInformation("Error :  {0}", okMessage);
+				}
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-            }
+			}
             const string message = "Incorrect request syntax or users do not exist.";
+			logger.LogInformation("Error :  {0}", message);
 			return BadRequest(message);
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-        }
+		}
 
         /// <summary>
         /// Blocks user by Id.
@@ -553,18 +562,18 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var okMessage = $"Succesfully blocked user id: {id}.";
+					logger.LogInformation("Error :  {0}", okMessage);
 					return Ok(okMessage);
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
-                }
+					
+				}
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
-               // tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-            }
-			return NoContent();
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-        }
+			}
+			return NoContent();	
+		}
 
         /// <summary>
         /// Search for user with match in first or lastname with role criteria.
@@ -656,14 +665,14 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     const string okMessage = "Succesfully updated password.";
-                   //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
-                }
+					logger.LogInformation("Error :  {0}", okMessage);
+				}
 				return NoContent();
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
             }
         }
 
