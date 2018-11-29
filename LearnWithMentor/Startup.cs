@@ -31,6 +31,8 @@ namespace LearnWithMentor
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddSignalR();
+            services
                 .AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
