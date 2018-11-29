@@ -20,7 +20,7 @@ namespace LearnWithMentor.Controllers
     /// Controller for groups.
     /// </summary>
     [Authorize]
-    [EnableCors("MyPolicy")]
+    [EnableCors(Constants.Cors.policyName)]
 
 
     public class GroupController : Controller
