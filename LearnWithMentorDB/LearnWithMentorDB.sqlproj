@@ -57,29 +57,9 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="dbo" />
     <Folder Include="Scripts" />
-    <Folder Include="dbo\Stored Procedures" />
-    <Folder Include="dbo\Tables" />
-    <Folder Include="dbo\Views" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Views\GROUPS-PLANS-TASKS.sql" />
-    <Build Include="dbo\Views\USERS_ROLES.sql" />
-    <Build Include="dbo\Tables\Comments.sql" />
-    <Build Include="dbo\Tables\GroupPlans.sql" />
-    <Build Include="dbo\Tables\Groups.sql" />
-    <Build Include="dbo\Tables\Messages.sql" />
-    <Build Include="dbo\Tables\Plans.sql" />
-    <Build Include="dbo\Tables\PlanSuggestion.sql" />
-    <Build Include="dbo\Tables\PlanTasks.sql" />
-    <Build Include="dbo\Tables\Roles.sql" />
-    <Build Include="dbo\Tables\Sections.sql" />
-    <Build Include="dbo\Tables\Tasks.sql" />
-    <Build Include="dbo\Tables\UserGroups.sql" />
-    <Build Include="dbo\Tables\Users.sql" />
-    <Build Include="dbo\Tables\UserTasks.sql" />
-    <Build Include="dbo\Stored Procedures\sp_Total_Ammount_of_Users.sql" />
     <None Include="Scripts\Inserting_data_script.sql" />
     <PostDeploy Include="Scripts\Script.PostDeployment1.sql" />
   </ItemGroup>
