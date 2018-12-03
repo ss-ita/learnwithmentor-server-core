@@ -6,7 +6,3 @@ before_build:
 build:
   project: LearnWithMentor.sln
   verbosity: minimal
-
-branches:
-  only:
-    - master
