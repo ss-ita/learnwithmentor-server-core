@@ -7,10 +7,9 @@ build:
   project: LearnWithMentor.sln
   verbosity: minimal
 
---branches:
-  --only:
-      - master
---configuration: 
-      - Release
---deploy: provider:
-      - AzureCS
+branches:
+    only:
+      -master
+configuration: Release
+deploy:
+    provider: AzureCS
