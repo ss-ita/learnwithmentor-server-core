@@ -9,4 +9,4 @@ build:
 
 branches:
   only:
-    - deploy/master
+    - master
