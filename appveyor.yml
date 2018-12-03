@@ -3,14 +3,6 @@ image: Visual Studio 2017
 before_build:
 - cmd: dotnet restore
 
- branches:
-    only:
-      - master
-
-configuration: Release
-  deploy:
-    provider: AzureCS
-
 build:
   project: LearnWithMentor.sln
   verbosity: minimal
