@@ -1,0 +1,10 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+before_build:
+- cmd: dotnet restore
+build:
+  project: LearnWithMentor.sln
+  verbosity: minimal
+branches:
+  only:
+    - master
