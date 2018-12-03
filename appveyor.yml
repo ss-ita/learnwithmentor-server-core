@@ -7,8 +7,6 @@ build:
   project: LearnWithMentor.sln
   verbosity: minimal
 
-deploy:
-  - provider: Environment
-    name: production
-    on:
-      branch: master
+branches:
+  only:
+    - deploy/master
