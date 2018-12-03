@@ -30,9 +30,9 @@ namespace LearnWithMentor.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [Route("api/token")]
-        public async  Task<IActionResult> PostAsync([FromBody]UserLoginDto value)
+        public async  Task<IActionResult> PostAsync([FromBody]UserLoginDTO value)
         {
-            UserIdentityDto user = null;
+            UserIdentityDTO user = null;
             user = await CheckUserAsync(value.Email);
             bool UserCheck =  BCrypt.Net.BCrypt.Verify(value.Password, user.Password);
             if ((ModelState.IsValid) && (UserCheck))
@@ -56,7 +56,7 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="email"></param>
         /// <returns>UserIdentityDto</returns>
-        public async Task<UserIdentityDto> CheckUserAsync(string email)
+        public async Task<UserIdentityDTO> CheckUserAsync(string email)
         {
             return await userService.GetByEmailAsync(email);
         }

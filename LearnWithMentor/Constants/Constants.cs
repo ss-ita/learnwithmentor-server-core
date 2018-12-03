@@ -21,5 +21,13 @@
         {
             public const string SecretString = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
         }
+        public static class Cors
+        {
+            public const string policyName = "MyPolicy";
+        }
+        public static class Logger
+        {
+            public const string logFileName = "logger.txt";
+        }
     }
 }

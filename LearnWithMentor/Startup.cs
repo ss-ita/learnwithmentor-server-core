@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +30,8 @@ namespace LearnWithMentor
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddSignalR();
             services
                 .AddAuthentication(options =>
                 {
@@ -72,7 +74,7 @@ namespace LearnWithMentor
                 .AddFluentValidation(fvConfig =>
                     fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            services.AddCors(o => o.AddPolicy(Constants.Cors.policyName, builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
@@ -94,7 +96,7 @@ namespace LearnWithMentor
             }
 
             app.UseAuthentication();
-            app.UseCors("MyPolicy");
+            app.UseCors(Constants.Cors.policyName);
             app.UseHttpsRedirection();
             app.UseMvc();
         }

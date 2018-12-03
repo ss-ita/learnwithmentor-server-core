@@ -32,6 +32,15 @@ namespace LearnWithMentor.Logger
                 lock (_lock)
                 {
                     File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
+
+                    using (var stream = File.Open(filePath, FileMode.OpenOrCreate | FileMode.Append, FileAccess.Write, FileShare.Write))
+                    {
+                        using (var writer = new StreamWriter(stream))
+                        {
+                            string logString = formatter(state, exception);
+                            writer.WriteLine(logString);
+                        }
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@ using LearnWithMentorDTO;
 
 namespace LearnWithMentor.Validators
 {
-    public class UserWithImageDTOValidator : AbstractValidator<UserWithImageDto>
+    public class UserWithImageDTOValidator : AbstractValidator<UserWithImageDTO>
     {
         public UserWithImageDTOValidator()
         {
