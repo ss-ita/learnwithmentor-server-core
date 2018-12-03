@@ -296,12 +296,10 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully created message with id = {newMessage.Id} by user with id = {newMessage.SenderId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                var erorMessage = "Creation error.";
-                logger.LogInformation("Error :  {0}", erorMessage);
-                return BadRequest(erorMessage);
+                var errorMessage = "Creation error.";
+                return BadRequest(errorMessage);
             }
             catch (Exception e)
             {
@@ -328,10 +326,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully created task with id = {newUserTask.Id} for user with id = {newUserTask.UserId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
@@ -358,11 +354,9 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 } 
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
-                logger.LogInformation("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
             }
             catch (Exception e)
@@ -386,10 +380,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated usertask message isRead state with id = {userTaskId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
@@ -418,11 +410,9 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on result {value}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }              
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
-                logger.LogInformation("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
             }
             catch (Exception e)
@@ -507,10 +497,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully created task with id = {newTask.Id} by user with id = {newTask.CreatorId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return BadRequest();
             }
             catch (Exception e)
@@ -539,7 +527,6 @@ namespace LearnWithMentor.Controllers
                 if (result != null)
                 {
                     var log = $"Succesfully created task {value.Name} with id = {result} by user with id = {value.CreatorId}";
-                    logger.LogInformation("Error :  {0}", log);
                     return Ok(result);
                 }
             }
@@ -549,7 +536,6 @@ namespace LearnWithMentor.Controllers
                 return BadRequest(e);
             }  
             const string message = "Incorrect request syntax.";
-            logger.LogInformation("Error :  {0}", message);
             return BadRequest(message);
         }
 
@@ -573,10 +559,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated task with id = {taskId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
@@ -602,10 +586,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated usertask with id = {userTaskId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
@@ -629,10 +611,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully deleted proposeEndDate for usertask with id = {userTaskId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
@@ -656,10 +636,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully changing endDate for usertask with id = {userTaskId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
             }
             catch (Exception e)
@@ -683,10 +661,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully deleted task with id = {taskId}";
-                    logger.LogInformation("Error :  {0}", message);
                     return Ok(message);
                 }
-                logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return BadRequest();
             }
             catch (Exception e)
