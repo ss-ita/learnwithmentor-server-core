@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LearnWithMentor.DAL.Configurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace LearnWithMentor.DAL.Entities
 {
-    public partial class LearnWithMentorContext : DbContext
+    public partial class LearnWithMentorContext : IdentityDbContext<User, Role, int>
     {
         public LearnWithMentorContext(DbContextOptions options)
             : base(options)
@@ -33,6 +34,8 @@ namespace LearnWithMentor.DAL.Entities
             CreateManyToManyReferences(modelBuilder);*/
 
             #endregion
+
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             modelBuilder.ApplyConfiguration(new GroupConfiguration());

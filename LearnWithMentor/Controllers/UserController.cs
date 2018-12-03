@@ -1,21 +1,17 @@
 ﻿using LearnWithMentorDTO;
-using System.Data;
 using LearnWithMentorBLL.Interfaces;
-using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
-using Microsoft.AspNetCore.WebSockets.Internal;
 using System.IO;
 using System.Linq;
 using LearnWithMentor.Services;
 using LearnWithMentor.Models;
 using Microsoft.AspNetCore.Http;
+using LearnWithMentor.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace LearnWithMentor.Controllers
 {
@@ -25,22 +21,28 @@ namespace LearnWithMentor.Controllers
     [Authorize]
     public class UserController : Controller
     {
+        private readonly UserManager<User> userManager;
+        private readonly RoleManager<Role> roleManager;
+
         private readonly IUserService userService;
         private readonly IRoleService roleService;
         private readonly ITaskService taskService;
         private readonly IUserIdentityService userIdentityService;
 		private readonly IHttpContextAccessor _accessor;
-		/// <summary>
-		/// Creates an instance of UserController.
-		/// </summary>
-		public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor)
+        /// <summary>
+        /// Creates an instance of UserController.
+        /// </summary>
+        public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             this.userService = userService;
             this.roleService = roleService;
             this.taskService = taskService;
             this.userIdentityService = userIdentityService;
 			this._accessor = accessor;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
         }
+
 		/// <summary>
 		/// Returns all users of the system.
 		/// </summary>
@@ -49,6 +51,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/user")]
         public async Task<ActionResult> GetAsync()
         {
+            List<User> users_ = userManager.Users.ToList();
             List<UserDTO> users = await userService.GetAllUsersAsync();
             if (users.Count != 0)
             {
@@ -71,8 +74,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-				//tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-				return StatusCode(500);
+                return StatusCode(500);
 			}
         }
 
@@ -198,21 +200,62 @@ namespace LearnWithMentor.Controllers
             }
             try
             {
-                var success = await userService.AddAsync(value);
-                if (success)
+                var mentorrole = await roleManager.FindByNameAsync("Mentor");
+                if (mentorrole == null)
                 {
-                    var okMessage = $"Succesfully created user: {value.Email}.";
-					return Ok(okMessage);
+                    var new_mentorrole = new Role() { Name = "Mentor" };
+                    await roleManager.CreateAsync(new_mentorrole);
+                }
+
+                var studentrole = await roleManager.FindByNameAsync("Student");
+                if (studentrole == null)
+                {
+                    var new_studentrole = new Role() { Name = "Student" };
+                    await roleManager.CreateAsync(new_studentrole);
+                }
+
+                var adminrole = await roleManager.FindByNameAsync("Admin");
+                if (adminrole == null)
+                {
+                    var new_adminrole = new Role() { Name = "Admin" };
+                    await roleManager.CreateAsync(new_adminrole);
+                }
+
+                var user_role = await roleManager.FindByNameAsync("Student");
+                var userIdentity = new User()
+                {
+                    Email = value.Email,
+                    FirstName = value.FirstName,
+                    LastName = value.LastName,
+                    UserName = value.Email,
+                    Role = user_role,
+                    Role_Id = user_role.Id
+                };
+
+                var result = await userManager.CreateAsync(userIdentity, value.Password);
+                if (result.Succeeded)
+                {
+                    var add_role = await userManager.AddToRoleAsync(userIdentity, "Student");
+                    if (add_role.Succeeded)
+                    {
+                        var okMessage = $"Succesfully created user: {value.Email}.";
+                        return new JsonResult(okMessage);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+                else
+                {
+                    const string message = "Incorrect request syntax.";
+                    return BadRequest(message);
                 }
             }
             catch (Exception e)
             {
-				//tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
 				return StatusCode(500);
             }
-            const string message = "Incorrect request syntax.";
-			//tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-			return BadRequest(message);
         }
 
 		/// <summary>
@@ -701,8 +744,10 @@ namespace LearnWithMentor.Controllers
         /// <summary>
         /// Releases memory
         /// </summary>
-        protected void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
+            roleManager.Dispose();
+            userManager.Dispose();
             userService.Dispose();
             roleService.Dispose();
             base.Dispose(disposing);

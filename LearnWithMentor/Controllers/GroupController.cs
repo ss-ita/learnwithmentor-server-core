@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 using LearnWithMentorDTO;
 using LearnWithMentorBLL.Interfaces;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.Pages.Account.Manage.Internal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnWithMentor.Controllers

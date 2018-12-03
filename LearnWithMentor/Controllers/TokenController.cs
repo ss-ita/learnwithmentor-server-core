@@ -1,8 +1,10 @@
-﻿using LearnWithMentor.Models;
-using LearnWithMentorBLL.Interfaces;
+﻿using LearnWithMentor.DAL.Entities;
+using LearnWithMentor.Models;
 using LearnWithMentorDTO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LearnWithMentor.Controllers
@@ -12,15 +14,17 @@ namespace LearnWithMentor.Controllers
     /// </summary>
     public class TokenController : Controller
     {
-        private readonly IUserService userService;
+        private readonly IJwtFactory jwtFactory;
+        private readonly UserManager<User> userManager;
 
         /// <summary>
         /// Creates instance of TokenController.
         /// </summary>
         /// <param name="userService"> Dependency injection parameter. </param>
-        public TokenController(IUserService userService)
+        public TokenController(IJwtFactory jwtFactory, UserManager<User> userManager)
         {
-            this.userService = userService;
+            this.jwtFactory = jwtFactory;
+            this.userManager = userManager;
         }
 
         /// <summary>
@@ -32,33 +36,50 @@ namespace LearnWithMentor.Controllers
         [Route("api/token")]
         public async  Task<IActionResult> PostAsync([FromBody]UserLoginDTO value)
         {
-            UserIdentityDTO user = null;
-            user = await CheckUserAsync(value.Email);
-            bool UserCheck =  BCrypt.Net.BCrypt.Verify(value.Password, user.Password);
-            if ((ModelState.IsValid) && (UserCheck))
+            if (!ModelState.IsValid)
             {
-                if (user.Blocked.HasValue && user.Blocked.Value)
-                {
-                    return Unauthorized();
-                }
-
-                string token = JwtManager.GenerateToken(user);
-                var response = new JsonResult(token);
-
-                return response;
+                return BadRequest(ModelState);
             }
 
-            return Unauthorized();
+            var identity = await GetClaimsIdentity(value.Email, value.Password);
+            if (identity == null)
+            {
+                return Unauthorized();
+            }
+
+            var user = await userManager.FindByEmailAsync(value.Email);
+            if (user == null)
+                return Unauthorized();
+
+            var userDto = new UserIdentityDTO()
+            {
+                Email = user.Email,
+                LastName = user.LastName,
+                FirstName = user.FirstName,
+                Id = user.Id,
+                Role = user.Role.Name,
+                EmailConfirmed = user.EmailConfirmed
+            };
+
+            string jwt = JwtManager.GenerateToken(userDto);
+            return new JsonResult(jwt);
         }
 
-        /// <summary>
-        /// Checks if user with provided email exists
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns>UserIdentityDto</returns>
-        public async Task<UserIdentityDTO> CheckUserAsync(string email)
+        private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
         {
-            return await userService.GetByEmailAsync(email);
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+                return await Task.FromResult<ClaimsIdentity>(null);
+
+            var userToVerify = await userManager.FindByEmailAsync(userName);
+
+            if (userToVerify == null) return await Task.FromResult<ClaimsIdentity>(null);
+
+            if (await userManager.CheckPasswordAsync(userToVerify, password))
+            {
+                return await Task.FromResult(jwtFactory.GenerateClaimsIdentity(userName));
+            }
+
+            return await Task.FromResult<ClaimsIdentity>(null);
         }
 
         /// <summary>
@@ -66,7 +87,6 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            userService.Dispose();
             base.Dispose(disposing);
         }
     }

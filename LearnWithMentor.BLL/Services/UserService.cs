@@ -37,7 +37,7 @@ namespace LearnWithMentorBLL.Services
                 user.LastName,
                 user.Role.Name,
                 user.Blocked,
-                user.Email_Confirmed);
+                user.EmailConfirmed);
         }
 
         public async Task<List<UserDTO>> GetAllUsersAsync()
@@ -117,7 +117,7 @@ namespace LearnWithMentorBLL.Services
             User user = await db.Users.GetAsync(id);
             if (user != null)
             {
-                user.Email_Confirmed = true;
+                user.EmailConfirmed = true;
                 db.Users.UpdateAsync(user);
                 db.Save();
                 return true;
@@ -260,7 +260,7 @@ namespace LearnWithMentorBLL.Services
                                user.Email,
                                user.Role.Name,
                                user.Blocked,
-                               user.Email_Confirmed);
+                               user.EmailConfirmed);
         }
     }
 }

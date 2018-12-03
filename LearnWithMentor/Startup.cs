@@ -15,11 +15,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
+using LearnWithMentor.Models;
+using System.Text;
 
 namespace LearnWithMentor
 {
     public class Startup
     {
+        private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Constants.Token.SecretString));
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,10 +35,8 @@ namespace LearnWithMentor
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddSignalR();
-            services
-                .AddAuthentication(options =>
+            services.AddSignalR();
+            services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -49,7 +52,7 @@ namespace LearnWithMentor
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
-                } );
+                });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
@@ -66,6 +69,22 @@ namespace LearnWithMentor
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.User.RequireUniqueEmail = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 3;
+            })
+                .AddEntityFrameworkStores<LearnWithMentorContext>()
+                .AddDefaultTokenProviders();
+
+            //-----------------------------------------------------------------
+            services.AddSingleton<IJwtFactory, JwtFactory>();
+
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
