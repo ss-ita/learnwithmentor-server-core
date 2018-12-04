@@ -31,8 +31,6 @@ namespace LearnWithMentor
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddSignalR();
-            services
                 .AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,6 +64,12 @@ namespace LearnWithMentor
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddCors(o => o.AddPolicy(Constants.Cors.policyName, builder =>
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowCredentials()));
+            services.AddSignalR();
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
@@ -73,14 +77,6 @@ namespace LearnWithMentor
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fvConfig =>
                     fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
-
-            services.AddCors(o => o.AddPolicy(Constants.Cors.policyName, builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader()
-                       .AllowCredentials();
-            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,6 +93,7 @@ namespace LearnWithMentor
 
             app.UseAuthentication();
             app.UseCors(Constants.Cors.policyName);
+            app.UseSignalR(routes => routes.MapHub<NotificationController>("/api/notifications"));
             app.UseHttpsRedirection();
             app.UseMvc();
         }
