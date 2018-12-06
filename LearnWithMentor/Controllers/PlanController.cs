@@ -13,7 +13,7 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller for plans.
     /// </summary>
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class PlanController : Controller
     {
         private readonly IPlanService planService;

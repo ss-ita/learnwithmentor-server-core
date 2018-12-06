@@ -74,7 +74,7 @@ namespace LearnWithMentorBLL.Services
                 return false;
             }
             item.Blocked = true;
-            db.Users.UpdateAsync(item);
+            await db.Users.UpdateAsync(item);
             db.Save();
             return true;
         }
@@ -106,7 +106,7 @@ namespace LearnWithMentorBLL.Services
                     item.Role_Id = updatedRole.Id;
                     modified = true;
                 }
-                db.Users.UpdateAsync(item);
+                await db.Users.UpdateAsync(item);
                 db.Save();
             }
             return modified;
@@ -118,40 +118,11 @@ namespace LearnWithMentorBLL.Services
             if (user != null)
             {
                 user.EmailConfirmed = true;
-                db.Users.UpdateAsync(user);
+                await db.Users.UpdateAsync(user);
                 db.Save();
                 return true;
             }
             return false;
-        }
-
-        public async Task<bool> AddAsync(UserRegistrationDTO userLoginDTO)
-        {
-            var toAdd = new User
-            {
-                Email = userLoginDTO.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(userLoginDTO.Password)
-            };
-            var studentRole = await db.Roles.TryGetByName("Student");
-            toAdd.Role_Id = studentRole.Id;
-            toAdd.FirstName = userLoginDTO.FirstName;
-            toAdd.LastName = userLoginDTO.LastName;
-            db.Users.AddAsync(toAdd);
-            db.Save();
-            return true;
-        }
-
-        public async Task<bool> UpdatePasswordAsync(int userId, string password)
-        {
-            User user = await db.Users.GetAsync(userId);
-            if (user == null)
-            {
-                return false;
-            }
-            user.Password = BCrypt.Net.BCrypt.HashPassword(password);
-            await db.Users.UpdateAsync(user);
-            db.Save();
-            return true;
         }
 
         public async Task<List<UserDTO>> SearchAsync(string[] str, int? roleId)

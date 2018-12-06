@@ -18,11 +18,12 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller for system users.
     /// </summary>
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class UserController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly RoleManager<Role> roleManager;
+        private readonly SignInManager<User> signInManager;
 
         private readonly IUserService userService;
         private readonly IRoleService roleService;
@@ -32,7 +33,7 @@ namespace LearnWithMentor.Controllers
         /// <summary>
         /// Creates an instance of UserController.
         /// </summary>
-        public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager)
+        public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager)
         {
             this.userService = userService;
             this.roleService = roleService;
@@ -41,6 +42,7 @@ namespace LearnWithMentor.Controllers
 			this._accessor = accessor;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.signInManager = signInManager;
         }
 
 		/// <summary>
@@ -51,7 +53,6 @@ namespace LearnWithMentor.Controllers
         [Route("api/user")]
         public async Task<ActionResult> GetAsync()
         {
-            List<User> users_ = userManager.Users.ToList();
             List<UserDTO> users = await userService.GetAllUsersAsync();
             if (users.Count != 0)
             {
@@ -64,8 +65,8 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         [Authorize(Roles = "Admin, Mentor")]
         [HttpGet]
-        [Route("api/user")]
-        public async Task<ActionResult> GetAsync([FromQuery]int pageSize, [FromQuery]int pageNumber)
+        [Route("api/user/pagesize/{pageSize}/pagenumber/{pageNumber}")]
+        public async Task<ActionResult> GetAsync(int pageSize, int pageNumber)
         {
             try
             {
@@ -113,8 +114,8 @@ namespace LearnWithMentor.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("api/user/inrole/{roleId}")]
-        public async Task<ActionResult> GetUsersbyRoleAsync(int roleId, [FromQuery]int pageSize, [FromQuery]int pageNumber)
+        [Route("api/user/inrole/{roleId}/pagesize/{pageSize}/pagenumber/{pageNumber}")]
+        public async Task<ActionResult> GetUsersbyRoleAsync(int roleId, int pageSize, int pageNumber)
         {
             if (roleId != Constants.Roles.BlockedIndex)
             {
@@ -155,8 +156,8 @@ namespace LearnWithMentor.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("api/user/instate/{state}")]
-        public async Task<ActionResult> GetUsersbyStateAsync(bool state, [FromQuery]int pageSize, [FromQuery]int pageNumber)
+        [Route("api/user/instate/{state}/pagesize/{pageSize}/pagenumber/{pageNumber}")]
+        public async Task<ActionResult> GetUsersbyStateAsync(bool state, int pageSize, int pageNumber)
         {
             PagedListDTO<UserDTO> users = await userService.GetUsersByStateAsync(state, pageSize, pageNumber);
 			return Ok(users);
@@ -172,6 +173,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/user/profile/{id?}")]
         public async Task<ActionResult> GetSingleAsync(int id = 0 )
         {
+            var userex = _accessor.HttpContext.User;
             if (id == 0)
             {
                 id = userIdentityService.GetUserId();
@@ -200,27 +202,6 @@ namespace LearnWithMentor.Controllers
             }
             try
             {
-                var mentorrole = await roleManager.FindByNameAsync("Mentor");
-                if (mentorrole == null)
-                {
-                    var new_mentorrole = new Role() { Name = "Mentor" };
-                    await roleManager.CreateAsync(new_mentorrole);
-                }
-
-                var studentrole = await roleManager.FindByNameAsync("Student");
-                if (studentrole == null)
-                {
-                    var new_studentrole = new Role() { Name = "Student" };
-                    await roleManager.CreateAsync(new_studentrole);
-                }
-
-                var adminrole = await roleManager.FindByNameAsync("Admin");
-                if (adminrole == null)
-                {
-                    var new_adminrole = new Role() { Name = "Admin" };
-                    await roleManager.CreateAsync(new_adminrole);
-                }
-
                 var user_role = await roleManager.FindByNameAsync("Student");
                 var userIdentity = new User()
                 {
@@ -229,7 +210,8 @@ namespace LearnWithMentor.Controllers
                     LastName = value.LastName,
                     UserName = value.Email,
                     Role = user_role,
-                    Role_Id = user_role.Id
+                    Role_Id = user_role.Id,
+                    EmailConfirmed = false
                 };
 
                 var result = await userManager.CreateAsync(userIdentity, value.Password);
@@ -251,6 +233,7 @@ namespace LearnWithMentor.Controllers
                     const string message = "Incorrect request syntax.";
                     return BadRequest(message);
                 }
+
             }
             catch (Exception e)
             {
@@ -258,85 +241,78 @@ namespace LearnWithMentor.Controllers
             }
         }
 
-		/// <summary>
-		/// Verifies reset password token.
-		/// </summary>
-		/// <param name="token"> Users token. </param>
-		/// 
+        /// <summary>
+        /// Verifies reset password token.
+        /// </summary>
+        /// <param name="token"> Users token. </param>
+        /// 
 
 
-		//FIX IT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//    [AllowAnonymous]
-		//    [HttpGet]
-		//    [Route("api/user/verify-token")]
-		//    public async Task<ActionResult> VerifyTokenAsync(string token)
-		//    {
-		//        try
-		//        {
-		//            //if (JwtAuthenticationAttribute.ValidateToken(token, out string userEmail))
-		//            {
-		//                UserIdentityDto user = await userService.GetByEmailAsync(userEmail);
-		//                if (user == null)
-		//                {
-		//		//return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "User not found");
-		//		return BadRequest("User not found");
-		//                }
-		//	//return Request.CreateResponse(HttpStatusCode.OK, user.Id);
-		//	return Ok(user.Id);
-		//            }
-		////return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Token no longer valid");
-		//return BadRequest("Token no longer valid");
-		//        }
-		//        catch (Exception e)
-		//        {
-		////return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-		//return StatusCode(500);
-		//        }
-		//    }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("api/user/verify-token")]
+        public async Task<ActionResult> VerifyTokenAsync(string token)
+        {
+            try
+            {
+                if (JwtManager.ValidateToken(token, out string userEmail, out string userrole))
+                {
+                    UserIdentityDTO user = await userService.GetByEmailAsync(userEmail);
+                    if (user == null)
+                    {
+                        return BadRequest("User not found");
+                    }
+                    return Ok(user.Id);
+                }
+                return BadRequest("Token no longer valid");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500);
+            }
+        }
 
-		/// <summary>
-		/// Confirms user email by token.
-		/// </summary>
-		/// <param name="token"> Users token. </param>
-		//    [AllowAnonymous]
-		//    [HttpGet]
-		//    [Route("api/user/confirm-email")]
-		//    public async Task<ActionResult> ConfirmEmailAsync(string token)
-		//    {
-		//        try
-		//        {
-		//            if (JwtAuthenticationAttribute.ValidateToken(token, out string userEmail))
-		//            {
-		//                UserIdentityDto user = await userService.GetByEmailAsync(userEmail);
-		//                if (user == null)
-		//                {
-		//		//return Request.CreateErrorResponse(HttpStatusCode.NoContent, "User not found");
-		//		return BadRequest("User not found");
-		//                }
-		//                if ( await userService.ConfirmEmailByIdAsync(user.Id))
-		//                {
-		//		//return Request.CreateResponse(HttpStatusCode.OK, "Email confirmed");
-		//		return Ok("Email confirmed");
-		//                }
-		//	//return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Confirmation error");
-		//	return BadRequest("Confirmation error");
-		//            }
-		////return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Token no longer valid");
-		//return BadRequest("Token no longer valid");
-		//        }
-		//        catch (Exception e)
-		//        {
-		////return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-		//return StatusCode(500);
-		//        }
-		//    }
+        /// <summary>
+        /// Confirms user email by token.
+        /// </summary>
+        /// <param name="token"> Users token. </param>
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("api/user/confirm-email")]
+        public async Task<ActionResult> ConfirmEmailAsync(string token)
+        {
+            try
+            {
+                if (JwtManager.ValidateToken(token, out string userEmail, out string userrole))
+                {
+                    UserIdentityDTO user = await userService.GetByEmailAsync(userEmail);
+                    if (user == null)
+                    {
+                        return BadRequest("User not found");
+                    }
+                    if (await userService.ConfirmEmailByIdAsync(user.Id))
+                    {
+                        User confirm_user = await userManager.FindByEmailAsync(userEmail);
+                        var token_result = await userManager.GenerateEmailConfirmationTokenAsync(confirm_user);
+                        var result = await userManager.ConfirmEmailAsync(confirm_user, token_result);
+                        return Ok("Email confirmed");
+                    }
+                    return BadRequest("Confirmation error");
+                }
+                return BadRequest("Token no longer valid");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500);
+            }
+        }
 
-		/// <summary>
-		/// Sends email with link for user's password reset.
-		/// </summary>
-		/// <param name="emailModel"> User's email. </param>
-		/// <param name="resetPasswordLink"> Link on the reset page. </param>
-		[AllowAnonymous]
+        /// <summary>
+        /// Sends email with link for user's password reset.
+        /// </summary>
+        /// <param name="emailModel"> User's email. </param>
+        /// <param name="resetPasswordLink"> Link on the reset page. </param>
+        [AllowAnonymous]
         [HttpPost]
         [Route("api/user/password-reset")]
         public async Task<ActionResult> SendPasswordResetLinkAsync([FromBody] EmailDTO emailModel, string resetPasswordLink)
@@ -494,7 +470,6 @@ namespace LearnWithMentor.Controllers
 		/// </summary>
 		/// <param name="id"> Id of the user. </param>
 		
-
         [HttpGet]
         [Route("api/user/{id}/image")]
         public async Task<ActionResult> GetImageAsync(int id)
@@ -536,17 +511,14 @@ namespace LearnWithMentor.Controllers
 				{
 					var okMessage = $"Succesfully updated user id: {id}.";
 					return Ok(okMessage);
-					//tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
 				}
             }
             catch (Exception e)
             {
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
             }
             const string message = "Incorrect request syntax or user does not exist.";
 			return BadRequest(message);
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
         }
 		
 
@@ -566,17 +538,14 @@ namespace LearnWithMentor.Controllers
                 {
                     var okMessage = "Succesfully updated users.";
 					return Ok(okMessage);
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
                 }
             }
             catch (Exception e)
             {
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
             }
             const string message = "Incorrect request syntax or users do not exist.";
 			return BadRequest(message);
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
         }
 
         /// <summary>
@@ -597,16 +566,13 @@ namespace LearnWithMentor.Controllers
                 {
                     var okMessage = $"Succesfully blocked user id: {id}.";
 					return Ok(okMessage);
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
                 }
             }
             catch (Exception e)
             {
 				return StatusCode(500);
-               // tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
             }
 			return NoContent();
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
         }
 
         /// <summary>
@@ -691,22 +657,22 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpPut]
         [Route("api/user/resetpasswotd")]
-        public async Task<ActionResult> ResetPasswordAsync([FromBody]string password, int id)
+        public async Task<ActionResult> ResetPasswordAsync([FromBody]ResetPasswordDTO value, int id)
         {
             try
             {
-                bool success = await userService.UpdatePasswordAsync(id, password);
-                if (success)
+                User user = await userManager.FindByIdAsync(id.ToString());
+                var result = await userManager.ChangePasswordAsync(user, value.OldPassword, value.NewPassword);
+                if (result.Succeeded)
                 {
                     const string okMessage = "Succesfully updated password.";
-                   //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
+                    return Ok(okMessage);
                 }
 				return NoContent();
             }
             catch (Exception e)
             {
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
             }
         }
 
@@ -718,7 +684,7 @@ namespace LearnWithMentor.Controllers
 
         [HttpPut]
         [Route("api/user/newpassword")]
-        public async Task<ActionResult> UpdatePasswordAsync([FromBody]string value)
+        public async Task<ActionResult> UpdatePasswordAsync([FromBody]ResetPasswordDTO value)
         {
             int id = userIdentityService.GetUserId();
             return await ResetPasswordAsync(value, id);

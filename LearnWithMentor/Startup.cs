@@ -16,15 +16,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
-using LearnWithMentor.Models;
-using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace LearnWithMentor
 {
     public class Startup
     {
-        private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Constants.Token.SecretString));
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,7 +32,6 @@ namespace LearnWithMentor
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR();
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -81,9 +77,6 @@ namespace LearnWithMentor
             })
                 .AddEntityFrameworkStores<LearnWithMentorContext>()
                 .AddDefaultTokenProviders();
-
-            //-----------------------------------------------------------------
-            services.AddSingleton<IJwtFactory, JwtFactory>();
 
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 

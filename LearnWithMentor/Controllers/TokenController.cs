@@ -2,9 +2,9 @@
 using LearnWithMentor.Models;
 using LearnWithMentorDTO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LearnWithMentor.Controllers
@@ -14,16 +14,14 @@ namespace LearnWithMentor.Controllers
     /// </summary>
     public class TokenController : Controller
     {
-        private readonly IJwtFactory jwtFactory;
         private readonly UserManager<User> userManager;
 
         /// <summary>
         /// Creates instance of TokenController.
         /// </summary>
         /// <param name="userService"> Dependency injection parameter. </param>
-        public TokenController(IJwtFactory jwtFactory, UserManager<User> userManager)
+        public TokenController(UserManager<User> userManager)
         {
-            this.jwtFactory = jwtFactory;
             this.userManager = userManager;
         }
 
@@ -41,46 +39,30 @@ namespace LearnWithMentor.Controllers
                 return BadRequest(ModelState);
             }
 
-            var identity = await GetClaimsIdentity(value.Email, value.Password);
-            if (identity == null)
-            {
-                return Unauthorized();
-            }
-
             var user = await userManager.FindByEmailAsync(value.Email);
             if (user == null)
                 return Unauthorized();
 
-            var userDto = new UserIdentityDTO()
+            if (await userManager.CheckPasswordAsync(user, value.Password))
             {
-                Email = user.Email,
-                LastName = user.LastName,
-                FirstName = user.FirstName,
-                Id = user.Id,
-                Role = user.Role.Name,
-                EmailConfirmed = user.EmailConfirmed
-            };
+                var userDto = new UserIdentityDTO()
+                {
+                    Email = user.Email,
+                    LastName = user.LastName,
+                    FirstName = user.FirstName,
+                    Id = user.Id,
+                    Role = user.Role.Name,
+                    EmailConfirmed = user.EmailConfirmed,
+                    Blocked = user.Blocked,
+                    Password = user.Password
+                };
 
-            string jwt = JwtManager.GenerateToken(userDto);
-            return new JsonResult(jwt);
-        }
-
-        private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
-        {
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
-                return await Task.FromResult<ClaimsIdentity>(null);
-
-            var userToVerify = await userManager.FindByEmailAsync(userName);
-
-            if (userToVerify == null) return await Task.FromResult<ClaimsIdentity>(null);
-
-            if (await userManager.CheckPasswordAsync(userToVerify, password))
-            {
-                return await Task.FromResult(jwtFactory.GenerateClaimsIdentity(userName));
+                string jwt = JwtManager.GenerateToken(userDto);
+                return new JsonResult(jwt);
             }
-
-            return await Task.FromResult<ClaimsIdentity>(null);
+            return Unauthorized();
         }
+
 
         /// <summary>
         /// Releases memory

@@ -25,7 +25,7 @@ namespace LearnWithMentor.Models
                             new Claim(ClaimTypes.Email, user.Email),
                             new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName ),
                             new Claim(ClaimTypes.Role, user.Role)
-                        }),
+                        }, "Token"),
 
                 Expires = now.AddDays(expireDays).AddHours(expireHours),
 
@@ -36,6 +36,62 @@ namespace LearnWithMentor.Models
             var token = tokenHandler.WriteToken(stoken);
 
             return token;
+        }
+
+        public static bool LifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+        {
+            if ((expires != null) && (DateTime.UtcNow < expires))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool ValidateToken(string token, out string email, out string userrole)
+        {
+            email = null;
+            userrole = null;
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+            if (jwtToken == null)
+                return false;
+
+            var symmetricKey = Convert.FromBase64String(Secret);
+
+            var validationParameters = new TokenValidationParameters()
+            {
+                RequireExpirationTime = true,
+                ValidateLifetime = true,
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                LifetimeValidator = LifetimeValidator,
+                IssuerSigningKey = new SymmetricSecurityKey(symmetricKey),
+            };
+
+            var principal = tokenHandler.ValidateToken(token, validationParameters, out var securityToken);
+
+            var identity = principal?.Identity as ClaimsIdentity;
+            if (identity == null)
+            {
+                return false;
+            }
+
+            if (!identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            var userEmailClaim = identity.FindFirst(ClaimTypes.Email);
+            email = userEmailClaim?.Value;
+            var userRoleClaim = identity.FindFirst(ClaimTypes.Role);
+            userrole = userRoleClaim?.Value;
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(userRoleClaim?.Value))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Configuration;
+using static LearnWithMentor.Controllers.Constants;
 
 namespace LearnWithMentor.Services
 {
@@ -8,10 +9,15 @@ namespace LearnWithMentor.Services
     {
         public static Task SendEmail(string destination, string subject, string body)
         {
-            var from = ConfigurationManager.AppSettings["BaseEmail"];
-            var pass = ConfigurationManager.AppSettings["EmailPassword"]; 
-            var SmtpHost = ConfigurationManager.AppSettings["SmtpClient"];
-            var SmtpPort = int.Parse(ConfigurationManager.AppSettings["SmtpClientPort"]);
+            var from = Email.BaseEmail;
+            var pass = Email.EmailPassword;
+            var SmtpHost = Email.SmtpClient;
+            var SmtpPort = Email.SmtpClientPort;
+
+            //var from = ConfigurationManager.AppSettings["BaseEmail"];
+            //var pass = ConfigurationManager.AppSettings["EmailPassword"]; 
+            //var SmtpHost = ConfigurationManager.AppSettings["SmtpClient"];
+            //var SmtpPort = int.Parse(ConfigurationManager.AppSettings["SmtpClientPort"]);
 
             var client = new SmtpClient(SmtpHost, SmtpPort)
             {

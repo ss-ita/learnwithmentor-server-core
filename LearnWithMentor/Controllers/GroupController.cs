@@ -13,7 +13,7 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller for groups.
     /// </summary>
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [EnableCors(Constants.Cors.policyName)]
 
 

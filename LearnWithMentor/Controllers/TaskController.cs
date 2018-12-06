@@ -20,7 +20,7 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller for working with tasks.
     /// </summary>
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class TaskController : Controller
     {
         /// <summary>
