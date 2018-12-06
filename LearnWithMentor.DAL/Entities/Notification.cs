@@ -8,7 +8,7 @@ namespace LearnWithMentor.DAL.Entities
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public bool isRead { get; set; }
+        public bool IsRead { get; set; }
         public string Text { get; set; }
         public enum Type
         {
