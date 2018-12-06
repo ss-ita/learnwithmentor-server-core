@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace LearnWithMentor
 {
@@ -44,10 +45,27 @@ namespace LearnWithMentor
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Constants.Token.SecretString)),
+                        ValidateLifetime = true,
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        ValidateActor = false
                     };
-                } );
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) && 
+                                path.StartsWithSegments("/api/notifications"))
+                            {
+                                context.Token = accessToken;
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();

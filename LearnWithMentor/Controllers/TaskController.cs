@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Web.Http;
-using System.Net;
-using System.Net.Http;
-using LearnWithMentorDTO;
+﻿using LearnWithMentor.Logger;
+using LearnWithMentor.Services;
 using LearnWithMentorBLL.Interfaces;
-using System.Text.RegularExpressions;
+using LearnWithMentorDTO;
 using LearnWithMentorDTO.Infrastructure;
-using System.Threading.Tasks;
-using LearnWithMentor.Logger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace LearnWithMentor.Controllers
 {
@@ -29,16 +29,23 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IMessageService messageService;
         private readonly IUserIdentityService userIdentityService;
+        private readonly IHubContext<NotificationController, IHubClient> hubContext;    
         private readonly ILogger logger;
 
         /// <summary>
         /// Services initiation.
         /// </summary>
-        public TaskController(ITaskService taskService, IMessageService messageService, IUserIdentityService userIdentityService, ILoggerFactory loggerFactory)
+        public TaskController(
+            ITaskService taskService, 
+            IMessageService messageService, 
+            IUserIdentityService userIdentityService,
+            IHubContext<NotificationController, IHubClient> hubContext,
+            ILoggerFactory loggerFactory)
         {
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
+            this.hubContext = hubContext;
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
             logger = loggerFactory.CreateLogger("FileLogger");
         }
@@ -276,9 +283,6 @@ namespace LearnWithMentor.Controllers
         /// <param name="userTaskId">Id of the usertask.</param>
         /// <param name="newMessage">New message to be created.</param>
         /// <returns></returns>
-
-
-
         [HttpPost]
         [Route("api/task/userTask/{userTaskId}/messages")]
         public ActionResult PostUserTaskMessage(int userTaskId, [FromBody]MessageDTO newMessage)
@@ -359,6 +363,11 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
                     logger.LogInformation("Error :  {0}", message);
+
+                    var userReciever = await taskService.GetUserByUserTaskId(userTaskId);
+                    string userKey = userReciever.FirstName + " " + userReciever.LastName;
+                    await hubContext.Clients.Client(NotificationController.ConnectedUsers[userKey]).BroadcastMessage("string", newStatus);
+
                     return Ok(message);
                 } 
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
