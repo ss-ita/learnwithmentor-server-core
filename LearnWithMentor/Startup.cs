@@ -96,7 +96,7 @@ namespace LearnWithMentor
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -108,6 +108,7 @@ namespace LearnWithMentor
             }
 
             app.UseAuthentication();
+            IdentityDataInitializer.SeedData(userManager, roleManager).Wait();
             app.UseCors(Constants.Cors.policyName);
             app.UseHttpsRedirection();
             app.UseMvc();

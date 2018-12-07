@@ -10,6 +10,11 @@ namespace LearnWithMentor.DAL.Entities
             Users = new HashSet<User>();
         }
 
+        public Role(string name) : base(name)
+        {
+            Users = new HashSet<User>();
+        }
+
         //public int Id { get; set; }
         //public string Name { get; set; }
 
