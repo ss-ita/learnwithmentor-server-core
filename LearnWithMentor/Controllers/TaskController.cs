@@ -297,12 +297,14 @@ namespace LearnWithMentor.Controllers
                 var currentId = userIdentityService.GetUserId();
                 newMessage.SenderId = currentId;
                 var success = messageService.SendMessage(newMessage);
+
                 if (success)
                 {
                     var message = $"Succesfully created message with id = {newMessage.Id} by user with id = {newMessage.SenderId}";
                     logger.LogInformation("Error :  {0}", message);
-                    return Ok(message);
+                    return new JsonResult(message);
                 }
+
                 var erorMessage = "Creation error.";
                 logger.LogInformation("Error :  {0}", erorMessage);
                 return BadRequest(erorMessage);
@@ -358,7 +360,9 @@ namespace LearnWithMentor.Controllers
                 {
                     return BadRequest();
                 }
+
                 var success = await taskService.UpdateUserTaskStatusAsync(userTaskId, newStatus);
+
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
@@ -369,7 +373,8 @@ namespace LearnWithMentor.Controllers
                     await hubContext.Clients.Client(NotificationController.ConnectedUsers[userKey]).BroadcastMessage("string", newStatus);
 
                     return Ok(message);
-                } 
+                }
+
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
                 logger.LogInformation("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
