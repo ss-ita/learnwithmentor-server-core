@@ -4,6 +4,7 @@ using LearnWithMentorBLL.Interfaces;
 using LearnWithMentorDTO;
 using LearnWithMentorDTO.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
@@ -29,7 +30,8 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IMessageService messageService;
         private readonly IUserIdentityService userIdentityService;
-        private readonly IHubContext<NotificationController, IHubClient> hubContext;    
+        private readonly IHubContext<NotificationController, IHubClient> hubContext;
+        private readonly IHttpContextAccessor contextAccessor;
         private readonly ILogger logger;
 
         /// <summary>
@@ -40,12 +42,14 @@ namespace LearnWithMentor.Controllers
             IMessageService messageService, 
             IUserIdentityService userIdentityService,
             IHubContext<NotificationController, IHubClient> hubContext,
+            IHttpContextAccessor contextAccessor,
             ILoggerFactory loggerFactory)
         {
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
             this.hubContext = hubContext;
+            this.contextAccessor = contextAccessor;
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
             logger = loggerFactory.CreateLogger("FileLogger");
         }
@@ -368,9 +372,27 @@ namespace LearnWithMentor.Controllers
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
                     logger.LogInformation("Error :  {0}", message);
 
-                    var userReciever = await taskService.GetUserByUserTaskId(userTaskId);
-                    string userKey = userReciever.FirstName + " " + userReciever.LastName;
-                    await hubContext.Clients.Client(NotificationController.ConnectedUsers[userKey]).BroadcastMessage("string", newStatus);
+                    UserDTO userReciever = null;
+
+                    bool isSenderMentor = contextAccessor.HttpContext.User.IsInRole("Mentor");
+                    bool isSenderAdmin = contextAccessor.HttpContext.User.IsInRole("Admin");
+
+                    if (isSenderMentor || isSenderAdmin)
+                    {
+                        userReciever = await taskService.GetUserByUserTaskId(userTaskId);
+                    }
+                    else
+                    {
+                        userReciever = await taskService.GetMentorByUserTaskId(userTaskId);
+                    }
+                    
+                    string recieverKey = userReciever.FirstName + " " + userReciever.LastName;
+
+                    if (NotificationController.ConnectedUsers.ContainsKey(recieverKey))
+                    {
+                        string recieverConnectionId = NotificationController.ConnectedUsers[recieverKey];
+                        await hubContext.Clients.Client(recieverConnectionId).BroadcastMessage("string", newStatus);
+                    }                    
 
                     return Ok(message);
                 }

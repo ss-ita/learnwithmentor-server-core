@@ -121,6 +121,12 @@ namespace LearnWithMentorBLL.Services
             return new UserDTO(user.Id, user.FirstName, user.LastName, user.Email, user.Role.Name, user.Blocked, user.Email_Confirmed);
         }
 
+        public async Task<UserDTO> GetMentorByUserTaskId(int userTaskId)
+        {
+            User user = await db.UserTasks.GetMentorAsync(userTaskId);
+            return new UserDTO(user.Id, user.FirstName, user.LastName, user.Email, user.Role.Name, user.Blocked, user.Email_Confirmed);
+        }
+
         public async Task<IEnumerable<TaskDTO>> SearchAsync(string[] str, int planId)
         {
             if (! await db.Plans.ContainsId(planId))

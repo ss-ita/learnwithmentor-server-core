@@ -26,9 +26,15 @@ namespace LearnWithMentor.DAL.Repositories
         {
             return Context.UserTasks.FirstOrDefaultAsync(userTask => userTask.User_Id == userId && userTask.PlanTask_Id == planTaskId);
         }
+
         public Task<User> GetUserAsync(int userTaskId)
         {
             return Context.UserTasks.Where(userTask => userTask.Id == userTaskId).Select(userTask => userTask.User).FirstOrDefaultAsync();
+        }
+
+        public Task<User> GetMentorAsync(int userTaskId)
+        {
+            return Context.UserTasks.Where(userTask => userTask.Id == userTaskId).Select(userTask => userTask.Mentor).FirstOrDefaultAsync();
         }
     }
 }
