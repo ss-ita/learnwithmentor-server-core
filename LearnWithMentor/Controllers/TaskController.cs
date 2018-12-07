@@ -33,6 +33,7 @@ namespace LearnWithMentor.Controllers
         private readonly IHubContext<NotificationController, IHubClient> hubContext;
         private readonly IHttpContextAccessor contextAccessor;
         private readonly ILogger logger;
+        private readonly INotificationService notificationService;
 
         /// <summary>
         /// Services initiation.
@@ -43,13 +44,15 @@ namespace LearnWithMentor.Controllers
             IUserIdentityService userIdentityService,
             IHubContext<NotificationController, IHubClient> hubContext,
             IHttpContextAccessor contextAccessor,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            INotificationService notificationService)
         {
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
             this.hubContext = hubContext;
             this.contextAccessor = contextAccessor;
+            this.notificationService = notificationService;
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
             logger = loggerFactory.CreateLogger("FileLogger");
         }
@@ -392,6 +395,7 @@ namespace LearnWithMentor.Controllers
                     {
                         string recieverConnectionId = NotificationController.ConnectedUsers[recieverKey];
                         await hubContext.Clients.Client(recieverConnectionId).BroadcastMessage("string", newStatus);
+                        
                     }                    
 
                     return Ok(message);
