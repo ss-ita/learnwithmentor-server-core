@@ -45,6 +45,7 @@ namespace LearnWithMentor.DAL.Entities
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<GroupPlan> GroupPlans { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
 
         /*public virtual int sp_Total_Ammount_of_Users(ObjectParameter total)
         {

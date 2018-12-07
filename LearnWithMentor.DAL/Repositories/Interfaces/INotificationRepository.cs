@@ -8,6 +8,8 @@ namespace LearnWithMentor.DAL.Repositories.Interfaces
 {
     public interface INotificationRepository : IRepository<Notification>
     {
-   
+        Notification AddNotificationAsync(Notification notification);
+        void MarkNotificationAsReadAsync(IEnumerable<Notification> notifications);
+        Task<IEnumerable<Notification>> GetNotificationsAsync(int userId,int amount);
     }
 }
