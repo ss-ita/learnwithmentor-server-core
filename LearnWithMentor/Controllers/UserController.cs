@@ -12,6 +12,9 @@ using LearnWithMentor.Models;
 using Microsoft.AspNetCore.Http;
 using LearnWithMentor.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
+using System.Net.Http;
+using static LearnWithMentor.Controllers.Constants;
+using Newtonsoft.Json;
 
 namespace LearnWithMentor.Controllers
 {
@@ -23,7 +26,7 @@ namespace LearnWithMentor.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly RoleManager<Role> roleManager;
-        private readonly SignInManager<User> signInManager;
+        private static readonly HttpClient Client = new HttpClient();
 
         private readonly IUserService userService;
         private readonly IRoleService roleService;
@@ -33,7 +36,7 @@ namespace LearnWithMentor.Controllers
         /// <summary>
         /// Creates an instance of UserController.
         /// </summary>
-        public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager)
+        public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             this.userService = userService;
             this.roleService = roleService;
@@ -42,7 +45,6 @@ namespace LearnWithMentor.Controllers
 			this._accessor = accessor;
             this.userManager = userManager;
             this.roleManager = roleManager;
-            this.signInManager = signInManager;
         }
 
 		/// <summary>
@@ -238,6 +240,81 @@ namespace LearnWithMentor.Controllers
             catch (Exception e)
             {
 				return StatusCode(500);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("api/user/facebook")]
+        public async Task<ActionResult> FacebookPost([FromBody]FacebookDTO value)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var appAccessTokenResponse = await Client.GetStringAsync($"https://graph.facebook.com/oauth/access_token?client_id={Facebook.AppId}&client_secret={Facebook.AppSecret}&grant_type=client_credentials");
+                var appAccessToken = JsonConvert.DeserializeObject<FacebookAppAccessToken>(appAccessTokenResponse);
+
+                var userAccessTokenValidationResponse = await Client.GetStringAsync($"https://graph.facebook.com/debug_token?input_token={value.AccessToken}&access_token={appAccessToken.AccessToken}");
+                var userAccessTokenValidation = JsonConvert.DeserializeObject<FacebookUserAccessTokenValidation>(userAccessTokenValidationResponse);
+
+                if (!userAccessTokenValidation.Data.IsValid)
+                {
+                    return BadRequest("Invalid facebook token!");
+                }
+
+                var userInfoResponse = await Client.GetStringAsync($"https://graph.facebook.com/v3.2/me?fields=id,email,first_name,last_name,name,picture&access_token={value.AccessToken}");
+                var userInfo = JsonConvert.DeserializeObject<FacebookUserData>(userInfoResponse);
+
+                var user = await userManager.FindByEmailAsync(userInfo.Email);
+
+                if (user == null)
+                {
+                    var user_role = await roleManager.FindByNameAsync("Student");
+                    User new_user = new User
+                    {
+                        FirstName = userInfo.FirstName,
+                        LastName = userInfo.LastName,
+                        Email = userInfo.Email,
+                        Image = userInfo.Picture.Data.Url,
+                        UserName = userInfo.Email,
+                        Role = user_role,
+                        Role_Id = user_role.Id,
+                        EmailConfirmed = true
+                    };
+                    var result = await userManager.CreateAsync(new_user, Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8));
+
+                    if (!result.Succeeded)
+                        return BadRequest();
+                }
+
+                var localUser = await userManager.FindByNameAsync(userInfo.Email);
+
+                if (localUser == null)
+                {
+                    return BadRequest("Failed to create local user account.");
+                }
+
+                var userDto = new UserIdentityDTO()
+                {
+                    Email = localUser.Email,
+                    LastName = localUser.LastName,
+                    FirstName = localUser.FirstName,
+                    Id = localUser.Id,
+                    Role = localUser.Role.Name,
+                    EmailConfirmed = localUser.EmailConfirmed,
+                    Blocked = localUser.Blocked,
+                    Password = localUser.Password
+                };
+
+                string jwt = JwtManager.GenerateToken(userDto);
+                return new JsonResult(jwt);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500);
             }
         }
 
