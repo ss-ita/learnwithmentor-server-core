@@ -79,6 +79,7 @@ namespace LearnWithMentor
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserIdentityService, UserIdentityService>();
+            services.AddScoped<INotificationService, NotificationsService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -88,13 +89,10 @@ namespace LearnWithMentor
                        .AllowAnyHeader()
                        .AllowCredentials()));
             services.AddSignalR();
-            // AddFluentValidation() adds FluentValidation services to the default container
-            // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddFluentValidation(fvConfig =>
-                    fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
+                .AddFluentValidation(fvConfig => fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

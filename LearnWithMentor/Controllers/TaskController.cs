@@ -30,10 +30,10 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IMessageService messageService;
         private readonly IUserIdentityService userIdentityService;
+        private readonly INotificationService notificationService;
         private readonly IHubContext<NotificationController, IHubClient> hubContext;
         private readonly IHttpContextAccessor contextAccessor;
-        private readonly ILogger logger;
-        private readonly INotificationService notificationService;
+        private readonly ILogger logger;        
 
         /// <summary>
         /// Services initiation.
@@ -42,17 +42,17 @@ namespace LearnWithMentor.Controllers
             ITaskService taskService, 
             IMessageService messageService, 
             IUserIdentityService userIdentityService,
+            INotificationService notificationService,
             IHubContext<NotificationController, IHubClient> hubContext,
             IHttpContextAccessor contextAccessor,
-            ILoggerFactory loggerFactory,
-            INotificationService notificationService)
+            ILoggerFactory loggerFactory)
         {
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
+            this.notificationService = notificationService;
             this.hubContext = hubContext;
             this.contextAccessor = contextAccessor;
-            this.notificationService = notificationService;
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
             logger = loggerFactory.CreateLogger("FileLogger");
         }
@@ -379,6 +379,7 @@ namespace LearnWithMentor.Controllers
 
                     bool isSenderMentor = contextAccessor.HttpContext.User.IsInRole("Mentor");
                     bool isSenderAdmin = contextAccessor.HttpContext.User.IsInRole("Admin");
+                    string senderName = contextAccessor.HttpContext.User.Identity.Name;
 
                     if (isSenderMentor || isSenderAdmin)
                     {
@@ -388,15 +389,45 @@ namespace LearnWithMentor.Controllers
                     {
                         userReciever = await taskService.GetMentorByUserTaskId(userTaskId);
                     }
+
+                    string notificationText = "";
+                    NotificationType notificationType = NotificationType.TaskReset;
+
+                    switch (newStatus)
+                    {
+                        case "D" when (isSenderMentor || isSenderAdmin):
+                            notificationText = "Your task has been reset to done by " + senderName;
+                            notificationType = NotificationType.TaskReset;
+                            break;
+                        case "D":
+                            notificationText = "Student " + senderName + " has comleted the task";
+                            notificationType = NotificationType.TaskCompleted;
+                            break;
+                        case "A":
+                            notificationText = "Your task has been approved by " + senderName;
+                            notificationType = NotificationType.TaskApproved;
+                            break;
+                        case "R":
+                            notificationText = "Your task has been rejected by " + senderName;
+                            notificationType = NotificationType.TaskRejected;
+                            break;
+                        case "RE":
+                            notificationText = "Your task has been reset by " + senderName;
+                            notificationType = NotificationType.TaskReset;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    await notificationService.AddNotificationAsync(notificationText, notificationType.ToString(), DateTime.Now, userReciever.Id);
                     
                     string recieverKey = userReciever.FirstName + " " + userReciever.LastName;
 
                     if (NotificationController.ConnectedUsers.ContainsKey(recieverKey))
                     {
                         string recieverConnectionId = NotificationController.ConnectedUsers[recieverKey];
-                        await hubContext.Clients.Client(recieverConnectionId).BroadcastMessage("string", newStatus);
-                        
-                    }                    
+                        await hubContext.Clients.Client(recieverConnectionId).Notify();
+                    }
 
                     return Ok(message);
                 }

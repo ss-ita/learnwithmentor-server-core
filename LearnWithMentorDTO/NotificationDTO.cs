@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LearnWithMentorDTO
 {
@@ -10,20 +8,32 @@ namespace LearnWithMentorDTO
         public int UserId { get; set; }
         public bool IsRead { get; set; }
         public string Text { get; set; }
-        public string Status { get; set; }
+        public NotificationType Type { get; set; }
+        public string DateTime { get; set; }
 
         public NotificationDTO(
             int id,
             int userId,
             bool isRead,
             string text,
-            string status)    
+            NotificationType type,
+            string dateTime)    
         {
             Id = id;
             UserId = userId;
             IsRead = isRead;
             Text = text;
-            Status = status;
+            Type = type;
+            DateTime = dateTime;
         }
-}
+    }
+
+    public enum NotificationType
+    {
+        TaskApproved,
+        TaskCompleted,
+        TaskRejected,
+        TaskReset,
+        NewMessage
+    }
 }

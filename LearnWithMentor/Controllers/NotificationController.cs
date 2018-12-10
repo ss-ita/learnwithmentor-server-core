@@ -1,5 +1,7 @@
 ﻿using LearnWithMentor.Services;
+using LearnWithMentorBLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
@@ -10,7 +12,14 @@ namespace LearnWithMentor.Controllers
     [Authorize]
     public class NotificationController : Hub<IHubClient>
     {
+        private readonly INotificationService notificationService;
+
         public static ConcurrentDictionary<string, string> ConnectedUsers = new ConcurrentDictionary<string, string>();
+
+        public NotificationController(INotificationService notificationService) : base()
+        {
+            this.notificationService = notificationService;
+        }
 
         public override Task OnConnectedAsync()
         {
@@ -24,6 +33,14 @@ namespace LearnWithMentor.Controllers
             string removedValue = "";
             ConnectedUsers.TryRemove(userName, out removedValue);   
             return base.OnDisconnectedAsync(ex);
+        }
+
+        [HttpGet]
+        [Route("api/notifications/{userId}")]
+        public async Task<ActionResult> GetNotificationsAsync(int userId)
+        {
+            var notifications = await notificationService.GetNotificationsAsync(userId, 5);
+            return new JsonResult(notifications);
         }
     }
 }

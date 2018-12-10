@@ -1,43 +1,57 @@
-﻿using System.Collections.Generic;
-using LearnWithMentorDTO;
-using LearnWithMentor.DAL.Entities;
-using LearnWithMentorBLL.Interfaces;
+﻿using LearnWithMentor.DAL.Entities;
 using LearnWithMentor.DAL.UnitOfWork;
+using LearnWithMentorBLL.Interfaces;
+using LearnWithMentorDTO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LearnWithMentorBLL.Services
 {
-    class NotificationsService : BaseService,INotificationService
+    public class NotificationsService : BaseService, INotificationService
     {
         public NotificationsService(IUnitOfWork db) : base(db)
         {
 
         }
 
-        public async Task<bool> AddNotificationAsync(string text, string status, int userId)
+        public async Task AddNotificationAsync(string text, string type, DateTime dateTime, int userId)
         {
-            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(status))
-                return false;
-            var notificationNew = new Notification
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(type))
+                return;
+
+            var notification = new Notification
             {
                 Text = text,
-                Status = status,
-                UserId = userId
+                Type = type,
+                UserId = userId,
+                DateTime = dateTime,
+                IsRead = false
             };
-            await db.Notification.AddAsync(notificationNew);
+
+            await db.Notification.AddNotificationAsync(notification);
             db.Save();
-            return true;
         }
 
-        public void MarkNotificationsAsRead(IEnumerable<Notification> notifications)
+        public async Task MarkNotificationsAsReadAsync(IEnumerable<int> idList)
         {
-            db.Notification.MarkNotificationAsReadAsync(notifications);
+            await db.Notification.MarkNotificationsAsReadAsync(idList);
+            db.Save();
         }
 
-        public async Task<IEnumerable<Notification>> GetNotificationsByUserIdAsync(int userId, int amount)
+        public async Task<IEnumerable<NotificationDTO>> GetNotificationsAsync(int userId, int amount)
         {
-            var notificationsByUser = await db.Notification.GetNotificationsAsync(userId, amount);
-            return notificationsByUser;
+            var notifications = await db.Notification.GetNotificationsAsync(userId, amount);
+            var notificationsDtoList = notifications.Select(n => 
+                new NotificationDTO(
+                    n.Id, 
+                    n.UserId, 
+                    n.IsRead,
+                    n.Text, 
+                    (NotificationType)Enum.Parse(typeof(NotificationType), n.Type),
+                    n.DateTime.ToString("dddd, dd/MM/yyyy, HH:mm:ss")));
+            return notificationsDtoList;
         }
     }
 }
