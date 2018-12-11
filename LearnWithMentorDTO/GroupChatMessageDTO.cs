@@ -4,17 +4,21 @@ using System.Text;
 
 namespace LearnWithMentorDTO
 {
-    class GroupChatMessageDTO
+    public class GroupChatMessageDTO
     {
-        public GroupChatMessageDTO(int messageId, int senderId, string text)
+        public GroupChatMessageDTO(int messageId, string textMessage, int senderId, int groupId, DateTime dateTime)
         {
             MessageId = messageId;
+            TextMessage = textMessage;
             SenderId = senderId;
-            Text = text;
+            GroupId = groupId;
+            TimeSent = dateTime;
         }
 
         public int MessageId;
+        public string TextMessage;
         public int SenderId;
-        public string Text;
+        public int GroupId;
+        public DateTime TimeSent;
     }
 }
