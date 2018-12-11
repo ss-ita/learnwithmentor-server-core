@@ -4,6 +4,7 @@
     [IsRead] BIT NULL DEFAULT 0, 
     [Text] NTEXT NULL, 
     [Type] NTEXT NULL, 
-    [UserId] INT NOT NULL, 
+	[DateTime] DATETIME NULL,
+    [UserId] INT NOT NULL,
     CONSTRAINT FK_Notifications_To_Users FOREIGN KEY (UserId)  REFERENCES Users (Id)
 )
