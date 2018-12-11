@@ -27,6 +27,7 @@ namespace LearnWithMentor.DAL.Entities
             CreateSectionReferences(modelBuilder);
             CreateTaskReferences(modelBuilder);
             CreateUserTaskReferences(modelBuilder);
+            CreateNotificationReferences(modelBuilder);
             CreateManyToManyReferences(modelBuilder);
         }
 
@@ -45,6 +46,7 @@ namespace LearnWithMentor.DAL.Entities
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<GroupPlan> GroupPlans { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
 
         /*public virtual int sp_Total_Ammount_of_Users(ObjectParameter total)
         {
@@ -280,6 +282,11 @@ namespace LearnWithMentor.DAL.Entities
                 .WithMany(planTask => planTask.UserTasks)
                 .HasForeignKey(userTask => userTask.PlanTask_Id)
                 .OnDelete(DeleteBehavior.SetNull);
+        }
+
+        private void CreateNotificationReferences(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Notification>().HasKey(n => n.Id);
         }
 
         private void CreateManyToManyReferences(ModelBuilder modelBuilder)

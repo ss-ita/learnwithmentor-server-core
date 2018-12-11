@@ -18,6 +18,7 @@ namespace LearnWithMentor.DAL.UnitOfWork
         IUserRepository Users { get; }
         IUserRoleViewRepository UserRoleView { get; }
         IUserTaskRepository UserTasks { get; }
+        INotificationRepository Notification { get; }
 
         void Save();
     }

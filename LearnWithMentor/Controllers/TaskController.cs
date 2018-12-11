@@ -1,19 +1,20 @@
-﻿using System;
+﻿using LearnWithMentor.Logger;
+using LearnWithMentor.Services;
+using LearnWithMentorBLL.Interfaces;
+using LearnWithMentorDTO;
+using LearnWithMentorDTO.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Web.Http;
 using System.Net;
 using System.Net.Http;
-using LearnWithMentorDTO;
-using LearnWithMentorBLL.Interfaces;
 using System.Text.RegularExpressions;
-using LearnWithMentorDTO.Infrastructure;
 using System.Threading.Tasks;
-using LearnWithMentor.Logger;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
 
 namespace LearnWithMentor.Controllers
 {
@@ -29,16 +30,29 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IMessageService messageService;
         private readonly IUserIdentityService userIdentityService;
-        private readonly ILogger logger;
+        private readonly INotificationService notificationService;
+        private readonly IHubContext<NotificationController, IHubClient> hubContext;
+        private readonly IHttpContextAccessor contextAccessor;
+        private readonly ILogger logger;        
 
         /// <summary>
         /// Services initiation.
         /// </summary>
-        public TaskController(ITaskService taskService, IMessageService messageService, IUserIdentityService userIdentityService, ILoggerFactory loggerFactory)
+        public TaskController(
+            ITaskService taskService, 
+            IMessageService messageService, 
+            IUserIdentityService userIdentityService,
+            INotificationService notificationService,
+            IHubContext<NotificationController, IHubClient> hubContext,
+            IHttpContextAccessor contextAccessor,
+            ILoggerFactory loggerFactory)
         {
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
+            this.notificationService = notificationService;
+            this.hubContext = hubContext;
+            this.contextAccessor = contextAccessor;
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
             logger = loggerFactory.CreateLogger("FileLogger");
         }
@@ -276,9 +290,6 @@ namespace LearnWithMentor.Controllers
         /// <param name="userTaskId">Id of the usertask.</param>
         /// <param name="newMessage">New message to be created.</param>
         /// <returns></returns>
-
-
-
         [HttpPost]
         [Route("api/task/userTask/{userTaskId}/messages")]
         public ActionResult PostUserTaskMessage(int userTaskId, [FromBody]MessageDTO newMessage)
@@ -293,12 +304,16 @@ namespace LearnWithMentor.Controllers
                 var currentId = userIdentityService.GetUserId();
                 newMessage.SenderId = currentId;
                 var success = messageService.SendMessage(newMessage);
+
                 if (success)
                 {
                     var message = $"Succesfully created message with id = {newMessage.Id} by user with id = {newMessage.SenderId}";
-                    logger.LogInformation("{0}", message);
-                    return Ok(message);
+
+                    logger.LogInformation("Error :  {0}", message);
+                    return new JsonResult(message);
+
                 }
+
                 var erorMessage = "Creation error.";
                 logger.LogError("Error :  {0}", erorMessage);
                 return BadRequest(erorMessage);
@@ -354,13 +369,71 @@ namespace LearnWithMentor.Controllers
                 {
                     return BadRequest();
                 }
+
                 var success = await taskService.UpdateUserTaskStatusAsync(userTaskId, newStatus);
+
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
-                    logger.LogInformation("{0}", message);
+                    logger.LogInformation("Error :  {0}", message);
+
+                    UserDTO userReciever = null;
+
+                    bool isSenderMentor = contextAccessor.HttpContext.User.IsInRole("Mentor");
+                    bool isSenderAdmin = contextAccessor.HttpContext.User.IsInRole("Admin");
+                    string senderName = contextAccessor.HttpContext.User.Identity.Name;
+
+                    if (isSenderMentor || isSenderAdmin)
+                    {
+                        userReciever = await taskService.GetUserByUserTaskId(userTaskId);
+                    }
+                    else
+                    {
+                        userReciever = await taskService.GetMentorByUserTaskId(userTaskId);
+                    }
+
+                    string notificationText = "";
+                    NotificationType notificationType = NotificationType.TaskReset;
+
+                    switch (newStatus)
+                    {
+                        case "D" when (isSenderMentor || isSenderAdmin):
+                            notificationText = "Your task has been reset to done by " + senderName;
+                            notificationType = NotificationType.TaskReset;
+                            break;
+                        case "D":
+                            notificationText = "Student " + senderName + " has comleted the task";
+                            notificationType = NotificationType.TaskCompleted;
+                            break;
+                        case "A":
+                            notificationText = "Your task has been approved by " + senderName;
+                            notificationType = NotificationType.TaskApproved;
+                            break;
+                        case "R":
+                            notificationText = "Your task has been rejected by " + senderName;
+                            notificationType = NotificationType.TaskRejected;
+                            break;
+                        case "RE":
+                            notificationText = "Your task has been reset by " + senderName;
+                            notificationType = NotificationType.TaskReset;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    await notificationService.AddNotificationAsync(notificationText, notificationType.ToString(), DateTime.Now, userReciever.Id);
+                    
+                    string recieverKey = userReciever.FirstName + " " + userReciever.LastName;
+
+                    if (NotificationController.ConnectedUsers.ContainsKey(recieverKey))
+                    {
+                        string recieverConnectionId = NotificationController.ConnectedUsers[recieverKey];
+                        await hubContext.Clients.Client(recieverConnectionId).Notify();
+                    }
+
                     return Ok(message);
                 }
+
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
                 logger.LogError("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
