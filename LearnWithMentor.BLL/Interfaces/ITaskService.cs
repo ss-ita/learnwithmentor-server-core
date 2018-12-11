@@ -25,6 +25,8 @@ namespace LearnWithMentorBLL.Interfaces
         Task<IEnumerable<TaskDTO>> SearchAsync(string[] str, int planId);
         Task<List<TaskDTO>> SearchAsync(string[] keys);
         Task<StatisticsDTO> GetUserStatisticsAsync(int userId);
+        Task<UserDTO> GetUserByUserTaskId(int userTaskId);
+        Task<UserDTO> GetMentorByUserTaskId(int userTaskId);
         Task<PagedListDTO<TaskDTO>> GetTasks(int pageSize, int pageNumber = 1);
         Task<bool> DeleteProposeEndDateAsync(int userTaskId);
         Task<bool> SetNewEndDateAsync(int userTaskId);
