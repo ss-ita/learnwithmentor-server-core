@@ -12,7 +12,7 @@ using LearnWithMentorDTO;
 
 namespace LearnWithMentor.BLL.Services
 {
-    public class GroupChatMessageService : BaseService, IGroupChatMesssageService
+    public class GroupChatMessageService : BaseService, IGroupChatMessageService
     {
         public GroupChatMessageService(IUnitOfWork db) : base(db)
         {
