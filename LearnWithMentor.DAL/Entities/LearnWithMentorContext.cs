@@ -28,7 +28,6 @@ namespace LearnWithMentor.DAL.Entities
             CreateTaskReferences(modelBuilder);
             CreateUserTaskReferences(modelBuilder);
             CreateNotificationReferences(modelBuilder);
-            CreateGroupMessageReferences(modelBuilder);
             CreateManyToManyReferences(modelBuilder);
         }
 
