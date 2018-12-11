@@ -26,8 +26,8 @@ namespace LearnWithMentor.BLL.Services
 
             var groupChatMessage = new GroupChatMessage
             {
-                Group_Id = groupId,
-                User_Id = userId,
+                GroupId = groupId,
+                UserId = userId,
                 TextMessage = text,
                 Time = timeSent
             };
@@ -39,12 +39,12 @@ namespace LearnWithMentor.BLL.Services
         {
             var groupChatMessages = await db.GroupChatMessage.GetGroupMessagesAsync(groupId);
             var groupChatMessagesDtoList = groupChatMessages.Select(n =>
-                new GroupChatMessageDTO(
-                    n.Group_Id,
-                    n.Message_Id,
+                new GroupChatMessageDTO(  
+                    n.Id,
                     n.TextMessage,
+                    n.UserId,
+                    n.GroupId, 
                     n.Time)
-
             );
             return groupChatMessagesDtoList;
 

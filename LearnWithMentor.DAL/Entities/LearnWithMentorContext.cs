@@ -292,7 +292,7 @@ namespace LearnWithMentor.DAL.Entities
 
         private void CreateGroupMessageReferences(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GroupChatMessage>().HasKey(n => n.Message_Id);
+            modelBuilder.Entity<GroupChatMessage>().HasKey(n => n.Id);
         }
 
         private void CreateManyToManyReferences(ModelBuilder modelBuilder)

@@ -24,7 +24,7 @@ namespace LearnWithMentor.DAL.Repositories
         public async Task<IEnumerable<GroupChatMessage>> GetGroupMessagesAsync(int groupId)
         {
             return await Context.GroupChatMessages
-                .Where(groupChatMessage => groupChatMessage.Group_Id == groupId)
+                .Where(groupChatMessage => groupChatMessage.GroupId == groupId)
                 .OrderByDescending(groupChatMessage => groupChatMessage.Time)
                 .ToListAsync();
         }
