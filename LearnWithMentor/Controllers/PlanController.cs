@@ -78,7 +78,7 @@ namespace LearnWithMentor.Controllers
             {
                 return NoContent();
             }
-            return Ok(info);
+            return new JsonResult(info);
         }
 
         /// <summary>
