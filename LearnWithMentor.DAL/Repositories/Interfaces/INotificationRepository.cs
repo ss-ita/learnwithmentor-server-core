@@ -7,7 +7,7 @@ namespace LearnWithMentor.DAL.Repositories.Interfaces
     public interface INotificationRepository : IRepository<Notification>
     {
         Task AddNotificationAsync(Notification notification);
-        Task MarkNotificationsAsReadAsync(IEnumerable<int> idList);
+        Task MarkAllNotificationsAsReadAsync(int userId);
         Task<IEnumerable<Notification>> GetNotificationsAsync(int userId, int amount);
     }
 }

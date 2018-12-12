@@ -23,10 +23,10 @@ namespace LearnWithMentor.DAL.Repositories.Interfaces
             }
         }
 
-        public async Task MarkNotificationsAsReadAsync(IEnumerable<int> idList)
+        public async Task MarkAllNotificationsAsReadAsync(int userId)
         {
             await Context.Notifications
-                .Where(notification => idList.Contains(notification.Id))
+                .Where(notification => notification.UserId == userId && !notification.IsRead)
                 .ForEachAsync(notification => notification.IsRead = true);
         }
 
