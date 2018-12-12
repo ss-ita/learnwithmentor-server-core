@@ -34,9 +34,9 @@ namespace LearnWithMentorBLL.Services
             db.Save();
         }
 
-        public async Task MarkNotificationsAsReadAsync(IEnumerable<int> idList)
+        public async Task MarkAllNotificationsAsReadAsync(int userId)
         {
-            await db.Notification.MarkNotificationsAsReadAsync(idList);
+            await db.Notification.MarkAllNotificationsAsReadAsync(userId);
             db.Save();
         }
 

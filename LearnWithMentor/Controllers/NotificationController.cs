@@ -42,5 +42,13 @@ namespace LearnWithMentor.Controllers
             var notifications = await notificationService.GetNotificationsAsync(userId, 5);
             return new JsonResult(notifications);
         }
+
+        [HttpPost]
+        [Route("api/notifications/{userId}")]
+        public async Task<IActionResult> MarkAllNotificationsAsReadAsync(int userId)
+        {
+            await notificationService.MarkAllNotificationsAsReadAsync(userId);
+            return new OkResult();
+        }
     }
 }
