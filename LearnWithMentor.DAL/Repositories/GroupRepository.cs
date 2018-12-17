@@ -42,7 +42,6 @@ namespace LearnWithMentor.DAL.Repositories
 
         public async Task<IEnumerable<Group>> GetGroupsByPlanAsync(int planId)
         {
-            //return await Context.Groups.Where(g => g.GroupPlans.Select(gr => gr.Plan).Any(p => p.Id == planId)).ToListAsync();
             var plans = from g in Context.GroupPlans where g.Plan.Id == planId select g.Group;
             return await plans.ToListAsync();
         }

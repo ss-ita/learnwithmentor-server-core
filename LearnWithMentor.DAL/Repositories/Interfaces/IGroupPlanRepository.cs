@@ -2,7 +2,7 @@
 
 namespace LearnWithMentor.DAL.Repositories.Interfaces
 {
-    public interface IUserRoleViewRepository : IRepository<UserRole>
+    public interface IGroupPlanRepository : IRepository<GroupPlan>
     {
     }
 }
