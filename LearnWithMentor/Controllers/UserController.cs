@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Identity;
 using System.Net.Http;
 using static LearnWithMentor.Controllers.Constants;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
+using LearnWithMentor.Logger;
 
 namespace LearnWithMentor.Controllers
 {
@@ -33,10 +35,12 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IUserIdentityService userIdentityService;
 		private readonly IHttpContextAccessor _accessor;
-        /// <summary>
-        /// Creates an instance of UserController.
-        /// </summary>
-        public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager)
+        private readonly ILogger logger;
+
+		/// <summary>
+		/// Creates an instance of UserController.
+		/// </summary>
+		public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager, ILoggerFactory loggerFactory)
         {
             this.userService = userService;
             this.roleService = roleService;
@@ -45,7 +49,10 @@ namespace LearnWithMentor.Controllers
 			this._accessor = accessor;
             this.userManager = userManager;
             this.roleManager = roleManager;
-        }
+
+			loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
+			logger = loggerFactory.CreateLogger("FileLogger");
+		}
 
 		/// <summary>
 		/// Returns all users of the system.
@@ -77,7 +84,8 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500);
+				logger.LogInformation("Error :  {0}", e.Message);
+				return StatusCode(500);
 			}
         }
 
@@ -239,7 +247,8 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-				return StatusCode(500);
+                logger.LogInformation("Error :  {0}", e.Message);
+                return StatusCode(500);
             }
         }
 
@@ -422,6 +431,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
         }
@@ -465,6 +475,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
         }
@@ -538,6 +549,7 @@ namespace LearnWithMentor.Controllers
 			}
 			catch (Exception e)
 			{
+				logger.LogInformation("Error :  {0}", e.Message);
 				return BadRequest();
 			}
 		}
@@ -566,6 +578,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return BadRequest(e);
             }
         }
@@ -587,17 +600,19 @@ namespace LearnWithMentor.Controllers
 				if (success)
 				{
 					var okMessage = $"Succesfully updated user id: {id}.";
-					return Ok(okMessage);
+                    logger.LogInformation("Ok :  {0}", okMessage);
+                    return Ok(okMessage);
 				}
             }
             catch (Exception e)
             {
-				return StatusCode(500);
+                logger.LogInformation("Error :  {0}", e.Message);
+                return StatusCode(500);
             }
             const string message = "Incorrect request syntax or user does not exist.";
-			return BadRequest(message);
-        }
-		
+            logger.LogInformation("Error :  {0}", message);
+            return BadRequest(message);
+		}		
 
         [HttpPut]
         [Route("api/user/update-multiple")]
@@ -614,16 +629,19 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var okMessage = "Succesfully updated users.";
-					return Ok(okMessage);
+                    logger.LogInformation("Error :  {0}", okMessage);
+                    return Ok(okMessage);
                 }
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
             const string message = "Incorrect request syntax or users do not exist.";
+			logger.LogInformation("Error :  {0}", message);
 			return BadRequest(message);
-        }
+		}
 
         /// <summary>
         /// Blocks user by Id.
@@ -642,11 +660,13 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var okMessage = $"Succesfully blocked user id: {id}.";
+					logger.LogInformation("Error :  {0}", okMessage);
 					return Ok(okMessage);
                 }
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
 			return NoContent();
@@ -743,12 +763,14 @@ namespace LearnWithMentor.Controllers
                 if (result.Succeeded)
                 {
                     const string okMessage = "Succesfully updated password.";
+                    logger.LogInformation("Error :  {0}", okMessage);
                     return Ok(okMessage);
-                }
+				}
 				return NoContent();
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
         }

@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace LearnWithMentor
 {
@@ -44,8 +45,25 @@ namespace LearnWithMentor
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(Constants.Token.SecretString)),
+                        ValidateLifetime = true,
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        ValidateActor = false
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) && 
+                                path.StartsWithSegments("/api/notifications"))
+                            {
+                                context.Token = accessToken;
+                            }
+
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 
@@ -61,6 +79,7 @@ namespace LearnWithMentor
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserIdentityService, UserIdentityService>();
+            services.AddScoped<INotificationService, NotificationsService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -77,21 +96,19 @@ namespace LearnWithMentor
                 .AddEntityFrameworkStores<LearnWithMentorContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddCors(o => o.AddPolicy(Constants.Cors.policyName, builder =>
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowCredentials()));
+            services.AddSignalR();
+
             // AddFluentValidation() adds FluentValidation services to the default container
             // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddFluentValidation(fvConfig =>
-                    fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
-
-            services.AddCors(o => o.AddPolicy(Constants.Cors.policyName, builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader()
-                       .AllowCredentials();
-            }));
+                .AddFluentValidation(fvConfig => fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,6 +126,7 @@ namespace LearnWithMentor
             app.UseAuthentication();
             IdentityDataInitializer.SeedData(userManager, roleManager).Wait();
             app.UseCors(Constants.Cors.policyName);
+            app.UseSignalR(routes => routes.MapHub<NotificationController>("/api/notifications"));
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -254,6 +254,13 @@ namespace LearnWithMentorBLL.Services
             return groupList;
         }
 
+        public async Task<List<int>> GetUserGroupsIdAsync(int userId)
+        {
+            var group = await GetUserGroupsAsync(userId);
+            var group_List = group.Select(a => a.Id).ToList();
+            return group_List;
+        }
+
         public async ThreadTask.Task<bool> AddUsersToGroupAsync(int[] usersId, int groupId)
         {
             Group groups = await db.Groups.GetAsync(groupId);
