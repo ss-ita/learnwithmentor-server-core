@@ -56,10 +56,10 @@ namespace LearnWithMentor.DAL.Entities
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Plan> Plans { get; set; }
         public virtual DbSet<PlanTask> PlanTasks { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
+        //public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<StudentTask> Tasks { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        //public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserTask> UserTasks { get; set; }
         public virtual DbSet<PlanSuggestion> PlanSuggestion { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
