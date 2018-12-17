@@ -28,6 +28,7 @@ namespace LearnWithMentor.DAL.Entities
             CreateTaskReferences(modelBuilder);
             CreateUserTaskReferences(modelBuilder);
             CreateNotificationReferences(modelBuilder);
+            CreateGroupChatReferences(modelBuilder);
             CreateManyToManyReferences(modelBuilder);
         }
 
@@ -47,7 +48,7 @@ namespace LearnWithMentor.DAL.Entities
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<GroupPlan> GroupPlans { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
-        public virtual DbSet<GroupChatMessage> GroupChatMessages { get; set; }
+        public virtual DbSet<GroupChatMessage> GroupChatMessage { get; set; }
     
         /*public virtual int sp_Total_Ammount_of_Users(ObjectParameter total)
         {
@@ -290,7 +291,7 @@ namespace LearnWithMentor.DAL.Entities
             modelBuilder.Entity<Notification>().HasKey(n => n.Id);
         }
 
-        private void CreateGroupMessageReferences(ModelBuilder modelBuilder)
+        private void CreateGroupChatReferences(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<GroupChatMessage>().HasKey(n => n.Id);
         }

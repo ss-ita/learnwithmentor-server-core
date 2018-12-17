@@ -6,7 +6,7 @@ using LearnWithMentor.DAL.Entities;
 
 namespace LearnWithMentor.DAL.Repositories.Interfaces
 {
-    public interface IGroupChatMessageRepository
+    public interface IGroupChatRepository
     {
         Task AddMessageAsync(GroupChatMessage message);
         Task<IEnumerable<GroupChatMessage>> GetGroupMessagesAsync(int groupId);

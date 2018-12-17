@@ -9,23 +9,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LearnWithMentor.DAL.Repositories
 {
-    public class GroupChatRepository : BaseRepository<GroupChatMessage>, IGroupChatMessageRepository
+    public class GroupChatRepository : BaseRepository<GroupChatMessage>, IGroupChatRepository
     {
         public GroupChatRepository(LearnWithMentorContext context) : base(context)
         {
 
         }
 
-        public async Task AddMessageAsync( GroupChatMessage message)
+        public async Task AddMessageAsync(GroupChatMessage message)
         {
-            await Context.AddAsync(message);
+            try
+            {
+                await Context.AddAsync(message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         public async Task<IEnumerable<GroupChatMessage>> GetGroupMessagesAsync(int groupId)
         {
-            return await Context.GroupChatMessages
+            return await Context.GroupChatMessage
                 .Where(groupChatMessage => groupChatMessage.GroupId == groupId)
-                .OrderByDescending(groupChatMessage => groupChatMessage.Time)
+                .OrderBy(groupChatMessage => groupChatMessage.TimeSent)
                 .ToListAsync();
         }
     }

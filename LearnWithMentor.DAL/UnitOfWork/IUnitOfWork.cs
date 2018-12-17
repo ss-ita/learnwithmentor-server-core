@@ -19,7 +19,7 @@ namespace LearnWithMentor.DAL.UnitOfWork
         IUserRoleViewRepository UserRoleView { get; }
         IUserTaskRepository UserTasks { get; }
         INotificationRepository Notification { get; }
-        IGroupChatMessageRepository GroupChatMessage { get; }
+        IGroupChatRepository GroupChatMessage { get; }
         void Save();
     }
 }

@@ -10,6 +10,6 @@ namespace LearnWithMentor.DAL.Entities
         public string TextMessage { get; set; }
         public int UserId { get; set; }
         public int GroupId { get; set; }  
-        public DateTime Time { get; set; }
+        public DateTime TimeSent { get; set; }
     }
 }

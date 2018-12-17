@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using System.Threading.Tasks;
+using LearnWithMentor.BLL.Interfaces;
+using LearnWithMentor.BLL.Services;
 
 namespace LearnWithMentor
 {
@@ -80,6 +82,7 @@ namespace LearnWithMentor
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserIdentityService, UserIdentityService>();
             services.AddScoped<INotificationService, NotificationsService>();
+            services.AddScoped<IGroupChatService, GroupChatService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
