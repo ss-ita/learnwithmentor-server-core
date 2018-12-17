@@ -20,7 +20,7 @@ namespace LearnWithMentor.Controllers
     /// Controller for groups.
     /// </summary>
     [Authorize]
-    [EnableCors("MyPolicy")]
+    [EnableCors(Constants.Cors.policyName)]
 
 
     public class GroupController : Controller
@@ -48,7 +48,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/group/mentor/{id}")]
         public async Task<ActionResult> GetByMentorAsync(int id)
         {
-            IEnumerable<GroupDto> allGroups = await groupService.GetGroupsByMentorAsync(id);
+            IEnumerable<GroupDTO> allGroups = await groupService.GetGroupsByMentorAsync(id);
             if (allGroups != null)
             {
                 return Ok(allGroups);
@@ -66,7 +66,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/group/{id}")]
         public async Task<ActionResult> GetByIdAsync(int id)
         {
-            GroupDto group = await groupService.GetGroupByIdAsync(id);
+            GroupDTO group = await groupService.GetGroupByIdAsync(id);
             if (group != null)
             {
                 return Ok(group);
@@ -86,8 +86,8 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                IEnumerable<PlanDto> group = await groupService.GetPlansAsync(id);
-                if (group != Enumerable.Empty<PlanDto>())
+                IEnumerable<PlanDTO> group = await groupService.GetPlansAsync(id);
+                if (group != Enumerable.Empty<PlanDTO>())
                 {
                     return Ok(group);
                 }
@@ -110,7 +110,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                IEnumerable<UserIdentityDto> group = await groupService.GetUsersAsync(id);
+                IEnumerable<UserIdentityDTO> group = await groupService.GetUsersAsync(id);
                 if (group != null)
                 {
                     return Ok(group);
@@ -157,7 +157,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/group/{groupId}/users/notingroup")]
         public async Task<ActionResult> GetUsersNotInCurrentGroupAsync(int groupId)
         {
-            IEnumerable<UserIdentityDto> group = await groupService.GetUsersNotInGroupAsync(groupId);
+            IEnumerable<UserIdentityDTO> group = await groupService.GetUsersNotInGroupAsync(groupId);
             if (group != null)
             {
                 return Ok(group);
@@ -190,7 +190,7 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPost]
         [Route("api/group")]
-        public async Task<ActionResult> PostAsync([FromBody]GroupDto group)
+        public async Task<ActionResult> PostAsync([FromBody]GroupDTO group)
         {
             try
             {

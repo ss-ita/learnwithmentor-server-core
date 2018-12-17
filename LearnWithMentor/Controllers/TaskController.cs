@@ -1,19 +1,20 @@
-﻿using System;
+﻿using LearnWithMentor.Logger;
+using LearnWithMentor.Services;
+using LearnWithMentorBLL.Interfaces;
+using LearnWithMentorDTO;
+using LearnWithMentorDTO.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Web.Http;
 using System.Net;
 using System.Net.Http;
-using LearnWithMentorDTO;
-using LearnWithMentorBLL.Interfaces;
 using System.Text.RegularExpressions;
-using LearnWithMentorDTO.Infrastructure;
 using System.Threading.Tasks;
-using LearnWithMentor.Logger;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
 
 namespace LearnWithMentor.Controllers
 {
@@ -29,17 +30,30 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IMessageService messageService;
         private readonly IUserIdentityService userIdentityService;
-        private readonly ILogger logger;
+        private readonly INotificationService notificationService;
+        private readonly IHubContext<NotificationController, IHubClient> hubContext;
+        private readonly IHttpContextAccessor contextAccessor;
+        private readonly ILogger logger;        
 
         /// <summary>
         /// Services initiation.
         /// </summary>
-        public TaskController(ITaskService taskService, IMessageService messageService, IUserIdentityService userIdentityService, ILoggerFactory loggerFactory)
+        public TaskController(
+            ITaskService taskService, 
+            IMessageService messageService, 
+            IUserIdentityService userIdentityService,
+            INotificationService notificationService,
+            IHubContext<NotificationController, IHubClient> hubContext,
+            IHttpContextAccessor contextAccessor,
+            ILoggerFactory loggerFactory)
         {
             this.taskService = taskService;
             this.messageService = messageService;
             this.userIdentityService = userIdentityService;
-            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            this.notificationService = notificationService;
+            this.hubContext = hubContext;
+            this.contextAccessor = contextAccessor;
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
             logger = loggerFactory.CreateLogger("FileLogger");
         }
 
@@ -100,7 +114,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/plan/{planId}/tasks/notinplan")]
         public async Task<ActionResult> GetTasksNotInCurrentPlanAsync(int planId)
         {
-            IEnumerable<TaskDto> task = await taskService.GetTasksNotInPlanAsync(planId);
+            IEnumerable<TaskDTO> task = await taskService.GetTasksNotInPlanAsync(planId);
             if (task != null)
             {
                 return Ok(task);
@@ -118,7 +132,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                TaskDto task = await taskService.GetTaskByIdAsync(taskId);
+                TaskDTO task = await taskService.GetTaskByIdAsync(taskId);
                 if (task == null)
                 {
                     return NoContent();
@@ -142,7 +156,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                TaskDto task = await taskService.GetTaskForPlanAsync(planTaskId);
+                TaskDTO task = await taskService.GetTaskForPlanAsync(planTaskId);
                 if (task != null)
                 {
                     return Ok(task);
@@ -173,7 +187,7 @@ namespace LearnWithMentor.Controllers
                 {
                     return BadRequest();
                 }
-                UserTaskDto userTask = await taskService.GetUserTaskByUserPlanTaskIdAsync(userId, planTaskId);
+                UserTaskDTO userTask = await taskService.GetUserTaskByUserPlanTaskIdAsync(userId, planTaskId);
                 if (userTask != null)
                 {
                     return Ok(userTask);
@@ -198,7 +212,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                var allUserTasks = new List<ListUserTasksDto>();
+                var allUserTasks = new List<ListUserTasksDTO>();
                 foreach (var userid in userId)
                 {
                     var userTasks = await taskService.GetTaskStatesForUserAsync(planTaskId, userid);
@@ -206,7 +220,7 @@ namespace LearnWithMentor.Controllers
                     {
                         return NoContent();
                     }
-                    allUserTasks.Add(new ListUserTasksDto() { UserTasks = userTasks });
+                    allUserTasks.Add(new ListUserTasksDTO() { UserTasks = userTasks });
                 }
                 return Ok(allUserTasks);
             }
@@ -228,7 +242,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                List<UserTaskDto> userTasks = await taskService.GetTaskStatesForUserAsync(planTaskId, userId);
+                List<UserTaskDTO> userTasks = await taskService.GetTaskStatesForUserAsync(planTaskId, userId);
                 if (userTasks == null)
                 {
                     return NoContent();
@@ -256,7 +270,7 @@ namespace LearnWithMentor.Controllers
                 {
                     return BadRequest(HttpStatusCode.Unauthorized);
                 }
-                IEnumerable<MessageDto> messageList = await messageService.GetMessagesAsync(userTaskId);
+                IEnumerable<MessageDTO> messageList = await messageService.GetMessagesAsync(userTaskId);
                 if (messageList != null)
                 {
                     return Ok(messageList);
@@ -276,12 +290,9 @@ namespace LearnWithMentor.Controllers
         /// <param name="userTaskId">Id of the usertask.</param>
         /// <param name="newMessage">New message to be created.</param>
         /// <returns></returns>
-
-
-
         [HttpPost]
         [Route("api/task/userTask/{userTaskId}/messages")]
-        public ActionResult PostUserTaskMessage(int userTaskId, [FromBody]MessageDto newMessage)
+        public ActionResult PostUserTaskMessage(int userTaskId, [FromBody]MessageDTO newMessage)
         {
             try
             {
@@ -293,12 +304,14 @@ namespace LearnWithMentor.Controllers
                 var currentId = userIdentityService.GetUserId();
                 newMessage.SenderId = currentId;
                 var success = messageService.SendMessage(newMessage);
+
                 if (success)
                 {
                     var message = $"Succesfully created message with id = {newMessage.Id} by user with id = {newMessage.SenderId}";
                     logger.LogInformation("Error :  {0}", message);
-                    return Ok(message);
+                    return new JsonResult(message);
                 }
+
                 var erorMessage = "Creation error.";
                 logger.LogInformation("Error :  {0}", erorMessage);
                 return BadRequest(erorMessage);
@@ -316,7 +329,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="newUserTask">New userTask object.</param>
         [HttpPost]
         [Route("api/task/usertask")]
-        public async Task<ActionResult> PostNewUserTaskAsync([FromBody]UserTaskDto newUserTask)
+        public async Task<ActionResult> PostNewUserTaskAsync([FromBody]UserTaskDTO newUserTask)
         {
             try
             {
@@ -354,13 +367,71 @@ namespace LearnWithMentor.Controllers
                 {
                     return BadRequest();
                 }
+
                 var success = await taskService.UpdateUserTaskStatusAsync(userTaskId, newStatus);
+
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
                     logger.LogInformation("Error :  {0}", message);
+
+                    UserDTO userReciever = null;
+
+                    bool isSenderMentor = contextAccessor.HttpContext.User.IsInRole("Mentor");
+                    bool isSenderAdmin = contextAccessor.HttpContext.User.IsInRole("Admin");
+                    string senderName = contextAccessor.HttpContext.User.Identity.Name;
+
+                    if (isSenderMentor || isSenderAdmin)
+                    {
+                        userReciever = await taskService.GetUserByUserTaskId(userTaskId);
+                    }
+                    else
+                    {
+                        userReciever = await taskService.GetMentorByUserTaskId(userTaskId);
+                    }
+
+                    string notificationText = "";
+                    NotificationType notificationType = NotificationType.TaskReset;
+
+                    switch (newStatus)
+                    {
+                        case "D" when (isSenderMentor || isSenderAdmin):
+                            notificationText = "Your task has been reset to done by " + senderName;
+                            notificationType = NotificationType.TaskReset;
+                            break;
+                        case "D":
+                            notificationText = "Student " + senderName + " has comleted the task";
+                            notificationType = NotificationType.TaskCompleted;
+                            break;
+                        case "A":
+                            notificationText = "Your task has been approved by " + senderName;
+                            notificationType = NotificationType.TaskApproved;
+                            break;
+                        case "R":
+                            notificationText = "Your task has been rejected by " + senderName;
+                            notificationType = NotificationType.TaskRejected;
+                            break;
+                        case "RE":
+                            notificationText = "Your task has been reset by " + senderName;
+                            notificationType = NotificationType.TaskReset;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    await notificationService.AddNotificationAsync(notificationText, notificationType.ToString(), DateTime.Now, userReciever.Id);
+                    
+                    string recieverKey = userReciever.FirstName + " " + userReciever.LastName;
+
+                    if (NotificationController.ConnectedUsers.ContainsKey(recieverKey))
+                    {
+                        string recieverConnectionId = NotificationController.ConnectedUsers[recieverKey];
+                        await hubContext.Clients.Client(recieverConnectionId).Notify();
+                    }
+
                     return Ok(message);
-                } 
+                }
+
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
                 logger.LogInformation("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
@@ -378,7 +449,7 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         [HttpPut]
         [Route("api/task/userTask/{userTaskId}/messages/isRead")]
-        public async Task<ActionResult> PutNewIsReadValueAsync(int userTaskId, MessageDto NewMessage)
+        public async Task<ActionResult> PutNewIsReadValueAsync(int userTaskId, MessageDTO NewMessage)
         {
             try
             {
@@ -445,7 +516,7 @@ namespace LearnWithMentor.Controllers
                     return await GetAllTasksAsync();
                 }
                 var lines = key.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                List<TaskDto> taskList = await taskService.SearchAsync(lines);
+                List<TaskDTO> taskList = await taskService.SearchAsync(lines);
                 if (taskList == null || taskList.Count == 0)
                 {
                     return NoContent();
@@ -475,7 +546,7 @@ namespace LearnWithMentor.Controllers
                     return BadRequest();
                 }
                 var lines = key.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                IEnumerable<TaskDto> taskList = await taskService.SearchAsync(lines, planId);
+                IEnumerable<TaskDTO> taskList = await taskService.SearchAsync(lines, planId);
                 if (taskList == null)
                 {
                     return NoContent();
@@ -495,7 +566,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="newTask">Task object for creation.</param>
         [HttpPost]
         [Route("api/task")]
-        public ActionResult Post([FromBody]TaskDto newTask)
+        public ActionResult Post([FromBody]TaskDTO newTask)
         {
             try
             {
@@ -527,7 +598,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="value"> New plan to be created. </param>
         [HttpPost]
         [Route("api/task/return")]
-        public async Task<ActionResult> PostAndReturnIdAsync([FromBody]TaskDto value)
+        public async Task<ActionResult> PostAndReturnIdAsync([FromBody]TaskDTO value)
         {
             try
             {
@@ -561,7 +632,7 @@ namespace LearnWithMentor.Controllers
         //[Authorize(Roles = "Mentor")]
         [HttpPut]
         [Route("api/task/{taskId}")]
-        public async Task<ActionResult> PutAsync(int taskId, [FromBody]TaskDto task)
+        public async Task<ActionResult> PutAsync(int taskId, [FromBody]TaskDTO task)
         {
             try
             {

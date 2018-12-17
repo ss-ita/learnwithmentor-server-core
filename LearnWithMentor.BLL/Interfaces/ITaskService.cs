@@ -7,25 +7,27 @@ namespace LearnWithMentorBLL.Interfaces
 {
     public interface ITaskService : IDisposableService
     {
-        bool CreateTask(TaskDto taskDTO);
-        Task<IEnumerable<TaskDto>> GetAllTasksAsync();
-        Task<TaskDto> GetTaskByIdAsync(int taskId);
-        Task<int?> AddAndGetIdAsync(TaskDto taskDTO);
-        Task<TaskDto> GetTaskForPlanAsync(int taskId, int planId);
-        Task<TaskDto> GetTaskForPlanAsync(int planTaskId);
-        Task<IEnumerable<TaskDto>> GetTasksNotInPlanAsync(int planId);
-        Task<UserTaskDto> GetUserTaskByUserPlanTaskIdAsync(int userId, int planTaskId);
-        Task<bool> CreateUserTaskAsync(UserTaskDto userTaskDTO);
+        bool CreateTask(TaskDTO taskDTO);
+        Task<IEnumerable<TaskDTO>> GetAllTasksAsync();
+        Task<TaskDTO> GetTaskByIdAsync(int taskId);
+        Task<int?> AddAndGetIdAsync(TaskDTO taskDTO);
+        Task<TaskDTO> GetTaskForPlanAsync(int taskId, int planId);
+        Task<TaskDTO> GetTaskForPlanAsync(int planTaskId);
+        Task<IEnumerable<TaskDTO>> GetTasksNotInPlanAsync(int planId);
+        Task<UserTaskDTO> GetUserTaskByUserPlanTaskIdAsync(int userId, int planTaskId);
+        Task<bool> CreateUserTaskAsync(UserTaskDTO userTaskDTO);
         Task<bool> UpdateUserTaskStatusAsync(int userTaskId, string newStatus);
         Task<bool> UpdateUserTaskResultAsync(int userTaskId, string newResult);
-        Task<bool> UpdateTaskByIdAsync(int taskId,TaskDto taskDTO);
+        Task<bool> UpdateTaskByIdAsync(int taskId,TaskDTO taskDTO);
         Task<bool> RemoveTaskByIdAsync(int taskId);
         Task<bool> UpdateProposeEndDateAsync(int userTaskId, DateTime proposeEndDate);
-        Task<List<UserTaskDto>> GetTaskStatesForUserAsync(int[] planTaskIds, int userId);
-        Task<IEnumerable<TaskDto>> SearchAsync(string[] str, int planId);
-        Task<List<TaskDto>> SearchAsync(string[] keys);
-        Task<StatisticsDto> GetUserStatisticsAsync(int userId);
-        Task<PagedListDto<TaskDto>> GetTasks(int pageSize, int pageNumber = 1);
+        Task<List<UserTaskDTO>> GetTaskStatesForUserAsync(int[] planTaskIds, int userId);
+        Task<IEnumerable<TaskDTO>> SearchAsync(string[] str, int planId);
+        Task<List<TaskDTO>> SearchAsync(string[] keys);
+        Task<StatisticsDTO> GetUserStatisticsAsync(int userId);
+        Task<UserDTO> GetUserByUserTaskId(int userTaskId);
+        Task<UserDTO> GetMentorByUserTaskId(int userTaskId);
+        Task<PagedListDTO<TaskDTO>> GetTasks(int pageSize, int pageNumber = 1);
         Task<bool> DeleteProposeEndDateAsync(int userTaskId);
         Task<bool> SetNewEndDateAsync(int userTaskId);
         Task<bool> CheckUserTaskOwnerAsync(int userTaskId, int userId);

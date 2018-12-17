@@ -1,9 +1,12 @@
 *.swp
 *.*~
 project.lock.json
+appsettings.json
+launchSettings.json
 .DS_Store
 *.pyc
 nupkg/
+logger.txt
 
 # Visual Studio Code
 .vscode

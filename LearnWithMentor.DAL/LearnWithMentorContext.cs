@@ -30,6 +30,7 @@ namespace LearnWithMentor.DAL.Entities
             CreateSectionReferences(modelBuilder);
             CreateTaskReferences(modelBuilder);
             CreateUserTaskReferences(modelBuilder);
+<<<<<<< HEAD:LearnWithMentor.DAL/LearnWithMentorContext.cs
             CreateManyToManyReferences(modelBuilder);*/
 
             #endregion
@@ -47,6 +48,8 @@ namespace LearnWithMentor.DAL.Entities
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UserGroupConfiguration());
             modelBuilder.ApplyConfiguration(new UserTaskConfiguration());
+
+            modelBuilder.ApplyConfiguration(new NotificationConfiguration());
         }
 
         public virtual DbSet<Comment> Comments { get; set; }
@@ -63,7 +66,9 @@ namespace LearnWithMentor.DAL.Entities
         public virtual DbSet<UserGroup> UserGroups { get; set; }                
         public virtual DbSet<GroupPlan> GroupPlans { get; set; }
 
-
+        public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<GroupChatMessage> GroupChatMessages { get; set; }
+    
         #region ConfiguringMethods
 
         /*private void CreateUserReferences(ModelBuilder modelBuilder)
@@ -259,6 +264,16 @@ namespace LearnWithMentor.DAL.Entities
                 .WithMany(planTask => planTask.UserTasks)
                 .HasForeignKey(userTask => userTask.PlanTask_Id)
                 .OnDelete(DeleteBehavior.Restrict);
+        }
+
+        private void CreateNotificationReferences(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Notification>().HasKey(n => n.Id);
+        }
+
+        private void CreateGroupMessageReferences(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GroupChatMessage>().HasKey(n => n.Id);
         }
 
         private void CreateManyToManyReferences(ModelBuilder modelBuilder)

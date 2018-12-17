@@ -1,6 +1,7 @@
-﻿namespace LearnWithMentorDTO
+﻿
+namespace LearnWithMentorDTO
 {
-    public class ImageDto
+    public class ImageDTO
     {
         public string Name { get; set; }
         public string Base64Data { get; set; }

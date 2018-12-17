@@ -2,9 +2,16 @@
 
 namespace LearnWithMentorDTO
 {
-    public class PagedListDto<T>
+    public class PagedListDTO<T>
     {
-        public PagedListDto(int pageNumber, int totalPages, int totalCount, int pageSize, bool hasPrevious, bool hasNext, List<T> items)
+        public PagedListDTO(
+            int pageNumber, 
+            int totalPages, 
+            int totalCount, 
+            int pageSize, 
+            bool hasPrevious, 
+            bool hasNext, 
+            List<T> items)
         {
             PageNumber = pageNumber;
             TotalPages = totalPages;

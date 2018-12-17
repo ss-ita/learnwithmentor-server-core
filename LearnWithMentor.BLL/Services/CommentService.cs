@@ -13,14 +13,14 @@ namespace LearnWithMentorBLL.Services
         {
         }
 
-        public async Task<CommentDto> GetCommentAsync(int commentId)
+        public async Task<CommentDTO> GetCommentAsync(int commentId)
         {
             Comment comment = await db.Comments.GetAsync(commentId);
             if (comment == null)
             {
                 return null;
             }
-            var commentDTO = new  CommentDto(comment.Id,
+            var commentDTO = new  CommentDTO(comment.Id,
                                    comment.Text,
                                    comment.Create_Id,
                                    await db.Users.ExtractFullNameAsync(comment.Create_Id),
@@ -29,7 +29,7 @@ namespace LearnWithMentorBLL.Services
             return  commentDTO;
         }
 
-        public async Task<bool> AddCommentToPlanTaskAsync(int planTaskId, CommentDto comment)
+        public async Task<bool> AddCommentToPlanTaskAsync(int planTaskId, CommentDTO comment)
         {
             var plantask = await db.PlanTasks.Get(planTaskId);
             if (plantask == null)
@@ -51,7 +51,7 @@ namespace LearnWithMentorBLL.Services
             return true;
         }
 
-        public async Task<bool> AddCommentToPlanTaskAsync(int planId, int taskId, CommentDto comment)
+        public async Task<bool> AddCommentToPlanTaskAsync(int planId, int taskId, CommentDTO comment)
         {
             var planTaskId = await db.PlanTasks.GetIdByTaskAndPlanAsync(taskId, planId);
             if (planTaskId == null)
@@ -78,7 +78,7 @@ namespace LearnWithMentorBLL.Services
             return true;
         }
 
-        public async Task<bool> UpdateCommentAsync(int commentId, CommentDto commentDTO)
+        public async Task<bool> UpdateCommentAsync(int commentId, CommentDTO commentDTO)
         {
             if (commentDTO == null)
             {
@@ -91,15 +91,15 @@ namespace LearnWithMentorBLL.Services
             return await UpdateCommentIdTextAsync(commentId, commentDTO.Text);
         }
 
-        public async Task<IEnumerable<CommentDto>> GetCommentsForPlanTaskAsync(int taskId, int planId)
+        public async Task<IEnumerable<CommentDTO>> GetCommentsForPlanTaskAsync(int taskId, int planId)
         {
             var planTaskId = await db.PlanTasks.GetIdByTaskAndPlanAsync(taskId, planId);
             return planTaskId == null ? null : await GetCommentsForPlanTaskAsync(planTaskId.Value);
         }
 
-        public async Task<IEnumerable<CommentDto>> GetCommentsForPlanTaskAsync(int planTaskId)
+        public async Task<IEnumerable<CommentDTO>> GetCommentsForPlanTaskAsync(int planTaskId)
         {
-            var commentsList = new List<CommentDto>();
+            var commentsList = new List<CommentDTO>();
             var planTask = await db.PlanTasks.Get(planTaskId);
             var comments = planTask?.Comments;
             if (comments == null)
@@ -108,7 +108,7 @@ namespace LearnWithMentorBLL.Services
             }
             foreach (var c in comments)
             {
-                commentsList.Add(new CommentDto(c.Id,
+                commentsList.Add(new CommentDTO(c.Id,
                                        c.Text,
                                        c.Create_Id,
                                        await db.Users.ExtractFullNameAsync(c.Create_Id),

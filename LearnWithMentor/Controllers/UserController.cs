@@ -16,6 +16,8 @@ using System.Linq;
 using LearnWithMentor.Services;
 using LearnWithMentor.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using LearnWithMentor.Logger;
 
 namespace LearnWithMentor.Controllers
 {
@@ -30,17 +32,20 @@ namespace LearnWithMentor.Controllers
         private readonly ITaskService taskService;
         private readonly IUserIdentityService userIdentityService;
 		private readonly IHttpContextAccessor _accessor;
+		private readonly ILogger logger;
 		/// <summary>
 		/// Creates an instance of UserController.
 		/// </summary>
-		public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor)
+		public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, ILoggerFactory loggerFactory)
         {
             this.userService = userService;
             this.roleService = roleService;
             this.taskService = taskService;
             this.userIdentityService = userIdentityService;
 			this._accessor = accessor;
-        }
+			loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), Constants.Logger.logFileName));
+			logger = loggerFactory.CreateLogger("FileLogger");
+		}
 		/// <summary>
 		/// Returns all users of the system.
 		/// </summary>
@@ -49,7 +54,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/user")]
         public async Task<ActionResult> GetAsync()
         {
-            List<UserDto> users = await userService.GetAllUsersAsync();
+            List<UserDTO> users = await userService.GetAllUsersAsync();
             if (users.Count != 0)
             {
 				return Ok(users);
@@ -66,12 +71,12 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                PagedListDto<UserDto> users = await userService.GetUsers(pageSize, pageNumber);
+                PagedListDTO<UserDTO> users = await userService.GetUsers(pageSize, pageNumber);
 				return Ok(users);
             }
             catch (Exception e)
             {
-				//tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
 			}
         }
@@ -95,7 +100,7 @@ namespace LearnWithMentor.Controllers
 					return NoContent();
                 }
             }
-            List<UserDto> users = await userService.GetUsersByRoleAsync(roleId);
+            List<UserDTO> users = await userService.GetUsersByRoleAsync(roleId);
             if (users.Count == 0)
             {
 				return NoContent();
@@ -122,7 +127,7 @@ namespace LearnWithMentor.Controllers
 					return NoContent();
                 }
             }
-            PagedListDto<UserDto> users = await userService.GetUsersByRoleAsync(roleId, pageSize, pageNumber);
+            PagedListDTO<UserDTO> users = await userService.GetUsersByRoleAsync(roleId, pageSize, pageNumber);
 			return Ok(users);
         }
 
@@ -136,7 +141,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/user/instate/{state}")]
         public async Task<ActionResult> GetUsersbyStateAsync(bool state)
         {
-            List<UserDto> users = await userService.GetUsersByStateAsync(state);
+            List<UserDTO> users = await userService.GetUsersByStateAsync(state);
             if (users.Count == 0)
             {
 				return NoContent();
@@ -156,7 +161,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/user/instate/{state}")]
         public async Task<ActionResult> GetUsersbyStateAsync(bool state, [FromQuery]int pageSize, [FromQuery]int pageNumber)
         {
-            PagedListDto<UserDto> users = await userService.GetUsersByStateAsync(state, pageSize, pageNumber);
+            PagedListDTO<UserDTO> users = await userService.GetUsersByStateAsync(state, pageSize, pageNumber);
 			return Ok(users);
         }
 
@@ -175,7 +180,7 @@ namespace LearnWithMentor.Controllers
                 id = userIdentityService.GetUserId();
             }
 
-            UserDto user = await userService.GetAsync(id);
+            UserDTO user = await userService.GetAsync(id);
             if (user != null)
             {
 				return Ok(user);
@@ -190,7 +195,7 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/user")]
-        public async Task<ActionResult> PostAsync([FromBody]UserRegistrationDto value)
+        public async Task<ActionResult> PostAsync([FromBody]UserRegistrationDTO value)
         {
             if (!ModelState.IsValid)
             {
@@ -207,11 +212,11 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
-				//tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
             const string message = "Incorrect request syntax.";
-			//tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
+			logger.LogInformation("Error :  {0}", message);
 			return BadRequest(message);
         }
 
@@ -296,7 +301,7 @@ namespace LearnWithMentor.Controllers
 		[AllowAnonymous]
         [HttpPost]
         [Route("api/user/password-reset")]
-        public async Task<ActionResult> SendPasswordResetLinkAsync([FromBody] EmailDto emailModel, string resetPasswordLink)
+        public async Task<ActionResult> SendPasswordResetLinkAsync([FromBody] EmailDTO emailModel, string resetPasswordLink)
         {
             try
             {
@@ -307,7 +312,7 @@ namespace LearnWithMentor.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-                    UserIdentityDto user = await userService.GetByEmailAsync(emailModel.Email);
+                    UserIdentityDTO user = await userService.GetByEmailAsync(emailModel.Email);
                     if (user == null)
                     {
 						return NoContent();
@@ -326,6 +331,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
         }
@@ -338,7 +344,7 @@ namespace LearnWithMentor.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/user/confirm-email")]
-        public async Task<ActionResult> SendEmailConfirmLinkAsync([FromBody] EmailDto emailModel, string emailConfirmLink)
+        public async Task<ActionResult> SendEmailConfirmLinkAsync([FromBody] EmailDTO emailModel, string emailConfirmLink)
         {
             try
             {
@@ -349,7 +355,7 @@ namespace LearnWithMentor.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-                    UserIdentityDto user = await userService.GetByEmailAsync(emailModel.Email);
+                    UserIdentityDTO user = await userService.GetByEmailAsync(emailModel.Email);
                     if (user == null)
                     {
 						return NoContent();
@@ -369,6 +375,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
             }
         }
@@ -382,7 +389,7 @@ namespace LearnWithMentor.Controllers
         public async Task<ActionResult> GetStatisticsAsync()
         {
             var id = userIdentityService.GetUserId();
-            StatisticsDto statistics = await taskService.GetUserStatisticsAsync(id);
+            StatisticsDTO statistics = await taskService.GetUserStatisticsAsync(id);
             if (statistics == null)
             {
 				return NoContent();
@@ -442,6 +449,7 @@ namespace LearnWithMentor.Controllers
 			}
 			catch (Exception e)
 			{
+				logger.LogInformation("Error :  {0}", e.Message);
 				return BadRequest();
 			}
 		}
@@ -462,7 +470,7 @@ namespace LearnWithMentor.Controllers
                 {
 					return NoContent();
                 }
-                ImageDto dto = await userService.GetImageAsync(id);
+                ImageDTO dto = await userService.GetImageAsync(id);
                 if (dto == null)
                 {
 					return NoContent();
@@ -471,6 +479,7 @@ namespace LearnWithMentor.Controllers
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return BadRequest(e);
             }
         }
@@ -484,7 +493,7 @@ namespace LearnWithMentor.Controllers
 
         [HttpPut]
         [Route("api/user/{id}")]
-        public async Task<ActionResult> PutAsync(int id, [FromBody]UserDto value)
+        public async Task<ActionResult> PutAsync(int id, [FromBody]UserDTO value)
         {
             try
             {
@@ -493,23 +502,23 @@ namespace LearnWithMentor.Controllers
 				{
 					var okMessage = $"Succesfully updated user id: {id}.";
 					return Ok(okMessage);
-					//tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
+					logger.LogInformation("Error :  {0}", okMessage);
 				}
             }
             catch (Exception e)
             {
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-            }
+				logger.LogInformation("Error :  {0}", e.Message);
+			}
             const string message = "Incorrect request syntax or user does not exist.";
 			return BadRequest(message);
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-        }
+			logger.LogInformation("Error :  {0}", message);
+		}
 		
 
         [HttpPut]
         [Route("api/user/update-multiple")]
-        public async Task<ActionResult> UpdateUsersAsync([FromBody]UserDto[] value)
+        public async Task<ActionResult> UpdateUsersAsync([FromBody]UserDTO[] value)
         {
             try
             {
@@ -523,18 +532,18 @@ namespace LearnWithMentor.Controllers
                 {
                     var okMessage = "Succesfully updated users.";
 					return Ok(okMessage);
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
-                }
+					logger.LogInformation("Error :  {0}", okMessage);
+				}
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-            }
+			}
             const string message = "Incorrect request syntax or users do not exist.";
+			logger.LogInformation("Error :  {0}", message);
 			return BadRequest(message);
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-        }
+		}
 
         /// <summary>
         /// Blocks user by Id.
@@ -553,18 +562,18 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var okMessage = $"Succesfully blocked user id: {id}.";
+					logger.LogInformation("Error :  {0}", okMessage);
 					return Ok(okMessage);
-                    //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
-                }
+					
+				}
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
-               // tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
-            }
-			return NoContent();
-            //tracer.Warn(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, message);
-        }
+			}
+			return NoContent();	
+		}
 
         /// <summary>
         /// Search for user with match in first or lastname with role criteria.
@@ -583,7 +592,7 @@ namespace LearnWithMentor.Controllers
                 key = "";
             }
 
-            RoleDto criteria = await  roleService.GetByNameAsync(role);
+            RoleDTO criteria = await  roleService.GetByNameAsync(role);
             var lines = key.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             int? searchParametr = null;
             if (role == Constants.Roles.Blocked)
@@ -594,7 +603,7 @@ namespace LearnWithMentor.Controllers
             {
                 lines = lines.Take(2).ToArray();
             }
-            List<UserDto> users =  criteria != null ? await userService.SearchAsync(lines, criteria.Id) :
+            List<UserDTO> users =  criteria != null ? await userService.SearchAsync(lines, criteria.Id) :
                 await userService.SearchAsync(lines, searchParametr);
             if ( users.Count != 0)
             {
@@ -656,14 +665,14 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     const string okMessage = "Succesfully updated password.";
-                   //tracer.Info(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, okMessage);
-                }
+					logger.LogInformation("Error :  {0}", okMessage);
+				}
 				return NoContent();
             }
             catch (Exception e)
             {
+				logger.LogInformation("Error :  {0}", e.Message);
 				return StatusCode(500);
-                //tracer.Error(Request, ControllerContext.ControllerDescriptor.ControllerType.FullName, e);
             }
         }
 

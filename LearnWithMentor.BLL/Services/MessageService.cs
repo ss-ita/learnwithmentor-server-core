@@ -13,7 +13,7 @@ namespace LearnWithMentorBLL.Services
         {
         }
 
-        public async Task<IEnumerable<MessageDto>> GetMessagesAsync(int userTaskId)
+        public async Task<IEnumerable<MessageDTO>> GetMessagesAsync(int userTaskId)
         {
             UserTask userTask = await db.UserTasks.GetAsync(userTaskId);
             if (userTask == null)
@@ -21,10 +21,10 @@ namespace LearnWithMentorBLL.Services
                 return null;
             }
             var messages = userTask.Messages;
-            var messageDTOs = new List<MessageDto>();
+            var messageDTOs = new List<MessageDTO>();
             foreach (var message in messages)
             {
-                messageDTOs.Add(new MessageDto(message.Id,
+                messageDTOs.Add(new MessageDTO(message.Id,
                                        message.User_Id,
                                        message.UserTask_Id,
                                        await db.Users.ExtractFullNameAsync(message.User_Id),
@@ -36,7 +36,7 @@ namespace LearnWithMentorBLL.Services
             return messageDTOs;
         }
 
-        public bool SendMessage(MessageDto newMessage)
+        public bool SendMessage(MessageDTO newMessage)
         {
             var message = new Message()
             {
@@ -49,7 +49,7 @@ namespace LearnWithMentorBLL.Services
             return true;
         }
 
-        public async Task<bool> UpdateIsReadStateAsync(int userTaskId, MessageDto message)
+        public async Task<bool> UpdateIsReadStateAsync(int userTaskId, MessageDTO message)
         {
             Message GetMessage= await db.Messages.GetAsync(message.Id);
             if (GetMessage == null) return false;

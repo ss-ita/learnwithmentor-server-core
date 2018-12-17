@@ -1,12 +1,10 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using LearnWithMentorDTO.Infrastructure;
 
 namespace LearnWithMentorDTO
 {
-    public class MessageDto
+    public class MessageDTO
     {
-        public MessageDto(int id,
+        public MessageDTO(int id,
                         int senderId,
                         int userTaskId,
                         string senderName,
@@ -27,12 +25,8 @@ namespace LearnWithMentorDTO
         public int SenderId { get; set; }
         public int UserTaskId { get; set; }
         public string SenderName { get; set; }
-        [Required]
-        [StringLength(ValidationRules.MAX_MESSAGE_LENGTH,
-            ErrorMessage = "Message is too long")]
         public string Text { get; set; }
         public DateTime? SendTime { get; set; }
         public bool IsRead { get; set; }
-
     }
 }

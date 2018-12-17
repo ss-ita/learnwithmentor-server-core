@@ -78,7 +78,7 @@ namespace LearnWithMentor.Controllers
             {
                 return NoContent();
             }
-            return Ok(info);
+            return new JsonResult(info);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace LearnWithMentor.Controllers
         public async Task<ActionResult> GetTasksForPlanAsync(int id)
 
         {
-            List<SectionDto> sections = await planService.GetTasksForPlanAsync(id);
+            List<SectionDTO> sections = await planService.GetTasksForPlanAsync(id);
             if (sections == null)
             {
                 return NoContent();
@@ -125,7 +125,7 @@ namespace LearnWithMentor.Controllers
         [Route("api/plan/{planId}/tasks")]
         public async Task<ActionResult> GetAllTasksAsync(int planId)
         {
-            List<TaskDto> dtosList = await planService.GetAllTasksAsync(planId);
+            List<TaskDTO> dtosList = await planService.GetAllTasksAsync(planId);
             if (dtosList == null || dtosList.Count == 0)
             {
                 return NoContent();
@@ -156,7 +156,7 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPost]
         [Route("api/plan")]
-        public async Task<ActionResult> PostAsync([FromBody]PlanDto value)
+        public async Task<ActionResult> PostAsync([FromBody]PlanDTO value)
         {
             try
             {
@@ -182,7 +182,7 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPost]
         [Route("api/plan/return")]
-        public async Task<ActionResult> PostAndReturnIdAsync([FromBody]PlanDto value)
+        public async Task<ActionResult> PostAndReturnIdAsync([FromBody]PlanDTO value)
         {
             try
             {
@@ -212,7 +212,7 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor, Admin")]
         [HttpPut]
         [Route("api/plan/{id}")]
-        public async Task<ActionResult> PutAsync(int id, [FromBody]PlanDto value)
+        public async Task<ActionResult> PutAsync(int id, [FromBody]PlanDTO value)
         {
             try
             {
