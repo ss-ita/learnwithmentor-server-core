@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LearnWithMentor.Controllers
@@ -23,15 +24,15 @@ namespace LearnWithMentor.Controllers
 
         public override Task OnConnectedAsync()
         {
-            string userName = Context.User.Identity.Name;
-            ConnectedUsers.TryAdd(Context.User.Identity.Name, Context.ConnectionId);
+            string userId = Context.User.Claims.Where(claim => claim.Type == "Id").FirstOrDefault().Value;
+            ConnectedUsers.TryAdd(userId, Context.ConnectionId);
             return base.OnConnectedAsync();
         }
         public override Task OnDisconnectedAsync(Exception ex)
         {
-            string userName = Context.User.Identity.Name;
+            string userId = Context.User.Claims.Where(claim => claim.Type == "Id").FirstOrDefault().Value;
             string removedValue = "";
-            ConnectedUsers.TryRemove(userName, out removedValue);   
+            ConnectedUsers.TryRemove(userId, out removedValue);   
             return base.OnDisconnectedAsync(ex);
         }
 

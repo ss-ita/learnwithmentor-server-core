@@ -1,21 +1,21 @@
-using System;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using LearnWithMentor.Controllers;
+using LearnWithMentor.DAL.Entities;
 using LearnWithMentor.DAL.UnitOfWork;
 using LearnWithMentorBLL.Interfaces;
 using LearnWithMentorBLL.Services;
-using LearnWithMentor.DAL.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
-using Microsoft.AspNetCore.Identity;
+using System;
 using System.Threading.Tasks;
 
 namespace LearnWithMentor
@@ -79,7 +79,7 @@ namespace LearnWithMentor
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserIdentityService, UserIdentityService>();
-            services.AddScoped<INotificationService, NotificationsService>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
