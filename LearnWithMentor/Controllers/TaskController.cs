@@ -373,7 +373,7 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
-                    logger.LogInformation("Error :  {0}", message);
+                    logger.LogInformation(message);
 
                     UserDTO userReciever = null;
 
@@ -419,9 +419,9 @@ namespace LearnWithMentor.Controllers
                             break;
                     }
 
-                    await notificationService.AddNotificationAsync(notificationText, notificationType.ToString(), DateTime.Now, userReciever.Id);
-                    
-                    string recieverKey = userReciever.FirstName + " " + userReciever.LastName;
+                    await notificationService.AddNotificationAsync(notificationText, notificationType, DateTime.Now, userReciever.Id);
+
+                    string recieverKey = userReciever.Id.ToString();
 
                     if (NotificationController.ConnectedUsers.ContainsKey(recieverKey))
                     {

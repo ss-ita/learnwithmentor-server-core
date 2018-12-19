@@ -7,7 +7,7 @@ namespace LearnWithMentorBLL.Interfaces
 {
     public interface INotificationService : IDisposableService
     {
-        Task AddNotificationAsync(string text, string type, DateTime dateTime, int userId);
+        Task AddNotificationAsync(string text, NotificationType type, DateTime dateTime, int userId);
         Task MarkAllNotificationsAsReadAsync(int userId);
         Task<IEnumerable<NotificationDTO>> GetNotificationsAsync(int userId, int amount);
     }

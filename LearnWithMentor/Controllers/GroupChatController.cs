@@ -21,15 +21,21 @@ namespace LearnWithMentor.Controllers
         private readonly IHubContext<NotificationController, IHubClient> _chatHubContext;
         private readonly IGroupService _groupService;
         private readonly IUserService _userService;
+        private readonly INotificationService _notificationService;
         private readonly IUserIdentityService _userIdentityService;
 
         public static List<string> clients = new List<string>();
 
-        public GroupChatController(IGroupService groupService, IUserService userService,
-            IUserIdentityService userIdentityService, IHubContext<NotificationController, IHubClient> chatHub)
+        public GroupChatController(
+            IGroupService groupService, 
+            IUserService userService,
+            INotificationService notificationService,
+            IUserIdentityService userIdentityService, 
+            IHubContext<NotificationController, IHubClient> chatHub)
         {
             this._userService = userService;
             this._groupService = groupService;
+            this._notificationService = notificationService;
             this._userIdentityService = userIdentityService;
             this._chatHubContext = chatHub;
         }
@@ -62,9 +68,21 @@ namespace LearnWithMentor.Controllers
                 if (groups.Count() == 1)
                 {
                     await _chatHubContext.Clients.Group(groups.First().ToString()).SendMessage(user.FirstName, message, DateTime.Now.ToString("h:mm:ss tt"));
-                }
-                return Ok();
 
+                    string notificationText = "You have new messages from your group";
+                    NotificationType notificationType = NotificationType.NewMessage;
+                    var users = await _groupService.GetUsersAsync(groups.FirstOrDefault());
+
+                    foreach (var userReciever in users)
+                    {
+                        if (userReciever.Id != user.Id && !NotificationController.ConnectedUsers.ContainsKey(userReciever.Id.ToString()))
+                        {
+                            await _notificationService.AddNotificationAsync(notificationText, notificationType, DateTime.Now, userReciever.Id);
+                        }
+                    }
+                }
+
+                return Ok();
             }
             catch (Exception e)
             {
@@ -80,7 +98,7 @@ namespace LearnWithMentor.Controllers
             {
                 var user = await _userService.GetAsync(id);
                 var groups = await _groupService.GetUserGroupsIdAsync(id);
-                string userConnectionId = NotificationController.ConnectedUsers[user.FirstName + " " + user.LastName];
+                string userConnectionId = NotificationController.ConnectedUsers[user.Id.ToString()];
                 string groupName = groups.First().ToString();
                 await _chatHubContext.Groups.AddToGroupAsync(userConnectionId, groupName);
                 await _chatHubContext.Clients.Group(groups.First().ToString()).SendMessage(user.FirstName, "Connected to group", DateTime.Now.ToString("h:mm:ss tt"));
