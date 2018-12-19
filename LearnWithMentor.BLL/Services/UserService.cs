@@ -74,7 +74,7 @@ namespace LearnWithMentorBLL.Services
                 return false;
             }
             item.Blocked = true;
-            await db.Users.UpdateAsync(item);
+            db.Users.UpdateAsync(item);
             db.Save();
             return true;
         }
@@ -106,7 +106,7 @@ namespace LearnWithMentorBLL.Services
                     item.Role_Id = updatedRole.Id;
                     modified = true;
                 }
-                await db.Users.UpdateAsync(item);
+                db.Users.UpdateAsync(item);
                 db.Save();
             }
             return modified;
@@ -118,7 +118,7 @@ namespace LearnWithMentorBLL.Services
             if (user != null)
             {
                 user.EmailConfirmed = true;
-                await db.Users.UpdateAsync(user);
+                db.Users.UpdateAsync(user);
                 db.Save();
                 return true;
             }

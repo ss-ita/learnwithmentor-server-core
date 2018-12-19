@@ -199,7 +199,7 @@ namespace LearnWithMentorBLL.Services
                 Propose_End_Date = userTaskDTO.ProposeEndDate,
                 Mentor_Id = userTaskDTO.MentorId
             };
-            await db.UserTasks.AddAsync(userTask);
+            db.UserTasks.AddAsync(userTask);
             db.Save();
             return true;
         }
@@ -209,7 +209,7 @@ namespace LearnWithMentorBLL.Services
             UserTask userTask = await db.UserTasks.GetAsync(userTaskId);
             if (userTask == null) return false;
             userTask.Propose_End_Date = proposeEndDate;
-            await db.UserTasks.UpdateAsync(userTask);
+            db.UserTasks.UpdateAsync(userTask);
             db.Save();
             return true;
         }
