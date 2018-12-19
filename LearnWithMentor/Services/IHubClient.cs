@@ -5,6 +5,6 @@ namespace LearnWithMentor.Services
     public interface IHubClient
     {
         Task Notify();
-        Task SendMessage(string name, string message, string timeSent);
+        Task SendMessage(int senderId, string name, string message, string timeSent);
     }
 }

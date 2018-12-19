@@ -10,5 +10,6 @@ namespace LearnWithMentor.DAL.Repositories.Interfaces
     {
         Task AddMessageAsync(GroupChatMessage message);
         Task<IEnumerable<GroupChatMessage>> GetGroupMessagesAsync(int groupId);
+        Task<IEnumerable<GroupChatMessage>> GetGroupMessagesAsync(int groupId, int amount);
     }
 }

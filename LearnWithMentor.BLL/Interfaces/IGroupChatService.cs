@@ -10,5 +10,6 @@ namespace LearnWithMentor.BLL.Interfaces
     {
         Task AddGroupChatMessageAsync(int userId, int groupId, string text, DateTime timeSent);
         Task<IEnumerable<GroupChatMessageDTO>> GetGroupMessagesAsync(int groupId);
+        Task<IEnumerable<GroupChatMessageDTO>> GetGroupMessagesAsync(int groupId, int amount);
     }
 }

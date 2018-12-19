@@ -26,7 +26,8 @@ namespace LearnWithMentor.Controllers
         private readonly IGroupChatService _groupChatService;
 
         public GroupChatController(IGroupService groupService, IUserService userService,
-            IUserIdentityService userIdentityService, IHubContext<NotificationController, IHubClient> chatHub, IGroupChatService groupChatService)
+            IUserIdentityService userIdentityService, IHubContext<NotificationController, IHubClient> chatHub,
+            IGroupChatService groupChatService)
         {
             this._userService = userService;
             this._groupService = groupService;
@@ -42,7 +43,8 @@ namespace LearnWithMentor.Controllers
             try
             {
                 var user = await _userService.GetAsync(id);
-                await _chatHubContext.Clients.All.SendMessage(user.FirstName, message, DateTime.Now.ToString("h:mm:ss tt"));
+                await _chatHubContext.Clients.All.SendMessage(id, user.FirstName, message,
+                    DateTime.Now.ToString("h:mm:ss tt"));
                 return Ok();
 
             }
@@ -62,9 +64,11 @@ namespace LearnWithMentor.Controllers
                 var groups = await _groupService.GetUserGroupsIdAsync(id);
                 if (groups.Count() == 1)
                 {
-                    await _chatHubContext.Clients.Group(groups.First().ToString()).SendMessage(user.FirstName, message, DateTime.Now.ToString("h:mm:ss tt"));
+                    await _chatHubContext.Clients.Group(groups.First().ToString()).SendMessage(id, user.FirstName,
+                        message, DateTime.Now.ToString("h:mm:ss tt"));
                     await _groupChatService.AddGroupChatMessageAsync(user.Id, groups.First(), message, DateTime.Now);
                 }
+
                 return Ok();
 
             }
@@ -85,7 +89,8 @@ namespace LearnWithMentor.Controllers
                 string userConnectionId = NotificationController.ConnectedUsers[user.FirstName + " " + user.LastName];
                 string groupId = groups.First().ToString();
                 await _chatHubContext.Groups.AddToGroupAsync(userConnectionId, groupId);
-                await _chatHubContext.Clients.Group(groups.First().ToString()).SendMessage(user.FirstName, "Connected to group", DateTime.Now.ToString("h:mm:ss tt"));
+                await _chatHubContext.Clients.Group(groups.First().ToString()).SendMessage(id, user.FirstName,
+                    "Connected to group", DateTime.Now.ToString("h:mm:ss tt"));
                 return Ok();
             }
             catch (Exception e)
@@ -106,9 +111,40 @@ namespace LearnWithMentor.Controllers
                 foreach (var groupChatMessage in messages)
                 {
                     var user = await _userService.GetAsync(groupChatMessage.SenderId);
-                    await _chatHubContext.Clients.Client(NotificationController.ConnectedUsers[currentUser.FirstName + " " + currentUser.LastName]).SendMessage(user.FirstName, groupChatMessage.TextMessage,
-                        DateTime.Now.ToString("h:mm:ss tt"));
+                    await _chatHubContext.Clients
+                        .Client(NotificationController.ConnectedUsers[
+                            currentUser.FirstName + " " + currentUser.LastName]).SendMessage(userId, user.FirstName,
+                            groupChatMessage.TextMessage,
+                            groupChatMessage.TimeSent.ToString());
                 }
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("api/chat/getmessages/{userId}/{amount}")]
+        [HttpGet]
+        public async Task<IActionResult> GetMessages(int userId, int amount)
+        {
+            try
+            {
+                var groups = await _groupService.GetUserGroupsIdAsync(userId);
+                var messages = await _groupChatService.GetGroupMessagesAsync(groups.First(), amount);
+                var currentUser = await _userService.GetAsync(userId);
+                foreach (var groupChatMessage in messages.Reverse())
+                {
+                    var user = await _userService.GetAsync(groupChatMessage.SenderId);
+                    await _chatHubContext.Clients
+                        .Client(NotificationController.ConnectedUsers[
+                            currentUser.FirstName + " " + currentUser.LastName]).SendMessage(userId, user.FirstName,
+                            groupChatMessage.TextMessage,
+                            groupChatMessage.TimeSent.ToString());
+                }
+
                 return Ok();
             }
             catch (Exception e)

@@ -49,5 +49,19 @@ namespace LearnWithMentor.BLL.Services
             return groupChatMessagesDtoList;
 
         }
+
+        public async Task<IEnumerable<GroupChatMessageDTO>> GetGroupMessagesAsync(int groupId, int amount)
+        {
+            var groupChatMessages = await db.GroupChatMessage.GetGroupMessagesAsync(groupId, amount);
+            var groupChatMessagesDtoList = groupChatMessages.Select(n =>
+                new GroupChatMessageDTO(
+                    n.Id,
+                    n.TextMessage,
+                    n.UserId,
+                    n.GroupId,
+                    n.TimeSent)
+            );
+            return groupChatMessagesDtoList;
+        }
     }
 }
