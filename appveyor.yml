@@ -3,8 +3,10 @@ image: Visual Studio 2017
 before_build:
 - cmd: dotnet restore
 
-build_script:
-  - cmd: dotnet publish -c Release
+build:
+  project: LearnWithMentor.sln
+  verbosity: minimal
+  publish_wap: true
 
 artifacts:
  - path: '\LearnWithMentor\bin\Release\netcoreapp2.1\publish'
