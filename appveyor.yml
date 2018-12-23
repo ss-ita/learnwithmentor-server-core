@@ -7,6 +7,14 @@ build:
   project: LearnWithMentor.sln
   verbosity: minimal
 
+after_build:
+  - cmd: dotnet publish -c Release
+
+artifacts:
+ - path: '\LearnWithMentor\bin\Release\netcoreapp2.1\publish'
+   name: ServerDeployPackage
+   type: WebDeployPackage
+
 deploy:
   - provider: Environment
     name: production
