@@ -1,13 +1,10 @@
 version: 1.0.{build}
 image: Visual Studio 2017
-clone_depth: 1
-init:
-  - git config --global core.autocrlf true
-  
 before_build:
-  - cmd: dotnet restore --verbosity m
+- cmd: dotnet restore
 
 build_script:
+  - cmd: cd LearnWithMentor
   - cmd: dotnet publish -c Release
 
 artifacts:
