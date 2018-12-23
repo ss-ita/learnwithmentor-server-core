@@ -3,7 +3,6 @@ image: Visual Studio 2017
 clone_depth: 1
 init:
   - git config --global core.autocrlf true
-  - cd LearnWithMentor
   
 before_build:
   - cmd: dotnet restore --verbosity m
