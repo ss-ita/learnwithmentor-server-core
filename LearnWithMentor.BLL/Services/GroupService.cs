@@ -158,7 +158,7 @@ namespace LearnWithMentorBLL.Services
                                      user.LastName,
                                      user.Role.Name,
                                      user.Blocked,
-                                     user.Email_Confirmed
+                                     user.EmailConfirmed
                                     ));
             }
             return userList;
@@ -331,7 +331,7 @@ namespace LearnWithMentorBLL.Services
                     user.LastName,
                     user.Role.Name,
                     user.Blocked,
-                    user.Email_Confirmed);
+                    user.EmailConfirmed);
                 if (!usersNotInGroupList.Contains(rdDto))
                 {
                     usersNotInGroupList.Add(rdDto);

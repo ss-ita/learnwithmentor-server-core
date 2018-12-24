@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
 namespace LearnWithMentor
@@ -31,8 +32,7 @@ namespace LearnWithMentor
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddAuthentication(options =>
+            services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -83,12 +83,28 @@ namespace LearnWithMentor
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.User.RequireUniqueEmail = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 3;
+            })
+                .AddEntityFrameworkStores<LearnWithMentorContext>()
+                .AddDefaultTokenProviders();
+
             services.AddCors(o => o.AddPolicy(Constants.Cors.policyName, builder =>
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader()
                        .AllowCredentials()));
             services.AddSignalR();
+
+            // AddFluentValidation() adds FluentValidation services to the default container
+            // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -96,7 +112,7 @@ namespace LearnWithMentor
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -108,6 +124,7 @@ namespace LearnWithMentor
             }
 
             app.UseAuthentication();
+            IdentityDataInitializer.SeedData(userManager, roleManager).Wait();
             app.UseCors(Constants.Cors.policyName);
             app.UseSignalR(routes => routes.MapHub<NotificationController>("/api/notifications"));
             app.UseHttpsRedirection();

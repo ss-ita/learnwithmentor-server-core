@@ -4,14 +4,16 @@ using LearnWithMentor.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LearnWithMentor.DAL.Migrations
 {
     [DbContext(typeof(LearnWithMentorContext))]
-    partial class LearnWithMentorContextModelSnapshot : ModelSnapshot
+    [Migration("20181210110340_seed-data")]
+    partial class seeddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,10 +208,6 @@ namespace LearnWithMentor.DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new { Id = 1, ConcurrencyStamp = "ce39fdb3-a0cf-4535-b7f1-c7023c7e3703", Name = "Pusya" }
-                    );
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.Section", b =>
@@ -320,10 +318,6 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasIndex("Role_Id");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new { Id = 1, AccessFailedCount = 0, Blocked = false, ConcurrencyStamp = "a1f818e5-5ba3-4d2e-801f-f8c632318088", Email = "koldovsky@gmail.com", EmailConfirmed = true, FirstName = "Vyacheslav", LastName = "Koldovsky", LockoutEnabled = false, PasswordHash = "123", PhoneNumberConfirmed = false, Role_Id = 1, TwoFactorEnabled = false, UserName = "koldovsky@gmail.com" }
-                    );
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.UserGroup", b =>

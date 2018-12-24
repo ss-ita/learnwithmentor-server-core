@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.6" />
     <Compile Remove="EF\**" />
     <EmbeddedResource Remove="EF\**" />
     <None Remove="EF\**" />

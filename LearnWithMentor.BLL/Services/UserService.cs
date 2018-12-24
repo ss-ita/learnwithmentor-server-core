@@ -37,7 +37,7 @@ namespace LearnWithMentorBLL.Services
                 user.LastName,
                 user.Role.Name,
                 user.Blocked,
-                user.Email_Confirmed);
+                user.EmailConfirmed);
         }
 
         public async Task<List<UserDTO>> GetAllUsersAsync()
@@ -117,41 +117,12 @@ namespace LearnWithMentorBLL.Services
             User user = await db.Users.GetAsync(id);
             if (user != null)
             {
-                user.Email_Confirmed = true;
+                user.EmailConfirmed = true;
                 db.Users.UpdateAsync(user);
                 db.Save();
                 return true;
             }
             return false;
-        }
-
-        public async Task<bool> AddAsync(UserRegistrationDTO userLoginDTO)
-        {
-            var toAdd = new User
-            {
-                Email = userLoginDTO.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(userLoginDTO.Password)
-            };
-            var studentRole = await db.Roles.TryGetByName("Student");
-            toAdd.Role_Id = studentRole.Id;
-            toAdd.FirstName = userLoginDTO.FirstName;
-            toAdd.LastName = userLoginDTO.LastName;
-            db.Users.AddAsync(toAdd);
-            db.Save();
-            return true;
-        }
-
-        public async Task<bool> UpdatePasswordAsync(int userId, string password)
-        {
-            User user = await db.Users.GetAsync(userId);
-            if (user == null)
-            {
-                return false;
-            }
-            user.Password = BCrypt.Net.BCrypt.HashPassword(password);
-            await db.Users.UpdateAsync(user);
-            db.Save();
-            return true;
         }
 
         public async Task<List<UserDTO>> SearchAsync(string[] str, int? roleId)
@@ -260,7 +231,7 @@ namespace LearnWithMentorBLL.Services
                                user.Email,
                                user.Role.Name,
                                user.Blocked,
-                               user.Email_Confirmed);
+                               user.EmailConfirmed);
         }
     }
 }

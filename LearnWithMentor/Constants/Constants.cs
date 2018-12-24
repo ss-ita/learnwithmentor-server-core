@@ -29,5 +29,19 @@
         {
             public const string logFileName = "logger.txt";
         }
+
+        public static class Email
+        {
+            public const string BaseEmail = "learnwithmentor@gmail.com";
+            public const string EmailPassword = "learnwithmentor2018";
+            public const string SmtpClient = "smtp.gmail.com";
+            public const int SmtpClientPort = 587;
+        }
+
+        public static class Facebook
+        {
+            public const string AppId = "318651702058203";
+            public const string AppSecret = "635231a956d251de549421d85c7d546e";
+        }
     }
 }

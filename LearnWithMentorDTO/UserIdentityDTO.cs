@@ -3,6 +3,7 @@ namespace LearnWithMentorDTO
 {
     public class UserIdentityDTO
     {
+        public UserIdentityDTO() { }
         public UserIdentityDTO(
             string email, 
             string password, 
