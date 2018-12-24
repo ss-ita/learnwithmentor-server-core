@@ -3,9 +3,14 @@ image: Visual Studio 2017
 before_build:
 - cmd: dotnet restore
 
-build:
-  project: LearnWithMentor.sln
-  verbosity: minimal
+build_script:
+  - cmd: cd LearnWithMentor
+  - cmd: dotnet publish -c Release
+
+artifacts:
+ - path: '\LearnWithMentor\bin\Release\netcoreapp2.1\publish'
+   name: ServerDeployPackage
+   type: WebDeployPackage
 
 deploy:
   - provider: Environment

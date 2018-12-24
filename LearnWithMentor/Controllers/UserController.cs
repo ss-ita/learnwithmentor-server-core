@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 using LearnWithMentor.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Http;
-using static LearnWithMentor.Controllers.Constants;
+using LearnWithMentor.Constants;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using LearnWithMentor.Logger;
