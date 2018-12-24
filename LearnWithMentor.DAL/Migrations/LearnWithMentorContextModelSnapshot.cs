@@ -62,6 +62,25 @@ namespace LearnWithMentor.DAL.Migrations
                     b.ToTable("Groups");
                 });
 
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.GroupChatMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<string>("TextMessage");
+
+                    b.Property<DateTime>("Time");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GroupChatMessages");
+                });
+
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.GroupPlan", b =>
                 {
                     b.Property<int>("GroupId");
@@ -98,6 +117,29 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasIndex("User_Id");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<string>("Text");
+
+                    b.Property<string>("Type");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.Plan", b =>
@@ -206,10 +248,6 @@ namespace LearnWithMentor.DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new { Id = 1, ConcurrencyStamp = "ce39fdb3-a0cf-4535-b7f1-c7023c7e3703", Name = "Pusya" }
-                    );
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.Section", b =>
@@ -320,10 +358,6 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasIndex("Role_Id");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new { Id = 1, AccessFailedCount = 0, Blocked = false, ConcurrencyStamp = "a1f818e5-5ba3-4d2e-801f-f8c632318088", Email = "koldovsky@gmail.com", EmailConfirmed = true, FirstName = "Vyacheslav", LastName = "Koldovsky", LockoutEnabled = false, PasswordHash = "123", PhoneNumberConfirmed = false, Role_Id = 1, TwoFactorEnabled = false, UserName = "koldovsky@gmail.com" }
-                    );
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.UserGroup", b =>
@@ -498,6 +532,14 @@ namespace LearnWithMentor.DAL.Migrations
                         .WithMany("Messages")
                         .HasForeignKey("User_Id")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.Notification", b =>
+                {
+                    b.HasOne("LearnWithMentor.DAL.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.Plan", b =>

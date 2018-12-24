@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnWithMentor.DAL.Migrations
 {
     [DbContext(typeof(LearnWithMentorContext))]
-    [Migration("20181210110340_seed-data")]
-    partial class seeddata
+    [Migration("20181224220944_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,25 @@ namespace LearnWithMentor.DAL.Migrations
                     b.ToTable("Groups");
                 });
 
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.GroupChatMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<string>("TextMessage");
+
+                    b.Property<DateTime>("Time");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GroupChatMessages");
+                });
+
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.GroupPlan", b =>
                 {
                     b.Property<int>("GroupId");
@@ -100,6 +119,29 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasIndex("User_Id");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<string>("Text");
+
+                    b.Property<string>("Type");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.Plan", b =>
@@ -492,6 +534,14 @@ namespace LearnWithMentor.DAL.Migrations
                         .WithMany("Messages")
                         .HasForeignKey("User_Id")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.Notification", b =>
+                {
+                    b.HasOne("LearnWithMentor.DAL.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.Plan", b =>
