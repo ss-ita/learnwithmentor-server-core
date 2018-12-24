@@ -1,4 +1,4 @@
-﻿use LearnWithMentorDB;
+﻿use LearnWithMentor_DB_361_2;
 delete PlanSuggestion;
 delete Messages;
 delete Comments;

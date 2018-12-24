@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Configuration;
-using static LearnWithMentor.Controllers.Constants;
+using LearnWithMentor.Constants;
 
 namespace LearnWithMentor.Services
 {
