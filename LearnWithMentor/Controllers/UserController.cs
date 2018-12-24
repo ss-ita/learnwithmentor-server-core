@@ -281,22 +281,90 @@ namespace LearnWithMentor.Controllers
 
                 if (user == null)
                 {
-                    var user_role = await roleManager.FindByNameAsync("Student");
-                    User new_user = new User
+                    var userRole = await roleManager.FindByNameAsync("Student");
+                    User newUser = new User
                     {
                         FirstName = userInfo.FirstName,
                         LastName = userInfo.LastName,
                         Email = userInfo.Email,
                         Image = userInfo.Picture.Data.Url,
                         UserName = userInfo.Email,
-                        Role = user_role,
-                        Role_Id = user_role.Id,
+                        Role = userRole,
+                        Role_Id = userRole.Id,
                         EmailConfirmed = true
                     };
-                    var result = await userManager.CreateAsync(new_user, Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8));
+                    var result = await userManager.CreateAsync(newUser, Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8));
 
                     if (!result.Succeeded)
+                    {
                         return BadRequest();
+                    }
+                }
+
+                var localUser = await userManager.FindByNameAsync(userInfo.Email);
+
+                if (localUser == null)
+                {
+                    return BadRequest("Failed to create local user account.");
+                }
+
+                var userDto = new UserIdentityDTO()
+                {
+                    Email = localUser.Email,
+                    LastName = localUser.LastName,
+                    FirstName = localUser.FirstName,
+                    Id = localUser.Id,
+                    Role = localUser.Role.Name,
+                    EmailConfirmed = localUser.EmailConfirmed,
+                    Blocked = localUser.Blocked,
+                    Password = localUser.Password
+                };
+
+                string jwt = JwtManager.GenerateToken(userDto);
+                return new JsonResult(jwt);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("api/user/google")]
+        public async Task<ActionResult> GooglePost([FromBody]GoogleDTO value)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var validateToken = await Client.GetStringAsync($"https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={value.AccessToken}");
+                var userInfoResponse = await Client.GetStringAsync($"https://www.googleapis.com/oauth2/v1/userinfo?access_token={value.AccessToken}");
+                var userInfo = JsonConvert.DeserializeObject<GoogleUserData>(userInfoResponse);
+                var user = await userManager.FindByEmailAsync(userInfo.Email);
+
+                if (user == null)
+                {
+                    var userRole = await roleManager.FindByNameAsync("Student");
+                    User newUser = new User
+                    {
+                        FirstName = userInfo.FirstName,
+                        LastName = userInfo.LastName,
+                        Email = userInfo.Email,
+                        Image = userInfo.Picture,
+                        UserName = userInfo.Email,
+                        Role = userRole,
+                        Role_Id = userRole.Id,
+                        EmailConfirmed = true
+                    };
+                    var result = await userManager.CreateAsync(newUser, Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8));
+
+                    if (!result.Succeeded)
+                    {
+                        return BadRequest();
+                    }
                 }
 
                 var localUser = await userManager.FindByNameAsync(userInfo.Email);
