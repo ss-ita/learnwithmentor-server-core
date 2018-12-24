@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LearnWithMentor.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class NotificationController : Hub<IHubClient>
     {
         private readonly INotificationService notificationService;
