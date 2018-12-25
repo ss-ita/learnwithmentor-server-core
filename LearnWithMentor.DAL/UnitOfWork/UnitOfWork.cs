@@ -21,7 +21,7 @@ namespace LearnWithMentor.DAL.UnitOfWork
         private IUserRepository users;
         private IUserTaskRepository userTasks;
         private INotificationRepository notification;
-        private IGroupChatMessageRepository groupChatMessage;
+        private IGroupChatRepository groupChatMessage;
 
         public UnitOfWork(LearnWithMentorContext context)
         {
@@ -53,7 +53,7 @@ namespace LearnWithMentor.DAL.UnitOfWork
 
         public INotificationRepository Notification => notification ?? (notification = new NotificationRepository(context));
 
-        public IGroupChatMessageRepository GroupChatMessage => groupChatMessage ?? (groupChatMessage = new GroupChatRepository(context));
+        public IGroupChatRepository GroupChatMessage => groupChatMessage ?? (groupChatMessage = new GroupChatRepository(context));
 
         public void Save()
         {

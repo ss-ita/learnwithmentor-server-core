@@ -6,9 +6,10 @@ using LearnWithMentorDTO;
 
 namespace LearnWithMentor.BLL.Interfaces
 {
-    public interface IGroupChatMessageService
+    public interface IGroupChatService
     {
         Task AddGroupChatMessageAsync(int userId, int groupId, string text, DateTime timeSent);
         Task<IEnumerable<GroupChatMessageDTO>> GetGroupMessagesAsync(int groupId);
+        Task<IEnumerable<GroupChatMessageDTO>> GetGroupMessagesAsync(int groupId, int amount);
     }
 }
