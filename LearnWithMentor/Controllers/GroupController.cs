@@ -19,7 +19,7 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller for groups.
     /// </summary>
-    [Authorize]
+    [AllowAnonymous]
     [EnableCors(Constants.Cors.policyName)]
 
 
