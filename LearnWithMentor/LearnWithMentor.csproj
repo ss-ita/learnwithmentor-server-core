@@ -22,4 +22,6 @@
     <ProjectReference Include="..\LearnWithMentor.BLL\LearnWithMentor.BLL.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties Properties_4launchSettings_1json__JSONSchema="http://json.schemastore.org/package" /></VisualStudio></ProjectExtensions>
+
 </Project>
