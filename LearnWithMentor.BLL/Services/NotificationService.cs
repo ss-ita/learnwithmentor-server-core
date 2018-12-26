@@ -3,28 +3,40 @@ using LearnWithMentor.DAL.UnitOfWork;
 using LearnWithMentorBLL.Interfaces;
 using LearnWithMentorDTO;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LearnWithMentorBLL.Services
 {
-    public class NotificationsService : BaseService, INotificationService
+    public class NotificationService : BaseService, INotificationService
     {
-        public NotificationsService(IUnitOfWork db) : base(db)
+        public NotificationService(IUnitOfWork db) : base(db)
         {
 
         }
-
-        public async Task AddNotificationAsync(string text, string type, DateTime dateTime, int userId)
+        
+        public async Task AddNotificationAsync(string text, NotificationType type, DateTime dateTime, int userId)
         {
-            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(type))
-                return;
+            Notification notification = null;
 
-            var notification = new Notification
+            if (type == NotificationType.NewMessage)
+            {
+                notification = await db.Notification.GetLastUnreadNotificationByType(userId, NotificationType.NewMessage.ToString());
+
+                if (notification != null)
+                {
+                    await db.Notification.UpdateNotificationTime(notification.Id, dateTime);
+                    db.Save();
+                    return;
+                }
+            }
+
+            notification = new Notification
             {
                 Text = text,
-                Type = type,
+                Type = type.ToString(),
                 UserId = userId,
                 DateTime = dateTime,
                 IsRead = false

@@ -1,12 +1,14 @@
 *.swp
 *.*~
 project.lock.json
-appsettings.json
-launchSettings.json
 .DS_Store
 *.pyc
 nupkg/
-logger.txt
+
+# Project cofiguration and auto-generated files
+LearnWithMentor/logger.txt
+LearnWithMentor/appsettings.json
+LearnWithMentor/launchSettings.json
 
 # Visual Studio Code
 .vscode

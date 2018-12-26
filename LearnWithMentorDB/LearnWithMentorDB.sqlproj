@@ -58,14 +58,10 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Scripts" />
-    <Folder Include="dbo\" />
-    <Folder Include="dbo\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Inserting_data_script.sql" />
     <PostDeploy Include="Scripts\Script.PostDeployment1.sql" />
-    <None Include="dbo\Tables\Notifications.sql" />
-    <None Include="dbo\Tables\GroupChatMessage.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="LearnWithMentorDB.refactorlog" />

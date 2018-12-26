@@ -52,7 +52,6 @@ namespace LearnWithMentor.DAL.Entities
             modelBuilder.ApplyConfiguration(new UserGroupConfiguration());
             modelBuilder.ApplyConfiguration(new UserTaskConfiguration());
             modelBuilder.ApplyConfiguration(new NotificationConfiguration());
-            modelBuilder.ApplyConfiguration(new NotificationConfiguration());
         }
 
         public virtual DbSet<Comment> Comments { get; set; }
