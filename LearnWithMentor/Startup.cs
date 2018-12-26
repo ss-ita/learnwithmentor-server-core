@@ -85,7 +85,7 @@ namespace LearnWithMentor
             services.AddScoped<IGroupChatService, GroupChatService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 
             services.AddIdentity<User, Role>(options =>
             {
