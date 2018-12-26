@@ -12,9 +12,9 @@ using LearnWithMentorDTO;
 
 namespace LearnWithMentor.BLL.Services
 {
-    public class GroupChatMessageService : BaseService, IGroupChatMessageService
+    public class GroupChatService : BaseService, IGroupChatService
     {
-        public GroupChatMessageService(IUnitOfWork db) : base(db)
+        public GroupChatService(IUnitOfWork db) : base(db)
         {
 
         }
@@ -39,15 +39,29 @@ namespace LearnWithMentor.BLL.Services
         {
             var groupChatMessages = await db.GroupChatMessage.GetGroupMessagesAsync(groupId);
             var groupChatMessagesDtoList = groupChatMessages.Select(n =>
-                new GroupChatMessageDTO(  
+                new GroupChatMessageDTO(
                     n.Id,
                     n.TextMessage,
                     n.UserId,
-                    n.GroupId, 
+                    n.GroupId,
                     n.Time)
             );
             return groupChatMessagesDtoList;
 
+        }
+
+        public async Task<IEnumerable<GroupChatMessageDTO>> GetGroupMessagesAsync(int groupId, int amount)
+        {
+            var groupChatMessages = await db.GroupChatMessage.GetGroupMessagesAsync(groupId, amount);
+            var groupChatMessagesDtoList = groupChatMessages.Select(n =>
+                new GroupChatMessageDTO(
+                    n.Id,
+                    n.TextMessage,
+                    n.UserId,
+                    n.GroupId,
+                    n.Time)
+            );
+            return groupChatMessagesDtoList;
         }
     }
 }

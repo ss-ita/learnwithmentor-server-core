@@ -12,13 +12,13 @@ namespace LearnWithMentorDTO
             TextMessage = textMessage;
             SenderId = senderId;
             GroupId = groupId;
-            TimeSent = dateTime;
+            Time = dateTime;
         }
 
         public int MessageId;
         public string TextMessage;
         public int SenderId;
         public int GroupId;
-        public DateTime TimeSent;
+        public DateTime Time;
     }
 }
