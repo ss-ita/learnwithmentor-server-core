@@ -31,6 +31,7 @@ namespace LearnWithMentor.BLL.Services
                 TextMessage = text,
                 Time = timeSent
             };
+
             await db.GroupChatMessage.AddMessageAsync(groupChatMessage);
             db.Save();
         }

@@ -31,12 +31,14 @@ namespace LearnWithMentor.Controllers
         public GroupChatController(
             IGroupService groupService, 
             IUserService userService,
+            IGroupChatService groupChatService,
             INotificationService notificationService,
             IUserIdentityService userIdentityService, 
             IHubContext<NotificationController, IHubClient> chatHub)
         {
             this._userService = userService;
             this._groupService = groupService;
+            this._groupChatService = groupChatService;
             this._notificationService = notificationService;
             this._userIdentityService = userIdentityService;
             this._chatHubContext = chatHub;
@@ -104,11 +106,11 @@ namespace LearnWithMentor.Controllers
             {
                 var user = await _userService.GetAsync(id);
                 var groups = await _groupService.GetUserGroupsIdAsync(id);
-                string userConnectionId = NotificationController.ConnectedUsers[user.FirstName + " " + user.LastName];
+                string userConnectionId = NotificationController.ConnectedUsers[user.Id.ToString()];
                 string groupId = groups.First().ToString();
                 await _chatHubContext.Groups.AddToGroupAsync(userConnectionId, groupId);
-                await _chatHubContext.Clients.Group(groups.First().ToString()).SendMessage(id, user.FirstName,
-                    "Connected to group", DateTime.Now.ToString("h:mm:ss tt"));
+                await _chatHubContext.Clients.Group(groups.First().ToString())
+                    .SendMessage(id, user.FirstName, "Connected to group", DateTime.Now.ToString("h:mm:ss tt"));
                 return Ok();
             }
             catch (Exception e)
@@ -131,7 +133,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var user = await _userService.GetAsync(groupChatMessage.SenderId);
                     await _chatHubContext.Clients
-                        .Client(NotificationController.ConnectedUsers[user.FirstName + " " + user.LastName])
+                        .Client(NotificationController.ConnectedUsers[user.Id.ToString()])
                         .SendMessage(userId, user.FirstName, groupChatMessage.TextMessage, groupChatMessage.Time.ToString());
                 }
 
@@ -157,7 +159,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var user = await _userService.GetAsync(groupChatMessage.SenderId);
                     await _chatHubContext.Clients
-                        .Client(NotificationController.ConnectedUsers[currentUser.FirstName + " " + currentUser.LastName])
+                        .Client(NotificationController.ConnectedUsers[currentUser.Id.ToString()])
                         .SendMessage(userId, user.FirstName, groupChatMessage.TextMessage, groupChatMessage.Time.ToString());
                 }
 

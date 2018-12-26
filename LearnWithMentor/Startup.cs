@@ -1,4 +1,6 @@
 using FluentValidation.AspNetCore;
+using LearnWithMentor.BLL.Interfaces;
+using LearnWithMentor.BLL.Services;
 using LearnWithMentor.Controllers;
 using LearnWithMentor.DAL.Entities;
 using LearnWithMentor.DAL.UnitOfWork;
@@ -80,9 +82,10 @@ namespace LearnWithMentor
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserIdentityService, UserIdentityService>();
             services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IGroupChatService, GroupChatService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, Role>(options =>
             {
