@@ -24,11 +24,12 @@ namespace LearnWithMentor
 {
     public class Startup
     {
-        private static readonly string ConnectionString = Environment.GetEnvironmentVariable("AzureConnection") ?? "DefaultConnection";
+        private readonly string ConnectionString;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ConnectionString = Environment.GetEnvironmentVariable("AzureConnection") ?? Configuration.GetConnectionString("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -87,7 +88,7 @@ namespace LearnWithMentor
             services.AddScoped<IGroupChatService, GroupChatService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString(ConnectionString)));
+                options.UseSqlServer(ConnectionString));
 
             services.AddIdentity<User, Role>(options =>
             {
