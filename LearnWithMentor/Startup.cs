@@ -22,6 +22,8 @@ namespace LearnWithMentor
 {
     public class Startup
     {
+        private static readonly string ConnectionString = Environment.GetEnvironmentVariable("AzureConnection") ?? "DefaultConnection";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -82,7 +84,7 @@ namespace LearnWithMentor
             services.AddScoped<INotificationService, NotificationsService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString(ConnectionString)));
 
             services.AddIdentity<User, Role>(options =>
             {
