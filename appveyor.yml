@@ -7,6 +7,10 @@ build_script:
   - cmd: cd LearnWithMentor
   - cmd: dotnet publish -c Release
 
+environment:
+  AzureConnection:
+    secure: /1Rac5fQAGSVWytyQBFu7P4OwlPK6y6xfU1YX0otbu/IdUkZNkLXkgoJCAMFF4v98dn5QHcRLWDdcdlcThtP53zOc3wRq9uVJu+eVhofF/wNyzlKtuR3KRdwyCq5fO2nS1mqarHMexyfP0SbUrDpllJu7qdiFQV3BQvtTwiDnUMydWK5/NHn1uFHeAhDgdr6e4PKlesHFJYvNJ3seUwRMgfhI/ogX1nN2f5DBteX4IJs30yBcTqTz8DVFjt0wIs34E7clUTLZkbXfs71ljuhTMlOuAP97YGZ0pw/d8YgQxFCHHehrClrlHby1coM7RXdTp+xc3cwYeWHGYXujQAadlQJeIblXgv+ugWW0awaSag=
+
 artifacts:
  - path: '\LearnWithMentor\bin\Release\netcoreapp2.1\publish'
    name: ServerDeployPackage
