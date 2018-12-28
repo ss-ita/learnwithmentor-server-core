@@ -474,24 +474,26 @@ namespace LearnWithMentor.Controllers
         /// <param name="userTaskId">Id of the userTask status to be changed</param>
         /// <param name="newMessage">>New userTask result</param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPost]
         [Route("api/task/usertask/result")]
-        public async Task<ActionResult> PutNewUserTaskResultAsync(int userTaskId, HttpRequestMessage newMessage)
+        public async Task<ActionResult> PutNewUserTaskResultAsync(int userTaskId, string result)
         {
             try
             {
-                var value = newMessage.Content.ReadAsStringAsync().Result;
-                if (value.Length >= ValidationRules.MAX_USERTASK_RESULT_LENGTH)
+                if (result.Length >= ValidationRules.MAX_USERTASK_RESULT_LENGTH)
                 {
                     return BadRequest();
                 }
-                bool success = await taskService.UpdateUserTaskResultAsync(userTaskId, value);
+
+                bool success = await taskService.UpdateUserTaskResultAsync(userTaskId, result);
+
                 if (success)
                 {
-                    var message = $"Succesfully updated user task with id = {userTaskId} on result {value}";
-                    logger.LogInformation("Error :  {0}", message);
+                    var message = $"Succesfully updated user task with id = {userTaskId} on result {result}";
+                    logger.LogInformation(message);
                     return Ok(message);
-                }              
+                }      
+                
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
                 logger.LogInformation("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
