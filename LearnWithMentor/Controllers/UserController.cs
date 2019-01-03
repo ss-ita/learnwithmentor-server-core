@@ -571,7 +571,7 @@ namespace LearnWithMentor.Controllers
 		[Route("api/user/rating")]
 		public async Task<ActionResult> GetRatingAsync()
 		{
-			Dictionary<UserIdentityDTO, StatisticsDTO> statistics = new Dictionary<UserIdentityDTO, StatisticsDTO>();
+			Dictionary<string, StatisticsDTO> statistics = new Dictionary<string, StatisticsDTO>();
 			var id = userIdentityService.GetUserId();
 			var groups = await groupService.GetUserGroupsIdAsync(id);
 			foreach (var gr in groups)
@@ -579,7 +579,7 @@ namespace LearnWithMentor.Controllers
 				var users = await groupService.GetUsersAsync(gr);
 				foreach (var us in users)
 				{
-					statistics.Add(us, await taskService.GetUserStatisticsAsync(us.Id));
+					statistics.Add(us.FirstName + " " + us.LastName, await taskService.GetUserStatisticsAsync(us.Id));
 				}
 			}
 			var orderedStatistics = from s in statistics
