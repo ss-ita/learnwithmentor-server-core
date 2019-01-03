@@ -582,10 +582,8 @@ namespace LearnWithMentor.Controllers
 					statistics.Add(us.FirstName + " " + us.LastName, await taskService.GetUserStatisticsAsync(us.Id));
 				}
 			}
-			var orderedStatistics = from s in statistics
-									orderby s.Value.DoneNumber
-									select s;
-			if (orderedStatistics == null)
+		    var orderedStatistics = statistics.OrderByDescending(x => x.Value.DoneNumber).ToDictionary(x => x.Key, x => x.Value);
+            if (orderedStatistics == null)
 			{
 				return NoContent();
 			}
