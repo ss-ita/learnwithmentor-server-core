@@ -31,6 +31,7 @@ namespace LearnWithMentor.Controllers
         /// <param name="value"> User data. </param>
         /// <returns></returns>
         [AllowAnonymous]
+        [HttpPost]
         [Route("api/token")]
         public async  Task<IActionResult> PostAsync([FromBody]UserLoginDTO value)
         {
