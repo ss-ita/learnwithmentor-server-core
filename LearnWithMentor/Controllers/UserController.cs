@@ -30,6 +30,7 @@ namespace LearnWithMentor.Controllers
         private readonly RoleManager<Role> roleManager;
         private static readonly HttpClient Client = new HttpClient();
 
+		private readonly IGroupService groupService;
         private readonly IUserService userService;
         private readonly IRoleService roleService;
         private readonly ITaskService taskService;
@@ -40,8 +41,9 @@ namespace LearnWithMentor.Controllers
 		/// <summary>
 		/// Creates an instance of UserController.
 		/// </summary>
-		public UserController(IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager, ILoggerFactory loggerFactory)
+		public UserController(IGroupService groupService, IUserService userService, IRoleService roleService, ITaskService taskService, IUserIdentityService userIdentityService, IHttpContextAccessor accessor, UserManager<User> userManager, RoleManager<Role> roleManager, ILoggerFactory loggerFactory)
         {
+			this.groupService = groupService;
             this.userService = userService;
             this.roleService = roleService;
             this.taskService = taskService;
@@ -564,6 +566,29 @@ namespace LearnWithMentor.Controllers
             }
 			return Ok(statistics);
         }
+
+		[HttpGet]
+		[Route("api/user/rating")]
+		public async Task<ActionResult> GetRatingAsync()
+		{
+			Dictionary<string, StatisticsDTO> statistics = new Dictionary<string, StatisticsDTO>();
+			var id = userIdentityService.GetUserId();
+			var groups = await groupService.GetUserGroupsIdAsync(id);
+			foreach (var gr in groups)
+			{
+				var users = await groupService.GetUsersAsync(gr);
+				foreach (var us in users)
+				{
+					statistics.Add(us.FirstName + " " + us.LastName, await taskService.GetUserStatisticsAsync(us.Id));
+				}
+			}
+		    var orderedStatistics = statistics.OrderByDescending(x => x.Value.DoneNumber).ToDictionary(x => x.Key, x => x.Value);
+            if (orderedStatistics == null)
+			{
+				return NoContent();
+			}
+			return Ok(orderedStatistics);
+		}
 
 		/// <summary>
 		/// Sets user image to database
