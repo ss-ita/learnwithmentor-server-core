@@ -115,10 +115,7 @@ namespace LearnWithMentor
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fvConfig => fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddSwaggerGen(setup =>
-            {
-                setup.SwaggerDoc("v1", new Info { Title = "LearnWithMentor API" });
-            });
+            services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new Info { Title = "LearnWithMentor API" }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
