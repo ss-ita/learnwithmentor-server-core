@@ -52,6 +52,7 @@ namespace LearnWithMentor.DAL.Entities
             modelBuilder.ApplyConfiguration(new UserGroupConfiguration());
             modelBuilder.ApplyConfiguration(new UserTaskConfiguration());
             modelBuilder.ApplyConfiguration(new NotificationConfiguration());
+            modelBuilder.ApplyConfiguration(new TaskDiscussionConfiguration());
         }
 
         public virtual DbSet<Comment> Comments { get; set; }
@@ -70,6 +71,7 @@ namespace LearnWithMentor.DAL.Entities
 
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<GroupChatMessage> GroupChatMessages { get; set; }
+        public virtual DbSet<TaskDiscussion> TaskDiscussions { get; set; }
     
         #region ConfiguringMethods
 
