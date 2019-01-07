@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LearnWithMentor.BLL.Interfaces;
 using LearnWithMentor.DAL.Repositories.Interfaces;
 using LearnWithMentorBLL.Interfaces;
+using LearnWithMentorDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,8 +31,14 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
+                Dictionary<string, TaskDiscussionDTO> taskDiscussionWithNames = new Dictionary<string, TaskDiscussionDTO>();          
                 var taskDiscussion = await _taskDiscussionService.GetTaskDiscussionAsync(taskId);
-                return new JsonResult(taskDiscussion);
+                foreach (var message in taskDiscussion)
+                {
+                    var user = await _userService.GetAsync(message.SenderId);
+                    taskDiscussionWithNames.Add(user.FirstName + " " + user.LastName, message);
+                }          
+                return new JsonResult(taskDiscussionWithNames);
             }
             catch (Exception e)
             {
@@ -46,7 +53,6 @@ namespace LearnWithMentor.Controllers
             try
             {
                 var userId = _userIdentityService.GetUserId();
-                var user = await _userService.GetAsync(userId);
                 await _taskDiscussionService.AddTaskDiscussionAsync(userId, taskId, text, DateTime.Now);
                 return Ok();
             }
