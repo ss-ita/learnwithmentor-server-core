@@ -17,6 +17,7 @@ using LearnWithMentor.Constants;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using LearnWithMentor.Logger;
+using System.Net;
 
 namespace LearnWithMentor.Controllers
 {
@@ -284,13 +285,15 @@ namespace LearnWithMentor.Controllers
                 if (user == null)
                 {
                     var userRole = await roleManager.FindByNameAsync("Student");
+                    string picture = Convert.ToBase64String(await userService.GetImgBytesAsync(userInfo.Picture.Data.Url));
                     User newUser = new User
                     {
                         FirstName = userInfo.FirstName,
                         LastName = userInfo.LastName,
                         Email = userInfo.Email,
-                        Image = userInfo.Picture.Data.Url,
                         UserName = userInfo.Email,
+                        Image = picture,
+                        Image_Name = userInfo.Name + "_Picture",
                         Role = userRole,
                         Role_Id = userRole.Id,
                         EmailConfirmed = true
@@ -350,13 +353,15 @@ namespace LearnWithMentor.Controllers
                 if (user == null)
                 {
                     var userRole = await roleManager.FindByNameAsync("Student");
+                    string picture = Convert.ToBase64String(await userService.GetImgBytesAsync(userInfo.Picture));
                     User newUser = new User
                     {
                         FirstName = userInfo.FirstName,
                         LastName = userInfo.LastName,
                         Email = userInfo.Email,
-                        Image = userInfo.Picture,
                         UserName = userInfo.Email,
+                        Image = picture,
+                        Image_Name = userInfo.Name + "_Picture",
                         Role = userRole,
                         Role_Id = userRole.Id,
                         EmailConfirmed = true

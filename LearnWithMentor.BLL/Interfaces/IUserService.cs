@@ -9,6 +9,7 @@ namespace LearnWithMentorBLL.Interfaces
         Task<PagedListDTO<UserDTO>> GetUsers(int pageSize, int pageNumber = 1);
         Task<UserDTO> GetAsync(int id);
         Task<UserIdentityDTO> GetByEmailAsync(string email);
+        Task<byte[]> GetImgBytesAsync(string imgUrl);
         Task<List<UserDTO>> GetAllUsersAsync();
         Task<bool> BlockByIdAsync(int id);
         Task<bool> ConfirmEmailByIdAsync(int id);
