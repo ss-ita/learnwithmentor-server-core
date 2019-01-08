@@ -4,6 +4,7 @@ using LearnWithMentorDTO;
 using LearnWithMentor.DAL.Entities;
 using System;
 using System.Linq;
+using System.Net;
 using LearnWithMentor.DAL.UnitOfWork;
 using System.Threading.Tasks;
 
@@ -38,6 +39,13 @@ namespace LearnWithMentorBLL.Services
                 user.Role.Name,
                 user.Blocked,
                 user.EmailConfirmed);
+        }
+
+        public async Task<byte[]> GetImgBytesAsync(string imgUrl)
+        {
+            WebClient webClient = new WebClient();
+            var data = await webClient.DownloadDataTaskAsync(new Uri(imgUrl));
+            return data;
         }
 
         public async Task<List<UserDTO>> GetAllUsersAsync()

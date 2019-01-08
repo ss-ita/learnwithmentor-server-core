@@ -283,7 +283,7 @@ namespace LearnWithMentor.Controllers
                 if (user == null)
                 {
                     var userRole = await roleManager.FindByNameAsync("Student");
-                    string picture = Convert.ToBase64String(GetImgBytesAsync(userInfo.Picture.Data.Url).Result);
+                    string picture = Convert.ToBase64String(await userService.GetImgBytesAsync(userInfo.Picture.Data.Url));
                     User newUser = new User
                     {
                         FirstName = userInfo.FirstName,
@@ -351,7 +351,7 @@ namespace LearnWithMentor.Controllers
                 if (user == null)
                 {
                     var userRole = await roleManager.FindByNameAsync("Student");
-                    string picture = Convert.ToBase64String(GetImgBytesAsync(userInfo.Picture).Result);
+                    string picture = Convert.ToBase64String(await userService.GetImgBytesAsync(userInfo.Picture));
                     User newUser = new User
                     {
                         FirstName = userInfo.FirstName,
@@ -398,32 +398,6 @@ namespace LearnWithMentor.Controllers
             {
                 return StatusCode(500);
             }
-        }
-
-        private async static Task<byte[]> GetImgBytesAsync(string imgUrl)
-        {
-            WebClient webClient = new WebClient();
-            var data = await webClient.DownloadDataTaskAsync(new Uri(imgUrl));
-            return data;
-        }
-
-        private byte[] GetImgBytes(string imgUrl)
-        {
-            byte[] imageBytes;
-            HttpWebRequest imageRequest = (HttpWebRequest)WebRequest.Create(imgUrl);
-            WebResponse imageResponse = imageRequest.GetResponse();
-
-            Stream responseStream = imageResponse.GetResponseStream();
-            
-            using (BinaryReader br = new BinaryReader(responseStream))
-            {
-                imageBytes = br.ReadBytes(1000000000);
-                br.Close();
-            }
-            responseStream.Close();
-            imageResponse.Close();
-
-            return imageBytes;
         }
 
         /// <summary>
