@@ -29,6 +29,7 @@ namespace LearnWithMentor.BLL.Services
             };
 
             await db.TaskDiscussion.AddTaskDiscussion(taskDiscussion);
+            db.Save();
         }
 
         public async Task<IEnumerable<TaskDiscussionDTO>> GetTaskDiscussionAsync(int taskId)

@@ -24,7 +24,7 @@ namespace LearnWithMentor.DAL.Repositories
         {
             return await Context.TaskDiscussions
                 .Where(taskDiscussion => taskDiscussion.TaskId == taskId)
-                .OrderByDescending(taskDiscussion => taskDiscussion.DatePosted)
+                .OrderBy(taskDiscussion => taskDiscussion.DatePosted)
                 .ToListAsync();
         }
     }
