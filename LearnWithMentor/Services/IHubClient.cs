@@ -6,5 +6,6 @@ namespace LearnWithMentor.Services
     {
         Task Notify();
         Task SendMessage(int senderId, string name, string message, string timeSent);
+        Task TaskDiscussionMessage();
     }
 }

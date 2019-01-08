@@ -20,6 +20,7 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Threading.Tasks;
+using LearnWithMentor.DAL.Repositories.Interfaces;
 
 namespace LearnWithMentor
 {
@@ -87,6 +88,7 @@ namespace LearnWithMentor
             services.AddScoped<IUserIdentityService, UserIdentityService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IGroupChatService, GroupChatService>();
+            services.AddScoped<ITaskDiscussionService, TaskDiscussionService>();
 
             services.AddDbContext<LearnWithMentorContext>(options => 
                 options.UseSqlServer(ConnectionString));
