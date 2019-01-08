@@ -31,7 +31,7 @@ namespace LearnWithMentor
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ConnectionString = Environment.GetEnvironmentVariable("DefaultConnection") ?? Configuration.GetConnectionString("DefaultConnection");
+            ConnectionString = Environment.GetEnvironmentVariable("AzureConnection") ?? Configuration.GetConnectionString("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
