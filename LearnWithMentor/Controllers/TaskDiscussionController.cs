@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using LearnWithMentor.BLL.Interfaces;
 using LearnWithMentor.DAL.Repositories.Interfaces;
-using LearnWithMentor.Models;
 using LearnWithMentor.Services;
 using LearnWithMentorBLL.Interfaces;
 using LearnWithMentorDTO;
@@ -40,12 +39,12 @@ namespace LearnWithMentor.Controllers
         {
             try
             {              
-                List<TaskDiscussionWithNames> taskDiscussionWithNames = new List<TaskDiscussionWithNames>();
+                List<TaskDiscussionWithNamesDTO> taskDiscussionWithNames = new List<TaskDiscussionWithNamesDTO>();
                 var taskDiscussion = await _taskDiscussionService.GetTaskDiscussionAsync(taskId);
                 foreach (var message in taskDiscussion)
                 {
                     var user = await _userService.GetAsync(message.SenderId);
-                    taskDiscussionWithNames.Add(new TaskDiscussionWithNames(user.FirstName+" "+user.LastName, message));
+                    taskDiscussionWithNames.Add(new TaskDiscussionWithNamesDTO(user.FirstName+" "+user.LastName, message));
                 }          
                 return new JsonResult(taskDiscussionWithNames);
             }
