@@ -647,7 +647,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully updated task with id = {taskId}";
                     logger.LogInformation("Error :  {0}", message);
-                    return Ok(message);
+					return new JsonResult(message);
                 }
                 logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();
