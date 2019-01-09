@@ -248,24 +248,21 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPut]
         [Route("api/group/{id}/plan")]
-        public async Task<ActionResult> PutPlansToGroupAsync(int id, [FromBody] int[] planId)
+        public async Task<ActionResult> AddPlansToGroupAsync(int id, [FromBody] int[] planId)
         {
             try
             {
-                var userId = userIdentityService.GetUserId();
-                int? mentorId = await groupService.GetMentorIdByGroupAsync(id);
-                if (mentorId != userId)
-                {
-                    return Unauthorized();
-                }
                 bool success = await groupService.AddPlansToGroupAsync(planId, id);
+                string message = "";
+
                 if (success)
                 {
-                    var okMessage = "Succesfully added plans to group ({id}).";
-                    return Ok(okMessage);
+                    message = "Succesfully added plans to group ({id}).";
+                    return new JsonResult(message);
                 }
-                var badRequestMessage = "Incorrect request syntax or plan or group does not exist.";
-                return BadRequest(badRequestMessage);
+
+                message = "Incorrect request syntax or plan or group does not exist.";
+                return BadRequest(message);
             }
             catch (Exception e)
             {

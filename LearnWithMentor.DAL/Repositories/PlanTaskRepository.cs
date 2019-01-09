@@ -1,8 +1,9 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using LearnWithMentor.DAL.Entities;
+﻿using LearnWithMentor.DAL.Entities;
 using LearnWithMentor.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LearnWithMentor.DAL.Repositories
 {
@@ -26,6 +27,11 @@ namespace LearnWithMentor.DAL.Repositories
         public Task<PlanTask> Get(int taskId, int planId)
         {
             return Context.PlanTasks.FirstOrDefaultAsync(pt => pt.Plan_Id == planId && pt.Task_Id == taskId);
+        }
+
+        public async Task<IEnumerable<PlanTask>> GetPlanTaskListByPlanAsync(int planId)
+        {            
+            return await Context.PlanTasks.Where(pt => pt.Plan_Id == planId).ToListAsync();
         }
 
         public Task<bool> ContainsTaskInPlan(int taskId, int planId)

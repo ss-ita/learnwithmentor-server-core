@@ -48,9 +48,21 @@ namespace LearnWithMentor.DAL.Repositories
 
         public async Task<bool> AddPlanToGroupAsync(int planId, int groupId)
         {
-            GroupPlan findPlan = await Context.GroupPlans.FirstOrDefaultAsync(plan => plan.Plan.Id == planId);
-            Group findGroup = await Context.Groups.FirstOrDefaultAsync(group => group.Id == groupId);
-            findGroup?.GroupPlans.Add(findPlan);
+            Plan plan = await Context.Plans.FirstOrDefaultAsync(p => p.Id == planId);
+            Group group = await Context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
+
+            if (plan == null || group == null)
+            {
+                return false;
+            }
+
+            GroupPlan groupPlan = new GroupPlan()
+            {
+                GroupId = groupId,
+                PlanId = planId
+            };
+
+            await Context.GroupPlans.AddAsync(groupPlan);
             return true;
         }
 
