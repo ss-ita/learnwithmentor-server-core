@@ -19,8 +19,9 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using LearnWithMentor.DAL.Repositories.Interfaces;
 
 namespace LearnWithMentor
 {
@@ -35,7 +36,6 @@ namespace LearnWithMentor
         }
 
         public IConfiguration Configuration { get; }
-
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -117,7 +117,12 @@ namespace LearnWithMentor
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fvConfig => fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new Info { Title = "LearnWithMentor API" }));
+            services.AddSwaggerGen(setup =>
+            {
+                setup.SwaggerDoc("v1", new Info { Title = "LearnWithMentor API" });
+                setup.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "Please enter JWT token into field", Name = "Authorization", Type = "apiKey" });
+                setup.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { "Bearer", Enumerable.Empty<string>() } });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
