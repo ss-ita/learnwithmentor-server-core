@@ -571,25 +571,23 @@ namespace LearnWithMentor.Controllers
 		[Route("api/user/rating")]
 		public async Task<ActionResult> GetRatingAsync()
 		{
+
+			Dictionary<string, StatisticsDTO> statistics = new Dictionary<string, StatisticsDTO>();
 			var id = userIdentityService.GetUserId();
 			var groups = await groupService.GetUserGroupsIdAsync(id);
-			var statistics = new List<StatisticsDTO>();
-			//var users = new List<UserIdentityDTO>();
 			foreach (var gr in groups)
 			{
 				var users = await groupService.GetUsersAsync(gr);
 				foreach (var us in users)
 				{
-					statistics.Add(await taskService.GetUserStatisticsAsync(us.Id));
+					statistics.Add(us.FirstName + " " + us.LastName, await taskService.GetUserStatisticsAsync(us.Id));
 				}
 			}
-			var orderedStatistics = from s in statistics
-									orderby s.ApprovedNumber
-									select s;
-			if(statistics == null)
+		    var orderedStatistics = statistics.OrderByDescending(x => x.Value.DoneNumber).ToDictionary(x => x.Key, x => x.Value);
+            if (orderedStatistics == null)
 			{
 				return NoContent();
-			}	
+			}
 			return Ok(orderedStatistics);
 		}
 
@@ -743,8 +741,6 @@ namespace LearnWithMentor.Controllers
         /// Blocks user by Id.
         /// </summary>
         /// <param name="id"> Id of the user. </param>
-        
-
         [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("api/user/{id}")]
@@ -773,8 +769,6 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="key"> String to match. </param>
         /// <param name="role"> Role criteria. </param>
-       
-
         [Authorize(Roles = "Admin, Mentor")]
         [HttpGet]
         [Route("api/user/search")]
@@ -812,11 +806,9 @@ namespace LearnWithMentor.Controllers
         /// <param name="role"> Role criteria. </param>
         /// <param name="pageSize"> Ammount of users that you want to see on one page</param>
         /// <param name="pageNumber"> Page number</param>
-        
-
         [Authorize(Roles = "Admin, Mentor")]
         [HttpGet]
-        [Route("api/user/search")]
+        [Route("api/user/search/page")]
         public async Task<ActionResult> SearchAsync(string key, string role, [FromQuery]int pageSize, [FromQuery]int pageNumber)
         {
             if (key == null)
@@ -849,7 +841,7 @@ namespace LearnWithMentor.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPut]
-        [Route("api/user/resetpasswotd")]
+        [Route("api/user/resetpassword")]
         public async Task<ActionResult> ResetPasswordAsync([FromBody]ResetPasswordDTO value, int id)
         {
             try
@@ -876,7 +868,6 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="value"> New password value. </param>
         /// <returns></returns>
-
         [HttpPut]
         [Route("api/user/newpassword")]
         public async Task<ActionResult> UpdatePasswordAsync([FromBody]ResetPasswordDTO value)
@@ -888,7 +879,6 @@ namespace LearnWithMentor.Controllers
         /// <summary>
         /// Returns all roles of the users.
         /// </summary>
-
         [HttpGet]
         [Authorize(Roles = "Admin")]
         [Route("api/user/roles")]

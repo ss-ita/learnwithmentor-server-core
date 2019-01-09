@@ -120,7 +120,8 @@ namespace LearnWithMentorBLL.Services
                                          task.Mod_Date,
                                          await db.PlanTasks.GetTaskPriorityInPlanAsync(task.Id, planId),
                                          await db.PlanTasks.GetTaskSectionIdInPlanAsync(task.Id, planId),
-                                         await db.PlanTasks.GetIdByTaskAndPlanAsync(task.Id, planId));
+                                         await db.PlanTasks.GetIdByTaskAndPlanAsync(task.Id, planId),
+										 task.Youtube_Url);
                 dtosList.Add(toAdd);
             }
             return dtosList;
@@ -184,7 +185,8 @@ namespace LearnWithMentorBLL.Services
                         task.Mod_Date,
                         await db.PlanTasks.GetTaskPriorityInPlanAsync(task.Id, planId),
                         await db.PlanTasks.GetTaskSectionIdInPlanAsync(task.Id, planId),
-                        await db.PlanTasks.GetIdByTaskAndPlanAsync(task.Id, planId));
+                        await db.PlanTasks.GetIdByTaskAndPlanAsync(task.Id, planId),
+						task.Youtube_Url);
                     taskDTOs.Add(toAdd);
                 }
                 contentDTO.Tasks = taskDTOs;

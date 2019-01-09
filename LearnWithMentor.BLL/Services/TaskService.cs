@@ -96,7 +96,8 @@ namespace LearnWithMentorBLL.Services
                                     task.Mod_Date,
                                     planTask.Priority,
                                     planTask.Section_Id,
-                                    planTask.Id);
+                                    planTask.Id,
+									task.Youtube_Url);
             return taskDTO;
         }
 
@@ -148,7 +149,8 @@ namespace LearnWithMentorBLL.Services
                                     task.Mod_Date,
                                     task.PlanTasks.FirstOrDefault(pt => pt.Task_Id == task.Id && pt.Plan_Id == planId)?.Priority,
                                     task.PlanTasks.FirstOrDefault(pt => pt.Task_Id == task.Id && pt.Plan_Id == planId)?.Section_Id,
-                                    task.PlanTasks.FirstOrDefault(pt => pt.Task_Id == task.Id && pt.Plan_Id == planId)?.Id));
+                                    task.PlanTasks.FirstOrDefault(pt => pt.Task_Id == task.Id && pt.Plan_Id == planId)?.Id,
+									task.Youtube_Url));
             }
             return taskList;
         }
@@ -255,6 +257,7 @@ namespace LearnWithMentorBLL.Services
             {
                 item.Mod_Id = taskDTO.ModifierId;
             }
+			item.Youtube_Url = taskDTO.Youtube_Url;
             await db.Tasks.UpdateAsync(item);
             db.Save();
             return true;
@@ -316,7 +319,8 @@ namespace LearnWithMentorBLL.Services
                                 task.Mod_Date,
                                 null,
                                 null,
-                                null);
+                                null,
+								task.Youtube_Url);
 
                 if (!tasksNotUsedInPlanList.Contains(taskDto))
                 {
@@ -399,7 +403,8 @@ namespace LearnWithMentorBLL.Services
                                 task.Mod_Date,
                                 null,
                                 null,
-                                null);
+                                null,
+								task.Youtube_Url);
         }
         public async Task<bool> CheckUserTaskOwnerAsync(int userTaskId, int userId)
         {

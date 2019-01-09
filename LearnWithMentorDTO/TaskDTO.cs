@@ -18,7 +18,8 @@ namespace LearnWithMentorDTO
             DateTime? modDate,
             int? priority,
             int? sectionId,
-            int? planTaskId)
+            int? planTaskId,
+			string youtubeUrl)
         {
             Id = id;
             Name = name;
@@ -33,6 +34,7 @@ namespace LearnWithMentorDTO
             Priority = priority;
             SectionId = sectionId;
             PlanTaskId = planTaskId;
+			Youtube_Url = youtubeUrl;
         }
 
         public int Id { get; set; }
@@ -48,5 +50,6 @@ namespace LearnWithMentorDTO
         public int? Priority { get; set; }
         public int? SectionId { get; set; }
         public int? PlanTaskId { get; set; }
+		public string Youtube_Url { get; set; }
     }
 }

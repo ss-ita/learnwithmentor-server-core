@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace LearnWithMentor
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ConnectionString = Environment.GetEnvironmentVariable("AzureConnection") ?? Configuration.GetConnectionString("DefaultConnection");
+            ConnectionString = Environment.GetEnvironmentVariable("DefaultConnection") ?? Configuration.GetConnectionString("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -109,12 +110,12 @@ namespace LearnWithMentor
                        .AllowCredentials()));
             services.AddSignalR();
 
-            // AddFluentValidation() adds FluentValidation services to the default container
-            // Lambda-argument automatically registers each validator in this assembly 
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fvConfig => fvConfig.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new Info { Title = "LearnWithMentor API" }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,6 +124,8 @@ namespace LearnWithMentor
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(setup => setup.SwaggerEndpoint("/swagger/v1/swagger.json", "LearnWithMentor API"));
             }
             else
             {
