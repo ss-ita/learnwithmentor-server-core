@@ -96,7 +96,7 @@ namespace LearnWithMentor.DAL.Repositories
         public async Task<IEnumerable<Plan>> GetPlansNotUsedInGroupAsync(int groupId)
         {
             Group group = await Context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
-            IEnumerable<Plan> plans = group?.GroupPlans.Select(p => p.Plan);
+            IEnumerable<Plan> plans = group?.GroupPlans.Select(p => p.Plan).ToList();
             IEnumerable<int> usedPlansId = plans.Select(p => p.Id);
             return Context.Plans.Where(p => !usedPlansId.Contains(p.Id));
         }
