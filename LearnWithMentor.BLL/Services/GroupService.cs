@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using LearnWithMentor.DAL.Entities;
+using LearnWithMentor.DAL.UnitOfWork;
+using LearnWithMentorBLL.Interfaces;
+using LearnWithMentorDTO;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LearnWithMentorBLL.Interfaces;
-using LearnWithMentor.DAL.Entities;
-using LearnWithMentor.DAL.UnitOfWork;
-using LearnWithMentorDTO;
-using ThreadTask=System.Threading.Tasks;
 
 namespace LearnWithMentorBLL.Services
 {
@@ -13,65 +12,9 @@ namespace LearnWithMentorBLL.Services
     {
         public GroupService(IUnitOfWork db) : base(db)
         {
-        }
+        }        
 
-        private UserTask CreateDefaultUserTask(int userId, int planTaskId, int mentorId)
-        {
-            return new UserTask()
-            {
-                User_Id = userId,
-                PlanTask_Id = planTaskId,
-                Mentor_Id = mentorId,
-                Result = "",
-                State = "P"
-            };
-        }
-
-        private  async ThreadTask.Task SetUserTasksByAddingUserAsync(int userId, int groupId)
-        {
-            var plans = await db.Plans.GetPlansForGroupAsync(groupId);
-            Group group = await db.Groups.GetAsync(groupId);
-            if(plans == null || group == null)
-            {
-                return;
-            }
-            var planTasks = new List<PlanTask>();
-            foreach (var plan in plans)
-            {
-                planTasks.AddRange(plan.PlanTasks);
-            }
-            foreach (var planTask in planTasks)
-            {
-                if ((db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, userId) == null) && (group.Mentor_Id != null))
-                {
-                    await db.UserTasks.AddAsync(CreateDefaultUserTask(userId, planTask.Id, group.Mentor_Id.Value));
-                }
-            }
-        }
-        private async  ThreadTask.Task SetUserTasksByAddingPlanAsync(int planId, int groupId)
-        {
-            var users = await db.Users.GetUsersByGroupAsync(groupId);
-            Group group = await db.Groups.GetAsync(groupId);
-            var plan = await db.Plans.Get(planId);
-            if (users == null || group == null || plan == null)
-            {
-                return;
-            }
-            var planTasks = plan.PlanTasks;
-            foreach (var user in users)
-            {
-                foreach (var planTask in planTasks)
-                {
-                    if ((db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, user.Id) == null) && (group.Mentor_Id != null))
-                    {
-                        await db.UserTasks.AddAsync(CreateDefaultUserTask(user.Id, planTask.Id, group.Mentor_Id.Value));
-                    }
-                }
-            }
-
-        }
-
-        public async ThreadTask.Task<bool> AddGroupAsync(GroupDTO group)
+        public async Task<bool> AddGroupAsync(GroupDTO group)
         {
             if (string.IsNullOrEmpty(group.Name) || await db.Groups.GroupNameExistsAsync(group.Name))
                 return false;
@@ -85,7 +28,7 @@ namespace LearnWithMentorBLL.Services
             return true;
         }
 
-        public async ThreadTask.Task<GroupDTO> GetGroupByIdAsync(int id)
+        public async Task<GroupDTO> GetGroupByIdAsync(int id)
         {
             Group group = await db.Groups.GetAsync(id);
             if (group == null)
@@ -96,18 +39,18 @@ namespace LearnWithMentorBLL.Services
                                await db.Users.ExtractFullNameAsync(group.Mentor_Id));
         }
         
-        public async ThreadTask.Task<int?> GetMentorIdByGroupAsync(int groupId)
+        public async Task<int?> GetMentorIdByGroupAsync(int groupId)
         {
             GroupDTO group = await GetGroupByIdAsync(groupId);
             return group?.MentorId;
         }
 
-        public async ThreadTask.Task<int> GroupsCountAsync()
+        public async Task<int> GroupsCountAsync()
         {
             return await db.Groups.CountAsync();
         }
 
-        public async ThreadTask.Task<IEnumerable<PlanDTO>> GetPlansAsync(int groupId)
+        public async Task<IEnumerable<PlanDTO>> GetPlansAsync(int groupId)
         {
             var group = await db.Groups.GetAsync(groupId);
             var plans = await db.Plans.GetPlansForGroupAsync(groupId);
@@ -136,7 +79,7 @@ namespace LearnWithMentorBLL.Services
             return planList;
         }
 
-        public async ThreadTask.Task<IEnumerable<UserIdentityDTO>> GetUsersAsync(int groupId)
+        public async Task<IEnumerable<UserIdentityDTO>> GetUsersAsync(int groupId)
         {
             var group = await db.Groups.GetGroupsByMentorAsync(groupId);
             var users = await db.Users.GetUsersByGroupAsync(groupId);
@@ -164,7 +107,7 @@ namespace LearnWithMentorBLL.Services
             return userList;
         }
 
-        public async ThreadTask.Task<IEnumerable<UserWithImageDTO>> GetUsersWithImageAsync(int groupId)
+        public async Task<IEnumerable<UserWithImageDTO>> GetUsersWithImageAsync(int groupId)
         {
             var group = await db.Groups.GetGroupsByMentorAsync(groupId);
             var users = await db.Users.GetUsersByGroupAsync(groupId);
@@ -197,7 +140,7 @@ namespace LearnWithMentorBLL.Services
 
         }
 
-        public async ThreadTask.Task<IEnumerable<GroupDTO>> GetGroupsByMentorAsync(int mentorId)
+        public async Task<IEnumerable<GroupDTO>> GetGroupsByMentorAsync(int mentorId)
         {
             var groups = await db.Groups.GetGroupsByMentorAsync(mentorId);
             if (groups == null)
@@ -215,7 +158,7 @@ namespace LearnWithMentorBLL.Services
             return groupList;
         }
 
-        public async ThreadTask.Task<IEnumerable<GroupDTO>> GetUserGroupsAsync(int userId)
+        public async Task<IEnumerable<GroupDTO>> GetUserGroupsAsync(int userId)
         {
             User user = await db.Users.GetAsync(userId);
             if (user == null)
@@ -261,7 +204,7 @@ namespace LearnWithMentorBLL.Services
             return group_List;
         }
 
-        public async ThreadTask.Task<bool> AddUsersToGroupAsync(int[] usersId, int groupId)
+        public async Task<bool> AddUsersToGroupAsync(int[] usersId, int groupId)
         {
             Group groups = await db.Groups.GetAsync(groupId);
             if (groups == null)
@@ -285,7 +228,7 @@ namespace LearnWithMentorBLL.Services
             return added;
         }
 
-        public async ThreadTask.Task<bool> AddPlansToGroupAsync(int[] plansId, int groupId)
+        public async Task<bool> AddPlansToGroupAsync(int[] plansId, int groupId)
         {
             Group groups = await db.Groups.GetAsync(groupId);
             if (groups == null)
@@ -309,7 +252,7 @@ namespace LearnWithMentorBLL.Services
             return added;
         }
 
-        public async ThreadTask.Task<IEnumerable<UserIdentityDTO>> GetUsersNotInGroupAsync(int groupId)
+        public async Task<IEnumerable<UserIdentityDTO>> GetUsersNotInGroupAsync(int groupId)
         {
             Group group = await db.Groups.GetAsync(groupId);
             if (group == null)
@@ -340,7 +283,7 @@ namespace LearnWithMentorBLL.Services
             return usersNotInGroupList;
         }
 
-        public async ThreadTask.Task<IEnumerable<UserIdentityDTO>> SearchUserNotInGroupAsync(string[] searchCases, int groupId)
+        public async Task<IEnumerable<UserIdentityDTO>> SearchUserNotInGroupAsync(string[] searchCases, int groupId)
         {
             IEnumerable<UserIdentityDTO> usersNotInGroup = await GetUsersNotInGroupAsync(groupId);
             var usersNotInGroupdto = new List<UserIdentityDTO>();
@@ -357,7 +300,7 @@ namespace LearnWithMentorBLL.Services
             return usersNotInGroupdto;
         }
 
-        public async ThreadTask.Task<IEnumerable<PlanDTO>> GetPlansNotUsedInGroupAsync(int groupId)
+        public async Task<IEnumerable<PlanDTO>> GetPlansNotUsedInGroupAsync(int groupId)
         {
             Group group = await db.Groups.GetAsync(groupId);
             if (group == null)
@@ -393,7 +336,8 @@ namespace LearnWithMentorBLL.Services
             }
             return plansNotUsedInGroupList;
         }
-        public async ThreadTask.Task<IEnumerable<PlanDTO>> SearchPlansNotUsedInGroupAsync(string[] searchCases, int groupId)
+
+        public async Task<IEnumerable<PlanDTO>> SearchPlansNotUsedInGroupAsync(string[] searchCases, int groupId)
         {
             var plansNotInGroup = await GetPlansNotUsedInGroupAsync(groupId);
             plansNotInGroup = plansNotInGroup.ToList();
@@ -411,7 +355,99 @@ namespace LearnWithMentorBLL.Services
             return plansNotInGroupdto;
         }
 
-        private async ThreadTask.Task RemoveMessagesForUserTaskAsync(int userTaskId)
+        public async Task<bool> RemoveUserFromGroupAsync(int groupId, int userIdToRemove)
+        {
+            var group = await db.Groups.GetAsync(groupId);
+            User userToRemove = await db.Users.GetAsync(userIdToRemove);
+            if (group == null)
+            {
+                return false;
+            }
+            if (userToRemove == null)
+            {
+                return false;
+            }
+            await DeleteUserTasksOnRemovingUserAsync(groupId, userIdToRemove);
+            group.UserGroups.Select(u => u.User).ToList().Remove(userToRemove);
+            db.Save();
+            return true;
+        }
+
+        public async Task<bool> RemovePlanFromGroupAsync(int groupId, int planIdToRemove)
+        {
+            var group = await db.Groups.GetAsync(groupId);
+            var planToRemove = await db.Plans.Get(planIdToRemove);
+            if (group == null)
+            {
+                return false;
+            }
+            if (planToRemove == null)
+            {
+                return false;
+            }
+            await DeleteUserTasksOnRemovingPlanAsync(groupId, planIdToRemove);
+            group.GroupPlans.Select(p => p.Plan).ToList().Remove(planToRemove);
+            db.Save();
+            return true;
+        }
+
+        private UserTask CreateDefaultUserTask(int userId, int planTaskId, int mentorId)
+        {
+            return new UserTask()
+            {
+                User_Id = userId,
+                PlanTask_Id = planTaskId,
+                Mentor_Id = mentorId,
+                Result = "",
+                State = "P"
+            };
+        }
+
+        private async Task SetUserTasksByAddingUserAsync(int userId, int groupId)
+        {
+            var plans = await db.Plans.GetPlansForGroupAsync(groupId);
+            Group group = await db.Groups.GetAsync(groupId);
+            if (plans == null || group == null)
+            {
+                return;
+            }
+            var planTasks = new List<PlanTask>();
+            foreach (var plan in plans)
+            {
+                planTasks.AddRange(plan.PlanTasks);
+            }
+            foreach (var planTask in planTasks)
+            {
+                if ((db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, userId) == null) && (group.Mentor_Id != null))
+                {
+                    await db.UserTasks.AddAsync(CreateDefaultUserTask(userId, planTask.Id, group.Mentor_Id.Value));
+                }
+            }
+        }
+
+        private async Task SetUserTasksByAddingPlanAsync(int planId, int groupId)
+        {
+            var users = await db.Users.GetUsersByGroupAsync(groupId);
+            Group group = await db.Groups.GetAsync(groupId);
+            var plan = await db.Plans.Get(planId);
+            if (users == null || group == null || plan == null)
+            {
+                return;
+            }
+            var planTasks = plan.PlanTasks;
+            foreach (var user in users)
+            {
+                foreach (var planTask in planTasks)
+                {
+                    if ((db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, user.Id) == null) && (group.Mentor_Id != null))
+                    {
+                        await db.UserTasks.AddAsync(CreateDefaultUserTask(user.Id, planTask.Id, group.Mentor_Id.Value));
+                    }
+                }
+            }
+        }
+
+        private async Task RemoveMessagesForUserTaskAsync(int userTaskId)
         {
             var messages = await db.Messages.GetByUserTaskIdAsync(userTaskId);
             if (!messages.Any())
@@ -424,7 +460,7 @@ namespace LearnWithMentorBLL.Services
             }
         }
 
-        private async  ThreadTask.Task<bool> IsSamePlanAndUserInOtherGroup(Plan plan, User user)
+        private async Task<bool> IsSamePlanAndUserInOtherGroup(Plan plan, User user)
         {
             var matchNumber = 0;
             foreach (var group in await db.Groups.GetAll())
@@ -437,7 +473,7 @@ namespace LearnWithMentorBLL.Services
             return matchNumber > 1;
         }
 
-        private async ThreadTask.Task DeleteUserTasksOnRemovingUserAsync(int groupId, int userId)
+        private async Task DeleteUserTasksOnRemovingUserAsync(int groupId, int userId)
         {
             Group group = await db.Groups.GetAsync(groupId);
             var user = await db.Users.GetAsync(userId);
@@ -468,25 +504,7 @@ namespace LearnWithMentorBLL.Services
             }
         }
 
-        public async ThreadTask.Task<bool> RemoveUserFromGroupAsync(int groupId, int userIdToRemove)
-        {
-            var group = await db.Groups.GetAsync(groupId);
-            User userToRemove = await db.Users.GetAsync(userIdToRemove);
-            if (group == null)
-            {
-                return false;
-            }
-            if (userToRemove == null)
-            {
-                return false;
-            }
-            await DeleteUserTasksOnRemovingUserAsync(groupId, userIdToRemove);
-            group.UserGroups.Select(u => u.User).ToList().Remove(userToRemove);
-            db.Save();
-            return true;
-        }
-
-        private async ThreadTask.Task DeleteUserTasksOnRemovingPlanAsync(int groupId, int planId)
+        private async Task DeleteUserTasksOnRemovingPlanAsync(int groupId, int planId)
         {
             Group group = await db.Groups.GetAsync(groupId);
             var plan = await db.Plans.Get(planId);
@@ -512,24 +530,6 @@ namespace LearnWithMentorBLL.Services
                     await db.UserTasks.RemoveAsync(userTask);
                 }
             }
-        }
-
-        public async ThreadTask.Task<bool> RemovePlanFromGroupAsync(int groupId, int planIdToRemove)
-        {
-            var group = await db.Groups.GetAsync(groupId);
-            var planToRemove = await db.Plans.Get(planIdToRemove);
-            if (group == null)
-            {
-                return false;
-            }
-            if (planToRemove == null)
-            {
-                return false;
-            }
-            await DeleteUserTasksOnRemovingPlanAsync(groupId, planIdToRemove);
-            group.GroupPlans.Select(p => p.Plan).ToList().Remove(planToRemove);
-            db.Save();
-            return true;
         }
     }
 }

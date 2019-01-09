@@ -15,8 +15,6 @@ namespace LearnWithMentor.Controllers
     /// </summary>
     [Authorize(AuthenticationSchemes = "Bearer")]
     [EnableCors(Constants.Cors.policyName)]
-
-
     public class GroupController : Controller
     {
         private readonly IGroupService groupService;
@@ -347,23 +345,26 @@ namespace LearnWithMentor.Controllers
             {
                 var id = userIdentityService.GetUserId();
                 int? mentorId = await groupService.GetMentorIdByGroupAsync(groupId);
+
                 if (mentorId != id)
                 {
                     return Unauthorized();
                 }
+
                 bool successfullyRemoved = await groupService.RemoveUserFromGroupAsync(groupId, userToRemoveId);
+
                 if (successfullyRemoved)
                 {
-                    var okMessage = "User succesfully removed.";
-                    return Ok(okMessage);
+                    var message = "User succesfully removed.";
+                    return new JsonResult(message);
                 }
+
                 return NoContent();
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
-
         }
 
         /// <summary>
@@ -379,11 +380,13 @@ namespace LearnWithMentor.Controllers
             try
             {
                 bool successfullyRemoved = await groupService.RemovePlanFromGroupAsync(groupId, planToRemoveId);
+
                 if (successfullyRemoved)
                 {
-                    var okMessage = "Plan succesfully removed from group.";
-                    return Ok(okMessage);
+                    var message = "Plan succesfully removed from group.";
+                    return new JsonResult(message);
                 }
+
                 var badRequestMessage = "Incorrect request syntax: plan or group does not exist.";
                 return BadRequest(badRequestMessage);
             }
@@ -391,7 +394,6 @@ namespace LearnWithMentor.Controllers
             {
                 return BadRequest(e);
             }
-
         }
 
         /// <summary>
