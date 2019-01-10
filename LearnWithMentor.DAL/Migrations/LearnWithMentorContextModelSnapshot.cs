@@ -283,6 +283,8 @@ namespace LearnWithMentor.DAL.Migrations
 
                     b.Property<bool>("Private");
 
+                    b.Property<string>("Youtube_Url");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Create_Id");

@@ -22,6 +22,7 @@ namespace LearnWithMentor.DAL.Entities
         public int? Mod_Id { get; set; }
         public DateTime? Create_Date { get; set; }
         public DateTime? Mod_Date { get; set; }
+		public string Youtube_Url { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanTask> PlanTasks { get; set; }

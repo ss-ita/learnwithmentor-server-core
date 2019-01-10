@@ -576,6 +576,7 @@ namespace LearnWithMentor.Controllers
 		[Route("api/user/rating")]
 		public async Task<ActionResult> GetRatingAsync()
 		{
+
 			Dictionary<string, StatisticsDTO> statistics = new Dictionary<string, StatisticsDTO>();
 			var id = userIdentityService.GetUserId();
 			var groups = await groupService.GetUserGroupsIdAsync(id);
