@@ -1,28 +1,20 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using LearnWithMentorBLL.Interfaces;
 using LearnWithMentorDTO;
-using LearnWithMentorBLL.Interfaces;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.Pages.Account.Manage.Internal;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LearnWithMentor.Controllers
 {
     /// <summary>
     /// Controller for groups.
     /// </summary>
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [EnableCors(Constants.Cors.policyName)]
-
-
     public class GroupController : Controller
     {
         private readonly IGroupService groupService;
@@ -222,24 +214,21 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPut]
         [Route("api/group/{id}/user")]
-        public async Task<ActionResult> PutUsersToGroupAsync(int id, [FromBody] int[] userId)
+        public async Task<ActionResult> AddUsersToGroupAsync(int id, [FromBody] int[] userId)
         {
             try
             {
-                var currentUserId = userIdentityService.GetUserId();
-                int? mentorId = await groupService.GetMentorIdByGroupAsync(id);
-                if (mentorId != currentUserId)
-                {
-                    return Unauthorized();
-                }
                 bool success = await groupService.AddUsersToGroupAsync(userId, id);
+                string message = "";
+
                 if (success)
                 {
-                    var okMessage = "Succesfully added users to group ({id}).";
-                    return Ok(okMessage);
+                    message = "Succesfully added users to group ({id}).";
+                    return new JsonResult(message);
                 }
-                var badRequestMessage = "Incorrect request syntax or user or group does not exist.";
-                return BadRequest(badRequestMessage);
+
+                message = "Incorrect request syntax or user or group does not exist.";
+                return BadRequest(message);
             }
             catch (Exception e)
             {
@@ -256,24 +245,21 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPut]
         [Route("api/group/{id}/plan")]
-        public async Task<ActionResult> PutPlansToGroupAsync(int id, [FromBody] int[] planId)
+        public async Task<ActionResult> AddPlansToGroupAsync(int id, [FromBody] int[] planId)
         {
             try
             {
-                var userId = userIdentityService.GetUserId();
-                int? mentorId = await groupService.GetMentorIdByGroupAsync(id);
-                if (mentorId != userId)
-                {
-                    return Unauthorized();
-                }
                 bool success = await groupService.AddPlansToGroupAsync(planId, id);
+                string message = "";
+
                 if (success)
                 {
-                    var okMessage = "Succesfully added plans to group ({id}).";
-                    return Ok(okMessage);
+                    message = "Succesfully added plans to group ({id}).";
+                    return new JsonResult(message);
                 }
-                var badRequestMessage = "Incorrect request syntax or plan or group does not exist.";
-                return BadRequest(badRequestMessage);
+
+                message = "Incorrect request syntax or plan or group does not exist.";
+                return BadRequest(message);
             }
             catch (Exception e)
             {
@@ -347,29 +333,25 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpDelete]
         [Route("api/group/removeUserFromGroup")]
-        public async Task<ActionResult> RemoveUserFromCurrentGroupAsync(int groupId, int userToRemoveId)
+        public async Task<ActionResult> RemoveUserFromGroupAsync(int groupId, int userToRemoveId)
         {
             try
             {
-                var id = userIdentityService.GetUserId();
-                int? mentorId = await groupService.GetMentorIdByGroupAsync(groupId);
-                if (mentorId != id)
-                {
-                    return Unauthorized();
-                }
                 bool successfullyRemoved = await groupService.RemoveUserFromGroupAsync(groupId, userToRemoveId);
+
                 if (successfullyRemoved)
                 {
-                    var okMessage = "User succesfully removed.";
-                    return Ok(okMessage);
+                    var message = "User was succesfully removed.";
+                    return new JsonResult(message);
                 }
-                return NoContent();
+
+                var badRequestMessage = "Incorrect request syntax: user or group does not exist.";
+                return BadRequest(badRequestMessage);
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
-
         }
 
         /// <summary>
@@ -380,16 +362,18 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpDelete]
         [Route("api/group/removePlanFromGroup")]
-        public async Task<ActionResult> RemovePlanFromCurrentGroupAsync(int groupId, int planToRemoveId)
+        public async Task<ActionResult> RemovePlanFromGroupAsync(int groupId, int planToRemoveId)
         {
             try
             {
                 bool successfullyRemoved = await groupService.RemovePlanFromGroupAsync(groupId, planToRemoveId);
+
                 if (successfullyRemoved)
                 {
-                    var okMessage = "Plan succesfully removed from group.";
-                    return Ok(okMessage);
+                    var message = "Plan was succesfully removed from group.";
+                    return new JsonResult(message);
                 }
+
                 var badRequestMessage = "Incorrect request syntax: plan or group does not exist.";
                 return BadRequest(badRequestMessage);
             }
@@ -397,7 +381,6 @@ namespace LearnWithMentor.Controllers
             {
                 return BadRequest(e);
             }
-
         }
 
         /// <summary>

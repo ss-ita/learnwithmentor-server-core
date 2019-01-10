@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LearnWithMentor.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class NotificationController : Hub<IHubClient>
     {
         private readonly INotificationService notificationService;
@@ -23,15 +24,15 @@ namespace LearnWithMentor.Controllers
 
         public override Task OnConnectedAsync()
         {
-            string userName = Context.User.Identity.Name;
-            ConnectedUsers.TryAdd(Context.User.Identity.Name, Context.ConnectionId);
+            string userId = Context.User.Claims.Where(claim => claim.Type == "Id").FirstOrDefault().Value;
+            ConnectedUsers.TryAdd(userId, Context.ConnectionId);
             return base.OnConnectedAsync();
         }
         public override Task OnDisconnectedAsync(Exception ex)
         {
-            string userName = Context.User.Identity.Name;
+            string userId = Context.User.Claims.Where(claim => claim.Type == "Id").FirstOrDefault().Value;
             string removedValue = "";
-            ConnectedUsers.TryRemove(userName, out removedValue);   
+            ConnectedUsers.TryRemove(userId, out removedValue);   
             return base.OnDisconnectedAsync(ex);
         }
 
@@ -41,6 +42,14 @@ namespace LearnWithMentor.Controllers
         {
             var notifications = await notificationService.GetNotificationsAsync(userId, 5);
             return new JsonResult(notifications);
+        }
+
+        [HttpPost]
+        [Route("api/notifications/{userId}")]
+        public async Task<IActionResult> MarkAllNotificationsAsReadAsync(int userId)
+        {
+            await notificationService.MarkAllNotificationsAsReadAsync(userId);
+            return new OkResult();
         }
     }
 }

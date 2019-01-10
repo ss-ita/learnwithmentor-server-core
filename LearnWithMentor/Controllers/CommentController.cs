@@ -13,7 +13,7 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller, that provides API for work with comments
     /// </summary>
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class CommentController : Controller
     {
         /// <summary>

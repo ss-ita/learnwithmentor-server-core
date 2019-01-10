@@ -21,7 +21,7 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller for working with tasks.
     /// </summary>
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class TaskController : Controller
     {
         /// <summary>
@@ -375,7 +375,7 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated user task with id = {userTaskId} on status {newStatus}";
-                    logger.LogInformation("Error :  {0}", message);
+                    logger.LogInformation(message);
 
                     UserDTO userReciever = null;
 
@@ -421,9 +421,9 @@ namespace LearnWithMentor.Controllers
                             break;
                     }
 
-                    await notificationService.AddNotificationAsync(notificationText, notificationType.ToString(), DateTime.Now, userReciever.Id);
-                    
-                    string recieverKey = userReciever.FirstName + " " + userReciever.LastName;
+                    await notificationService.AddNotificationAsync(notificationText, notificationType, DateTime.Now, userReciever.Id);
+
+                    string recieverKey = userReciever.Id.ToString();
 
                     if (NotificationController.ConnectedUsers.ContainsKey(recieverKey))
                     {
@@ -476,24 +476,25 @@ namespace LearnWithMentor.Controllers
         /// <param name="userTaskId">Id of the userTask status to be changed</param>
         /// <param name="newMessage">>New userTask result</param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPost]
         [Route("api/task/usertask/result")]
-        public async Task<ActionResult> PutNewUserTaskResultAsync(int userTaskId, HttpRequestMessage newMessage)
+        public async Task<ActionResult> PutNewUserTaskResultAsync(int userTaskId, string result)
         {
             try
             {
-                var value = newMessage.Content.ReadAsStringAsync().Result;
-                if (value.Length >= ValidationRules.MAX_USERTASK_RESULT_LENGTH)
+                if (result.Length >= ValidationRules.MAX_USERTASK_RESULT_LENGTH)
                 {
                     return BadRequest();
                 }
-                bool success = await taskService.UpdateUserTaskResultAsync(userTaskId, value);
+
+                bool success = await taskService.UpdateUserTaskResultAsync(userTaskId, result);
+
                 if (success)
                 {
-                    var message = $"Succesfully updated user task with id = {userTaskId} on result {value}";
-                    logger.LogInformation("{0}", message);
+                    var message = $"Succesfully updated user task with id = {userTaskId} on result {result}";
+                    logger.LogInformation(message);
                     return Ok(message);
-                }
+                }      
                 var errorMessage = "Incorrect request syntax or usertask does not exist.";
                 logger.LogError("Error :  {0}", errorMessage);
                 return BadRequest(errorMessage);
@@ -646,8 +647,8 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     var message = $"Succesfully updated task with id = {taskId}";
-                    logger.LogInformation("{0}", message);
-                    return Ok(message);
+                    logger.LogInformation("Error :  {0}", message);
+					          return new JsonResult(message);
                 }
                 logger.LogError("Error :  {0}", HttpStatusCode.NoContent);
                 return NoContent();

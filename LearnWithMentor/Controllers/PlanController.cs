@@ -13,7 +13,7 @@ namespace LearnWithMentor.Controllers
     /// <summary>
     /// Controller for plans.
     /// </summary>
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class PlanController : Controller
     {
         private readonly IPlanService planService;
@@ -78,7 +78,7 @@ namespace LearnWithMentor.Controllers
             {
                 return NoContent();
             }
-            return Ok(info);
+            return new JsonResult(info);
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace LearnWithMentor.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }

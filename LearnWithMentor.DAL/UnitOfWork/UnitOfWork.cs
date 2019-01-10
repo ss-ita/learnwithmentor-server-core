@@ -10,7 +10,6 @@ namespace LearnWithMentor.DAL.UnitOfWork
         private readonly LearnWithMentorContext context;
         private bool disposed;
         private ICommentRepository comments;
-        private IGroupPlanTaskViewRepository groupPlanTaskView;
         private IGroupRepository groups;
         private IMessageRepository messages;
         private IPlanRepository plans;
@@ -20,9 +19,10 @@ namespace LearnWithMentor.DAL.UnitOfWork
         private ISectionRepository sections;
         private ITaskRepository tasks;
         private IUserRepository users;
-        private IUserRoleViewRepository userRoleView;
         private IUserTaskRepository userTasks;
         private INotificationRepository notification;
+        private IGroupChatRepository groupChatMessage;
+        private ITaskDiscussionRepository taskDiscussion;
 
         public UnitOfWork(LearnWithMentorContext context)
         {
@@ -31,8 +31,6 @@ namespace LearnWithMentor.DAL.UnitOfWork
         }
 
         public virtual ICommentRepository Comments => comments ?? (comments = new CommentRepository(context));
-
-        public IGroupPlanTaskViewRepository GroupPlanTaskView => groupPlanTaskView ?? (groupPlanTaskView = new GroupPlanTaskViewRepository(context));
 
         public IGroupRepository Groups => groups ?? (groups = new GroupRepository(context));
 
@@ -52,11 +50,13 @@ namespace LearnWithMentor.DAL.UnitOfWork
 
         public virtual IUserRepository Users => users ?? (users = new UserRepository(context));
 
-        public IUserRoleViewRepository UserRoleView => userRoleView ?? (userRoleView = new UserRoleViewRepository(context));
-
         public IUserTaskRepository UserTasks => userTasks ?? (userTasks = new UserTaskRepository(context));
 
         public INotificationRepository Notification => notification ?? (notification = new NotificationRepository(context));
+
+        public IGroupChatRepository GroupChatMessage => groupChatMessage ?? (groupChatMessage = new GroupChatRepository(context));
+
+        public ITaskDiscussionRepository TaskDiscussion => taskDiscussion ?? (taskDiscussion = new TaskDiscussionRepository(context));
 
         public void Save()
         {

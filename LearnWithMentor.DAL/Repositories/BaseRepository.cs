@@ -2,6 +2,7 @@
 using LearnWithMentor.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using LearnWithMentor.DAL.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace LearnWithMentor.DAL.Repositories
 {
@@ -13,22 +14,22 @@ namespace LearnWithMentor.DAL.Repositories
             Context = context;
         }
 
-        public async System.Threading.Tasks.Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
             return Context.Set<T>();
         }
 
-        public async System.Threading.Tasks.Task AddAsync(T item)
+        public async Task AddAsync(T item)
         {
             Context.Set<T>().Add(item);
         }
 
-        public async System.Threading.Tasks.Task UpdateAsync(T item)
+        public async Task UpdateAsync(T item)
         {
             Context.Entry(item).State = EntityState.Modified;
         }
 
-        public async System.Threading.Tasks.Task RemoveAsync(T item)
+        public async Task RemoveAsync(T item)
         {
             Context.Set<T>().Remove(item);
         }
