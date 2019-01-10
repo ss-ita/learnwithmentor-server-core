@@ -207,24 +207,30 @@ namespace LearnWithMentorBLL.Services
         public async Task<bool> AddUsersToGroupAsync(int[] usersId, int groupId)
         {
             Group groups = await db.Groups.GetAsync(groupId);
+
             if (groups == null)
             {
                 return false;
             }
-            var added = false;
+
+            bool added = false;
+
             foreach (var userId in usersId)
             {
                 User addUser = await db.Users.GetAsync(userId);
+
                 if (addUser != null)
                 {
                     added = await db.Groups.AddUserToGroupAsync(userId, groupId);
-                    if(added)
+
+                    if (added)
                     {
                         await SetUserTasksByAddingUserAsync(userId, groupId);
+                        db.Save();
                     }
-                    db.Save();
                 }
             }
+
             return added;
         }
 
@@ -364,67 +370,62 @@ namespace LearnWithMentorBLL.Services
         public async Task<bool> RemoveUserFromGroupAsync(int groupId, int userIdToRemove)
         {
             var group = await db.Groups.GetAsync(groupId);
-            User userToRemove = await db.Users.GetAsync(userIdToRemove);
-            if (group == null)
+            User user = await db.Users.GetAsync(userIdToRemove);
+
+            if (group == null || user == null)
             {
                 return false;
             }
-            if (userToRemove == null)
-            {
-                return false;
-            }
+
             await DeleteUserTasksOnRemovingUserAsync(groupId, userIdToRemove);
-            group.UserGroups.Select(u => u.User).ToList().Remove(userToRemove);
+            UserGroup userGroupToRemove = group.UserGroups.Where(ug => ug.UserId == userIdToRemove).FirstOrDefault();
+            bool removalSuccessful = group.UserGroups.Remove(userGroupToRemove);
             db.Save();
-            return true;
+
+            return removalSuccessful;
         }
 
         public async Task<bool> RemovePlanFromGroupAsync(int groupId, int planIdToRemove)
         {
             var group = await db.Groups.GetAsync(groupId);
-            var planToRemove = await db.Plans.Get(planIdToRemove);
+            var plan = await db.Plans.Get(planIdToRemove);
 
-            if (group == null || planToRemove == null)
+            if (group == null || plan == null)
             {
                 return false;
             }
 
             await DeleteUserTasksOnRemovingPlanAsync(groupId, planIdToRemove);
-            var groupPlanToRemove = group.GroupPlans.Where(gp => gp.PlanId == planToRemove.Id).FirstOrDefault();
-            group.GroupPlans.Remove(groupPlanToRemove);
+            GroupPlan groupPlanToRemove = group.GroupPlans.Where(gp => gp.PlanId == planIdToRemove).FirstOrDefault();
+            bool removalSuccessful = group.GroupPlans.Remove(groupPlanToRemove);
             db.Save();
 
-            return true;
+            return removalSuccessful;
         }
-
-        private UserTask CreateDefaultUserTask(int userId, int planTaskId, int mentorId)
-        {
-            return new UserTask()
-            {
-                User_Id = userId,
-                PlanTask_Id = planTaskId,
-                Mentor_Id = mentorId,
-                Result = "",
-                State = "P"
-            };
-        }
-
+        
         private async Task SetUserTasksByAddingUserAsync(int userId, int groupId)
         {
             var plans = await db.Plans.GetPlansForGroupAsync(groupId);
             Group group = await db.Groups.GetAsync(groupId);
+
             if (plans == null || group == null)
             {
                 return;
             }
-            var planTasks = new List<PlanTask>();
+
+            var planTasksCompleteList = new List<PlanTask>();
+
             foreach (var plan in plans)
             {
-                planTasks.AddRange(plan.PlanTasks);
+                var planTasks = await db.PlanTasks.GetPlanTaskListByPlanAsync(plan.Id);
+                planTasksCompleteList.AddRange(planTasks);
             }
-            foreach (var planTask in planTasks)
+
+            foreach (var planTask in planTasksCompleteList)
             {
-                if ((db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, userId) == null) && (group.Mentor_Id != null))
+                var userTask = await db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, userId);
+
+                if ((userTask == null) && (group.Mentor_Id != null))
                 {
                     await db.UserTasks.AddAsync(CreateDefaultUserTask(userId, planTask.Id, group.Mentor_Id.Value));
                 }
@@ -448,9 +449,9 @@ namespace LearnWithMentorBLL.Services
             {
                 foreach (var planTask in planTasks)
                 {
-                    var userTasks = await db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, user.Id);
+                    var userTask = await db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, user.Id);
 
-                    if ((userTasks == null) && (group.Mentor_Id != null))
+                    if ((userTask == null) && (group.Mentor_Id != null))
                     {
                         await db.UserTasks.AddAsync(CreateDefaultUserTask(user.Id, planTask.Id, group.Mentor_Id.Value));
                     }
@@ -488,30 +489,27 @@ namespace LearnWithMentorBLL.Services
         {
             Group group = await db.Groups.GetAsync(groupId);
             var user = await db.Users.GetAsync(userId);
-            if (group?.GroupPlans.Select(p => p.Plan) == null || user == null)
+
+            if (group?.GroupPlans.Select(gp => gp.Plan) == null || user == null)
             {
                 return;
             }
-            foreach (var plan in group.GroupPlans.Select(g => g.Plan))
+
+            foreach (var plan in group.GroupPlans.Select(gp => gp.Plan))
             {
-                if (plan?.PlanTasks == null)
+                if (plan?.PlanTasks != null && !await IsSamePlanAndUserInOtherGroup(plan, user))
                 {
-                    continue;
-                }
-                if (await IsSamePlanAndUserInOtherGroup(plan, user))
-                {
-                    continue;
-                }
-                foreach (var planTask in plan.PlanTasks)
-                {
-                    UserTask userTask = await db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, user.Id);
-                    if (userTask == null)
+                    foreach (var planTask in plan.PlanTasks)
                     {
-                        continue;
+                        UserTask userTask = await db.UserTasks.GetByPlanTaskForUserAsync(planTask.Id, user.Id);
+
+                        if (userTask != null)
+                        {
+                            await RemoveMessagesForUserTaskAsync(userTask.Id);
+                            await db.UserTasks.RemoveAsync(userTask);
+                        }
                     }
-                    await RemoveMessagesForUserTaskAsync(userTask.Id);
-                    await db.UserTasks.RemoveAsync(userTask);
-                }
+                }                
             }
         }
 
@@ -520,12 +518,12 @@ namespace LearnWithMentorBLL.Services
             Group group = await db.Groups.GetAsync(groupId);
             var plan = await db.Plans.Get(planId);
 
-            if (group?.UserGroups.Select(u => u.User) == null || plan?.PlanTasks == null)
+            if (group?.UserGroups.Select(ug => ug.User) == null || plan?.PlanTasks == null)
             {
                 return;
             }
 
-            foreach (var user in group.UserGroups.Select(u => u.User))
+            foreach (var user in group.UserGroups.Select(ug => ug.User))
             {
                 if (!await IsSamePlanAndUserInOtherGroup(plan, user))
                 {
@@ -541,6 +539,18 @@ namespace LearnWithMentorBLL.Services
                     }
                 }
             }
+        }
+
+        private UserTask CreateDefaultUserTask(int userId, int planTaskId, int mentorId)
+        {
+            return new UserTask()
+            {
+                User_Id = userId,
+                PlanTask_Id = planTaskId,
+                Mentor_Id = mentorId,
+                Result = "",
+                State = "P"
+            };
         }
     }
 }
