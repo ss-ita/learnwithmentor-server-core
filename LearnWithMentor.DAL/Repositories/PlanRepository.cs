@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using LearnWithMentor.DAL.Entities;
+﻿using LearnWithMentor.DAL.Entities;
 using LearnWithMentor.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LearnWithMentor.DAL.Repositories
 {
