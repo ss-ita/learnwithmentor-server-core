@@ -22,7 +22,6 @@ namespace LearnWithMentor.DAL.Repositories
         public async Task<bool> IsRemovableAsync(int id)
         {
             return await Context.Plans.AnyAsync(plan => plan.Id == id);
-
         }
 
         public Plan AddAndReturnElement(Plan plan)
@@ -33,8 +32,7 @@ namespace LearnWithMentor.DAL.Repositories
 
         public async Task<IEnumerable<Plan>> GetPlansForGroupAsync(int groupId)
         {
-            Group group = await Context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
-            return group?.GroupPlans.Select(g => g.Plan);
+            return await Context.GroupPlans.Where(gp => gp.GroupId == groupId).Select(gp => gp.Plan).ToListAsync();
         }
 
         public IEnumerable<Plan> Search(string[] searchString)
@@ -96,7 +94,7 @@ namespace LearnWithMentor.DAL.Repositories
         public async Task<IEnumerable<Plan>> GetPlansNotUsedInGroupAsync(int groupId)
         {
             Group group = await Context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
-            IEnumerable<Plan> plans = group?.GroupPlans.Select(p => p.Plan);
+            IEnumerable<Plan> plans = group?.GroupPlans.Select(p => p.Plan).ToList();
             IEnumerable<int> usedPlansId = plans.Select(p => p.Id);
             return Context.Plans.Where(p => !usedPlansId.Contains(p.Id));
         }
