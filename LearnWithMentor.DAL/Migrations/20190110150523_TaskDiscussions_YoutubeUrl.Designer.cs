@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnWithMentor.DAL.Migrations
 {
     [DbContext(typeof(LearnWithMentorContext))]
-    [Migration("20181226151758_Taras")]
-    partial class Taras
+    [Migration("20190110150523_TaskDiscussions_YoutubeUrl")]
+    partial class TaskDiscussions_YoutubeUrl
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -285,6 +285,8 @@ namespace LearnWithMentor.DAL.Migrations
 
                     b.Property<bool>("Private");
 
+                    b.Property<string>("Youtube_Url");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Create_Id");
@@ -292,6 +294,25 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasIndex("Mod_Id");
 
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.TaskDiscussion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DatePosted");
+
+                    b.Property<int>("SenderId");
+
+                    b.Property<int>("TaskId");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskDiscussions");
                 });
 
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.User", b =>

@@ -294,6 +294,25 @@ namespace LearnWithMentor.DAL.Migrations
                     b.ToTable("Tasks");
                 });
 
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.TaskDiscussion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DatePosted");
+
+                    b.Property<int>("SenderId");
+
+                    b.Property<int>("TaskId");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskDiscussions");
+                });
+
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.User", b =>
                 {
                     b.Property<int>("Id")
