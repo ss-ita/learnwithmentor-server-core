@@ -747,7 +747,7 @@ namespace LearnWithMentor.Controllers
         /// </summary>
         /// <param name="taskId">Task Id for delete.</param>
         [HttpDelete]
-        [Route("api/task/{id}")]
+        [Route("api/task/{taskId}")]
         public async Task<ActionResult> DeleteAsync(int taskId)
         {
             try

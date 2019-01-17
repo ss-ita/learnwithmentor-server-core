@@ -265,6 +265,7 @@ namespace LearnWithMentorBLL.Services
 
         public async Task<bool> RemoveTaskByIdAsync(int taskId)
         {
+            await db.Tasks.DeleteTaskAsync(taskId);
             StudentTask item = await db.Tasks.GetAsync(taskId);
             if (item != null || await db.Tasks.IsRemovableAsync(taskId))
             {

@@ -31,6 +31,39 @@ namespace LearnWithMentor.DAL.Repositories
             return task;
         }
 
+        public async Task<bool> DeleteTaskAsync(int taskId)
+        {
+            IEnumerable<PlanTask> planTasks = Context.PlanTasks.Where(planTask => planTask.Task_Id == taskId);
+            
+            foreach(var comments in planTasks.Select(p => p.Comments))
+            {
+                foreach(var comment in comments)
+                {
+                    Context.Comments.Remove(comment);
+                }
+            }
+            await Context.SaveChangesAsync();
+
+            foreach (var userTasks in planTasks.Select(p => p.UserTasks))
+            {
+                foreach(var messages in userTasks.Select(u => u.Messages))
+                {
+                    foreach(var message in messages)
+                    {
+                        Context.Messages.Remove(message);
+                    }
+                }
+                await Context.SaveChangesAsync();
+                Context.UserTasks.RemoveRange(userTasks);
+            }
+            await Context.SaveChangesAsync();
+
+            Context.PlanTasks.RemoveRange(planTasks);
+            await Context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<IEnumerable<StudentTask>> SearchAsync(string[] str, int planId)
         {
             bool checkPlanExisting = await Context.Plans.AnyAsync(plan => plan.Id == planId);
