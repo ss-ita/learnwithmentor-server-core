@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnWithMentor.DAL.Migrations
 {
     [DbContext(typeof(LearnWithMentorContext))]
-    [Migration("20190110150523_TaskDiscussions_YoutubeUrl")]
-    partial class TaskDiscussions_YoutubeUrl
+    [Migration("20190117175315_AddCommunication")]
+    partial class AddCommunication
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,6 +79,10 @@ namespace LearnWithMentor.DAL.Migrations
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("GroupChatMessages");
                 });
@@ -312,6 +316,8 @@ namespace LearnWithMentor.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TaskId");
+
                     b.ToTable("TaskDiscussions");
                 });
 
@@ -531,6 +537,19 @@ namespace LearnWithMentor.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.GroupChatMessage", b =>
+                {
+                    b.HasOne("LearnWithMentor.DAL.Entities.Group", "ChatGroup")
+                        .WithMany("GroupChatMessages")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LearnWithMentor.DAL.Entities.User", "ChatUser")
+                        .WithMany("GroupChatMessages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("LearnWithMentor.DAL.Entities.GroupPlan", b =>
                 {
                     b.HasOne("LearnWithMentor.DAL.Entities.Group", "Group")
@@ -624,6 +643,14 @@ namespace LearnWithMentor.DAL.Migrations
                     b.HasOne("LearnWithMentor.DAL.Entities.User", "Modifier")
                         .WithMany("TasksModified")
                         .HasForeignKey("Mod_Id")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("LearnWithMentor.DAL.Entities.TaskDiscussion", b =>
+                {
+                    b.HasOne("LearnWithMentor.DAL.Entities.StudentTask", "StudentTasks")
+                        .WithMany("TaskDiscussions")
+                        .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
