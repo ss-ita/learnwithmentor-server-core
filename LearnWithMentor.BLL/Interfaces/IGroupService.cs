@@ -24,5 +24,6 @@ namespace LearnWithMentorBLL.Interfaces
         Task<bool> RemovePlanFromGroupAsync(int groupId, int planIdToRemove);
         Task<IEnumerable<GroupDTO>> GetUserGroupsAsync(int userId);
         Task<List<int>> GetUserGroupsIdAsync(int userId);
+        Task<int?> AddAndGetIdAsync(GroupDTO dto);
     }
 }

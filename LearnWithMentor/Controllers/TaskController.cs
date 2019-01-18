@@ -757,7 +757,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully deleted task with id = {taskId}";
                     logger.LogInformation("Error :  {0}", message);
-                    return Ok(message);
+                    return Ok();
                 }
                 logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return BadRequest();

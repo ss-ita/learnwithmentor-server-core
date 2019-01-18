@@ -182,7 +182,7 @@ namespace LearnWithMentor.Controllers
         [Authorize(Roles = "Mentor")]
         [HttpPost]
         [Route("api/group")]
-        public async Task<ActionResult> PostAsync([FromBody]GroupDTO group)
+        public async Task<ActionResult> PostAsync([FromBody]GroupDTO dto)
         {
             try
             {
@@ -190,14 +190,12 @@ namespace LearnWithMentor.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                var success = groupService.AddGroupAsync(group);
-                if (await success)
+                var group = await groupService.AddAndGetIdAsync(dto);
+                if (group != null)
                 {
-                    var okMessage = "Succesfully created group: {group.Name}.";
-                    return Ok(okMessage);
+                    return Ok(group.Value);
                 }
-                var badRequestMessage = "Group with this name already exists";
-                return BadRequest(badRequestMessage);
+                return BadRequest();
             }
             catch (Exception e)
             {
