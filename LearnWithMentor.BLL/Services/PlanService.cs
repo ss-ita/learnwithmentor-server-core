@@ -397,7 +397,7 @@ namespace LearnWithMentorBLL.Services
             Plan item = await db.Plans.Get(planId);
             if (item != null || await db.Plans.IsRemovableAsync(planId))
             {
-                await db.Plans.RemoveAsync(item);
+                await db.Plans.RemovePlanAsync(item);
                 db.Save();
                 return true;
             }

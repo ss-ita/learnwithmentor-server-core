@@ -220,7 +220,7 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     string okMessage = "Succesfully updated plan.";
-                    return Ok(okMessage);
+                    return Ok();
                 }
             }
             catch (Exception e)
@@ -396,7 +396,7 @@ namespace LearnWithMentor.Controllers
                 if (success)
                 {
                     string okMessage = $"Succesfully deleted plan with id = {id}";
-                    return Ok(okMessage);
+                    return Ok();
                 }
                 string message = $"No plan with id: {id} or cannot be deleted because of dependency conflict.";
                 return BadRequest(message);

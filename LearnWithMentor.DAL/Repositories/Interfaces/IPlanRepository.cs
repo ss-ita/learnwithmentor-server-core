@@ -16,5 +16,6 @@ namespace LearnWithMentor.DAL.Repositories.Interfaces
         Task<IEnumerable<Plan>> GetPlansNotUsedInGroupAsync(int groupId);
         Task<string> GetImageBase64Async(int planId);
         Task<IEnumerable<Plan>> GetPlansForGroupAsync(int groupId);
+        Task RemovePlanAsync(Plan plan);
     }
 }
