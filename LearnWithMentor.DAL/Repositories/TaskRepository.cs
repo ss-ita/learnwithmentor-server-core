@@ -19,6 +19,12 @@ namespace LearnWithMentor.DAL.Repositories
 
         }
 
+        public async Task<int> GetTaskIdAsync(StudentTask studentTask)
+        {
+            var task = await Context.Tasks.Where(t => t == studentTask).FirstAsync();
+            return task.Id;
+        }
+
         public async Task<bool> IsRemovableAsync(int id)
         {
             return await Context.PlanTasks.AnyAsync(planTask => planTask.Task_Id == id);

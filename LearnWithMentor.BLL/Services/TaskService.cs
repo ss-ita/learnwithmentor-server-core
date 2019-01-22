@@ -17,6 +17,34 @@ namespace LearnWithMentorBLL.Services
         {
         }
 
+        public async Task<bool> AddTaskToPlanAsync(TaskDTO taskDTO, int? selectedPriority, int? selectedSection)
+        {
+            StudentTask task = new StudentTask
+            {
+                Name = taskDTO.Name,
+                Description = taskDTO.Description,
+                Private = taskDTO.Private,
+                Create_Id = taskDTO.CreatorId,
+                Create_Date = taskDTO.CreateDate,
+            };
+            await db.Tasks.AddAsync(task);
+            db.Save();
+
+            int taskId = await db.Tasks.GetTaskIdAsync(task);
+
+            PlanTask planTask = new PlanTask
+            {
+                Plan_Id = taskDTO.PlanTaskId.Value,
+                Task_Id = taskId,
+                Priority = selectedPriority,
+                Section_Id = selectedSection
+            };
+
+            await db.PlanTasks.AddAsync(planTask);
+            db.Save();
+            return true;
+        }
+
         public async Task<IEnumerable<TaskDTO>> GetAllTasksAsync()
         {
             var taskDTO = new List<TaskDTO>();

@@ -581,7 +581,7 @@ namespace LearnWithMentor.Controllers
                 {
                     var message = $"Succesfully created task with id = {newTask.Id} by user with id = {newTask.CreatorId}";
                     logger.LogInformation("Error :  {0}", message);
-                    return Ok(message);
+                    return Ok();
                 }
                 logger.LogInformation("Error :  {0}", HttpStatusCode.NoContent);
                 return BadRequest();
@@ -591,7 +591,33 @@ namespace LearnWithMentor.Controllers
                 logger.LogInformation("Error :  {0}", e.Message);
                 return BadRequest(e);
             }
+        }
 
+        [HttpPost]
+        [Route("api/task/newTask")]
+        public async Task<ActionResult> PostTaskToPlanAsync([FromBody]TaskDTO value, int? selectedPriority, int? selectedSection)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                var success = await taskService.AddTaskToPlanAsync(value, selectedPriority, selectedSection);
+                if(success == true)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogInformation("Error :  {0}", e);
+                return BadRequest(e);
+            }
         }
 
         /// <summary>
