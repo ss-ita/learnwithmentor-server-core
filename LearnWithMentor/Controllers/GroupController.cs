@@ -194,7 +194,7 @@ namespace LearnWithMentor.Controllers
                 if (await success)
                 {
                     var okMessage = "Succesfully created group: {group.Name}.";
-                    return Ok(okMessage);
+                    return new JsonResult (okMessage);
                 }
                 var badRequestMessage = "Group with this name already exists";
                 return BadRequest(badRequestMessage);

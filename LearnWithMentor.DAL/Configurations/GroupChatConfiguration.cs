@@ -12,6 +12,18 @@ namespace LearnWithMentor.DAL.Configurations
         public void Configure(EntityTypeBuilder<GroupChatMessage> builder)
         {
             builder.HasKey(n => n.Id);
+
+            builder.HasOne(message => message.ChatUser)
+                .WithMany(user => user.GroupChatMessages)
+                .HasForeignKey(message => message.UserId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired();
+            
+            builder.HasOne(message => message.ChatGroup)
+                .WithMany(group => group.GroupChatMessages)
+                .HasForeignKey(message => message.ChatGroup)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired();
         }
     }
 }

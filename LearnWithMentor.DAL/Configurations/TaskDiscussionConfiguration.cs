@@ -12,6 +12,12 @@ namespace LearnWithMentor.DAL.Configurations
         public void Configure(EntityTypeBuilder<TaskDiscussion> builder)
         {
             builder.HasKey(n => n.Id);
+
+            builder.HasOne(message => message.StudentTasks)
+                .WithMany(task => task.TaskDiscussions)
+                .HasForeignKey(message => message.TaskId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired();
         }
     }
 }

@@ -23,5 +23,6 @@ namespace LearnWithMentor.DAL.Entities
         public virtual ICollection<GroupPlan> GroupPlans { get; set; }
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserGroup> UserGroups { get; set; }
+        public virtual ICollection<GroupChatMessage> GroupChatMessages { get; set; }
     }
 }
