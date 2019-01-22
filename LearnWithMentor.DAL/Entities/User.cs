@@ -45,5 +45,6 @@ namespace LearnWithMentor.DAL.Entities
         public virtual ICollection<UserGroup> UserGroups { get; set; }
         public virtual ICollection<UserTask> UserTaskMentor { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<GroupChatMessage> GroupChatMessages { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace LearnWithMentor.DAL.Entities
         public int TaskId { get; set; }
         public string Text { get; set; }
         public DateTime DatePosted { get; set; }
+        public virtual StudentTask StudentTasks { get; set; }
     }
 }
