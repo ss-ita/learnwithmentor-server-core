@@ -98,5 +98,40 @@ namespace LearnWithMentor.DAL.Repositories
             IEnumerable<int> usedPlansId = plans.Select(p => p.Id);
             return Context.Plans.Where(p => !usedPlansId.Contains(p.Id));
         }
+
+        public async Task RemovePlanAsync(Plan plan)
+        {
+            IEnumerable<GroupPlan> groupPlans = plan.GroupPlans;
+            Context.RemoveRange(groupPlans);
+            await Context.SaveChangesAsync();
+
+            IEnumerable<PlanSuggestion> planSuggestions = plan.PlanSuggestion;
+            Context.RemoveRange(planSuggestions);
+            await Context.SaveChangesAsync();
+
+            foreach(var userTasks in plan.PlanTasks.Select(u => u.UserTasks))
+            {
+                foreach(var messages in userTasks.Select(m => m.Messages))
+                {
+                    Context.Messages.RemoveRange(messages);
+                }
+                await Context.SaveChangesAsync();
+                Context.UserTasks.RemoveRange(userTasks);
+            }
+            await Context.SaveChangesAsync();
+
+            foreach(var comments in plan.PlanTasks.Select(c => c.Comments))
+            {
+                Context.Comments.RemoveRange(comments);
+            }
+            await Context.SaveChangesAsync();
+
+            IEnumerable<PlanTask> planTasks = plan.PlanTasks;
+            Context.RemoveRange(planTasks);
+            await Context.SaveChangesAsync();
+
+            Context.Plans.Remove(plan);
+            await Context.SaveChangesAsync();
+        }
     }
 }

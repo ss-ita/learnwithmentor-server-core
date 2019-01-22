@@ -12,5 +12,7 @@ namespace LearnWithMentor.DAL.Repositories.Interfaces
         Task<IEnumerable<StudentTask>> SearchAsync(string[] str, int planId);
         Task<IEnumerable<StudentTask>> SearchAsync(string[] str);
         Task<IEnumerable<StudentTask>> GetTasksNotInPlanAsync(int planId);
+        Task<bool> DeleteTaskAsync(int planId);
+        Task<int> GetTaskIdAsync(StudentTask studentTask);
     }
 }

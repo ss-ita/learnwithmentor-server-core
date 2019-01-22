@@ -17,5 +17,6 @@ namespace LearnWithMentor.DAL.Repositories.Interfaces
         Task RemovePlanFromGroupAsync(int groupId, int planId);
         Task<IEnumerable<Group>> GetStudentGroupsAsync(int studentId);
         Task<IEnumerable<Group>> GetGroupsByPlanAsync(int planId);
+        Task<Group> AddAndReturnElement(Group group);
     }
 }

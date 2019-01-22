@@ -28,7 +28,19 @@ namespace LearnWithMentorBLL.Services
             return true;
         }
 
-        public async Task<GroupDTO> GetGroupByIdAsync(int id)
+        public async Task<int?> AddAndGetIdAsync(GroupDTO dto)
+        {
+            var group = new Group
+            {
+                Name = dto.Name,
+                Mentor_Id = dto.MentorId
+            };
+            var createdGroup = await db.Groups.AddAndReturnElement(group);
+            db.Save();
+            return createdGroup?.Id;
+        }
+
+            public async Task<GroupDTO> GetGroupByIdAsync(int id)
         {
             Group group = await db.Groups.GetAsync(id);
             if (group == null)

@@ -18,6 +18,12 @@ namespace LearnWithMentor.DAL.Repositories
             return await Context.Groups.FirstOrDefaultAsync(group => group.Id == id);
         }
 
+        public async Task<Group> AddAndReturnElement(Group group)
+        {
+            await Context.Groups.AddAsync(group);
+            return group;
+        }
+
         public async Task<bool> GroupNameExistsAsync(string groupName)
         {
             return await Context.Groups.AnyAsync(g => g.Name.Equals(groupName));

@@ -31,5 +31,6 @@ namespace LearnWithMentorBLL.Interfaces
         Task<bool> DeleteProposeEndDateAsync(int userTaskId);
         Task<bool> SetNewEndDateAsync(int userTaskId);
         Task<bool> CheckUserTaskOwnerAsync(int userTaskId, int userId);
+        Task<bool> AddTaskToPlanAsync(TaskDTO taskDTO, int? selectedPriority, int? selectedSection);
     }
 }
