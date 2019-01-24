@@ -145,6 +145,29 @@ namespace LearnWithMentor.Controllers
             }
         }
 
+        [Route("api/chat/getjsmessages/{userId}/{amount}")]
+        [HttpGet]
+        public async Task<IActionResult> GetJsMessages(int userId, int amount)
+        {
+            try
+            {
+                List<GroupChatMessageWithNamesDTO> list = new List<GroupChatMessageWithNamesDTO>();
+                var groups = await _groupService.GetUserGroupsIdAsync(userId);
+                var messages = await _groupChatService.GetGroupMessagesAsync(groups.First());
+
+                foreach (var groupChatMessage in messages)
+                {
+                    var user = await _userService.GetAsync(groupChatMessage.SenderId);
+                    list.Add(new GroupChatMessageWithNamesDTO(user.Id, user.FirstName, groupChatMessage.TextMessage, groupChatMessage.Time.ToString()));
+                }
+                return new JsonResult(list);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("api/chat/getmessages/{userId}/{amount}")]
         [HttpGet]
         public async Task<IActionResult> GetMessages(int userId, int amount)
@@ -160,7 +183,7 @@ namespace LearnWithMentor.Controllers
                     var user = await _userService.GetAsync(groupChatMessage.SenderId);
                     await _chatHubContext.Clients
                         .Client(NotificationController.ConnectedUsers[currentUser.Id.ToString()])
-                        .SendMessage(userId, user.FirstName, groupChatMessage.TextMessage, groupChatMessage.Time.ToString());
+                        .SendMessage(user.Id, user.FirstName, groupChatMessage.TextMessage, groupChatMessage.Time.ToString());
                 }
 
                 return Ok();
